@@ -32,11 +32,11 @@
 
         body {
             background-image: url('imagenes/logos/stelantis.jpeg');
-            background-size: cover;
-            background-position: center 25%;
-            background-repeat: no-repeat;
+            background-size: 100% auto;
+            background-position: top center;
+            background-repeat: repeat-y;
             background-attachment: fixed;
-            background-color: rgba(7, 11, 18, 0.65); /* Fondo más visible */
+            background-color: rgba(7, 11, 18, 0.85); 
             background-blend-mode: overlay;
             display: flex;
             justify-content: center;
@@ -126,7 +126,7 @@
             background-size: cover;
             background-position: center 25%;
             position: relative;
-            overflow: hidden; /* Asegura que el logo respete el borde redondeado de la tarjeta */
+            overflow: hidden; 
             border-top-left-radius: 35px;
             border-top-right-radius: 35px;
         }
@@ -139,11 +139,11 @@
 
         .cover-logo-badge {
             position: absolute;
-            top: 0px; /* Alineado exactamente al borde superior */
-            right: 0px; /* Alineado exactamente al borde derecho de la esquina curva */
-            width: 75px;
-            height: 75px;
-            border-radius: 0 35px 0 50%; /* Recorte orgánico para abrazar la esquina superior derecha */
+            top: 0px; 
+            right: 0px; 
+            width: 58px; 
+            height: 58px; 
+            border-radius: 0 35px 0 50%; 
             object-fit: cover;
             border-bottom: 2px solid rgba(100, 181, 246, 0.6);
             border-left: 2px solid rgba(100, 181, 246, 0.6);
@@ -346,14 +346,8 @@
             color: #64b5f6;
             font-size: 0.85rem;
             font-weight: 600;
-            margin-bottom: 8px;
+            margin-bottom: 0;
             letter-spacing: 0.5px;
-        }
-
-        .footer-hours {
-            color: #90a4ae;
-            font-size: 0.75rem;
-            font-weight: 400;
         }
 
         /* --- VENTANAS MODALES --- */
@@ -749,7 +743,6 @@
         <!-- BARRA DE CONFIANZA -->
         <div class="bottom-footer">
             <p class="footer-title">Asesor Automotriz Autorizado • Fame Seminuevos</p>
-            <p class="footer-hours">Atención: Lunes a Sábado de 9:00 AM a 7:00 PM</p>
         </div>
 
         <!-- MODAL LISTA DE ESPERA VIP -->
