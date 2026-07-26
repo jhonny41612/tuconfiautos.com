@@ -305,22 +305,30 @@
             transform: translateY(-2px);
         }
 
-        /* Botón de Código Promocional (Abarca 2 columnas) */
-        .grid-item-promo {
+        /* Botones de Ancho Completo en Grid */
+        .grid-item-full {
             grid-column: span 2;
+        }
+        
+        .grid-item-promo {
             background: linear-gradient(135deg, #f57f17, #f57c00);
             border-color: #ffb300;
             box-shadow: 0 8px 20px rgba(245, 124, 0, 0.2);
         }
-        
-        .grid-item-promo i {
-            color: #ffffff;
+        .grid-item-promo i { color: #ffffff; }
+        .grid-item-promo span { color: #ffffff; font-weight: 700; font-size: 0.95rem; }
+
+        /* NUEVO: Botón Radar de Búsqueda (Plata/Azul Hielo para máximo contraste elegante) */
+        .grid-item-radar {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb); /* Azul hielo muy claro / Plata */
+            border-color: #90caf9;
+            box-shadow: 0 8px 20px rgba(144, 202, 249, 0.3);
         }
-        
-        .grid-item-promo span {
-            color: #ffffff;
-            font-weight: 700;
-            font-size: 0.95rem;
+        .grid-item-radar i { color: #0d47a1; } /* Ícono Azul Marino oscuro */
+        .grid-item-radar span { color: #0d47a1; font-weight: 800; font-size: 0.95rem; }
+        .grid-item-radar:hover {
+            background: linear-gradient(135deg, #ffffff, #e3f2fd);
+            transform: translateY(-2px);
         }
 
         /* Barra de Confianza */
@@ -654,7 +662,7 @@
 </head>
 <body>
 
-    <!-- PANTALLA DE CARGA (Logo FAME girando) -->
+    <!-- PANTALLA DE CARGA -->
     <div id="splash-screen">
         <div class="splash-content">
             <img src="imagenes/logos/fame.jpeg" alt="Grupo Fame" class="rotating-logo">
@@ -665,12 +673,12 @@
 
     <div class="smart-card">
         
-        <!-- Portada principal (Fondo Stellantis) con Insignia superior derecha (Fame 60 años) -->
+        <!-- Portada principal -->
         <div class="cover-photo">
             <img src="imagenes/logos/fame60anos.jpeg" alt="Fame 60 Años" class="cover-logo-badge">
         </div>
         
-        <!-- Foto de perfil en imagenes/perfil/johnny.jpeg -->
+        <!-- Foto de perfil -->
         <div class="profile-section">
             <img src="imagenes/perfil/johnny.jpeg" alt="Johnny Enríquez" class="profile-img">
             <p class="title">Asesor de Ventas</p>
@@ -693,7 +701,6 @@
         </div>
 
         <div class="main-cta-container">
-            <!-- BOTÓN QUE ABRE EL CATÁLOGO INTEGRADO -->
             <button onclick="openCatalogoModal()" class="main-cta">
                 <i class="fa-solid fa-car"></i>
                 Catálogo de seminuevos
@@ -704,33 +711,35 @@
             </button>
         </div>
 
-        <!-- CUADRÍCULA CON EL ORDEN ACTUALIZADO -->
+        <!-- CUADRÍCULA CON EL ORDEN ACTUALIZADO Y NUEVO BOTÓN VIP -->
         <div class="features-grid">
-            <!-- 1. Promociones (con icono rojo) -->
             <div class="grid-item" onclick="openPromoModal()">
                 <i class="fa-solid fa-tags" style="color: #ff5252;"></i>
                 <span>Promociones</span>
             </div>
-            <!-- 2. Compramos tu auto -->
             <div class="grid-item" onclick="openModal()">
                 <i class="fa-solid fa-money-check-dollar"></i>
                 <span>Compramos tu auto</span>
             </div>
-            <!-- 3. Agendar Cita -->
             <a href="https://wa.me/5214525003073?text=Hola,%20Johnny,%20quiero%20agendar%20una%20cita" target="_blank" class="grid-item">
                 <i class="fa-solid fa-calendar-check"></i>
                 <span>Agendar Cita</span>
             </a>
-            <!-- 4. Compartir -->
             <div class="grid-item" onclick="shareCard()">
                 <i class="fa-solid fa-share-nodes"></i>
                 <span>Compartir</span>
             </div>
             
-            <!-- BOTÓN DE CÓDIGO PROMOCIONAL (ALIANZAS) -->
-            <div class="grid-item grid-item-promo" onclick="openCodigoModal()">
+            <!-- BOTÓN DE CÓDIGO PROMOCIONAL -->
+            <div class="grid-item grid-item-full grid-item-promo" onclick="openCodigoModal()">
                 <i class="fa-solid fa-gift"></i>
                 <span>🎁 Canjear Código Sorpresa</span>
+            </div>
+
+            <!-- NUEVO BOTÓN RADAR (En Inicio - Color Hielo/Plata) -->
+            <div class="grid-item grid-item-full grid-item-radar" onclick="openBusquedaModal()">
+                <i class="fa-solid fa-car-side"></i>
+                <span>¿No encontraste lo que buscabas?</span>
             </div>
         </div>
 
@@ -740,7 +749,32 @@
             <p class="footer-hours">Atención: Lunes a Sábado de 9:00 AM a 7:00 PM</p>
         </div>
 
-        <!-- MODAL CÓDIGO PROMOCIONAL (ALIANZAS) -->
+        <!-- MODAL LISTA DE ESPERA VIP (NUEVO) -->
+        <div id="busquedaModal" class="modal">
+            <div class="modal-header">
+                <span class="modal-title-top">JOHNNY ENRÍQUEZ • RADAR DE UNIDADES</span>
+                <button class="close-btn" onclick="closeBusquedaModal()"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <div class="modal-heading">¡NO TE DESANIMES!</div>
+            <div class="modal-main-title">Nosotros te avisamos</div>
+            <div class="modal-desc">
+                Sabemos lo importante que es encontrar el auto ideal. Déjanos tus datos y el modelo que tienes en mente. Te agregaremos a nuestra lista de prioridad y, en cuanto esa unidad llegue a nuestro piso de ventas, serás el primero en saberlo antes de que se publique.
+            </div>
+
+            <div class="financing-form">
+                <input type="text" id="busq-nombre" placeholder="Tu nombre completo" required>
+                <input type="tel" id="busq-telefono" placeholder="Número de contacto (10 dígitos)" required>
+                <input type="text" id="busq-auto" placeholder="¿Qué auto buscas? (Ej. SUV Honda 2021)" required>
+                
+                <button onclick="sendBusquedaForm()" class="modal-whatsapp-btn" style="margin-top: 15px; margin-bottom: 0;">
+                    <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"></i>
+                    ¡Activar Aviso de Llegadas!
+                </button>
+            </div>
+        </div>
+
+        <!-- MODAL CÓDIGO PROMOCIONAL -->
         <div id="codigoModal" class="modal">
             <div class="modal-header">
                 <span class="modal-title-top">JOHNNY ENRÍQUEZ • ALIANZAS</span>
@@ -773,8 +807,11 @@
 
             <div class="modal-heading">EXPLORA EL STOCK</div>
             <div class="modal-main-title">Catálogo de Seminuevos</div>
-            <div class="modal-desc">
-                Selecciona una categoría o revisa las unidades disponibles y próximas llegadas.
+            
+            <!-- BANNER DE BÚSQUEDA AL PRINCIPIO DEL CATÁLOGO -->
+            <div style="background: linear-gradient(135deg, #e3f2fd, #bbdefb); border-radius: 12px; padding: 15px; margin-bottom: 20px; text-align: center; border: 1px solid #90caf9; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.3s ease;" onclick="closeCatalogoModal(); openBusquedaModal();" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+                <h4 style="color: #0d47a1; font-size: 0.95rem; margin-bottom: 5px; font-weight: 700;"><i class="fa-solid fa-car-side"></i> ¿No ves tu auto ideal?</h4>
+                <p style="color: #1565c0; font-size: 0.75rem; font-weight: 600;">Toca aquí, déjanos tus datos y nosotros te avisaremos cuando llegue.</p>
             </div>
 
             <!-- Filtros de Segmento -->
@@ -1007,8 +1044,8 @@
                         </div>
                     </div>
                 </div>
-
             </div>
+
         </div>
 
         <!-- MODAL TOMA A CUENTA -->
@@ -1066,7 +1103,7 @@
             </a>
         </div>
 
-        <!-- MODAL FINANCIAMIENTO CON FORMULARIO PRIMERO -->
+        <!-- MODAL FINANCIAMIENTO -->
         <div id="financiamientoModal" class="modal">
             <div class="modal-header">
                 <span class="modal-title-top">JOHNNY ENRÍQUEZ • FINANCIAMIENTO</span>
@@ -1079,7 +1116,6 @@
                 Te perfilo con las principales opciones bancarias y financieras para armar un plan cómodo con la tasa más baja. Llena tus datos y te hago una corrida financiera hoy mismo:
             </div>
 
-            <!-- FORMULARIO PRIMERO -->
             <div class="financing-form">
                 <select id="fin-car" required>
                     <option value="" disabled selected>Selecciona el auto de tu interés</option>
@@ -1120,7 +1156,6 @@
                 </button>
             </div>
 
-            <!-- DOCUMENTOS REQUERIDOS DESPUÉS -->
             <div class="modal-heading" style="margin-top: 25px;">DOCUMENTOS REQUERIDOS</div>
             <div class="modal-desc">
                 Una vez iniciada tu solicitud, reuniremos estos 4 documentos base para formalizar tu expediente:
@@ -1167,7 +1202,7 @@
             </div>
         </div>
 
-        <!-- MODAL PROMOCIONES (CON FIAT ARGO Y FIAT MOBI DETALLADOS) -->
+        <!-- MODAL PROMOCIONES -->
         <div id="promosModal" class="modal">
             <div class="modal-header">
                 <span class="modal-title-top">JOHNNY ENRÍQUEZ • OFERTAS ESPECIALES</span>
@@ -1178,7 +1213,6 @@
             <div class="modal-main-title">Destacados Imperdibles</div>
             <div class="modal-desc">Aprovecha nuestras unidades en promoción con especificaciones listas para reestrenar:</div>
             
-            <!-- Fiat Argo en Promoción -->
             <div class="tarjeta-auto-modal" style="margin-bottom: 15px;">
                 <span class="badge-estado" style="color:#ff5252; border-color: rgba(255, 82, 82, 0.4);">🔥 Súper Promoción</span>
                 <img src="imagenes/autos/argo.jpg" alt="Fiat Argo Precision" style="height: 140px;" onerror="this.src='https://images.unsplash.com/photo-1550355191-aa8f8bd36209?w=500'">
@@ -1196,7 +1230,6 @@
                 </div>
             </div>
 
-            <!-- Fiat Mobi en Promoción -->
             <div class="tarjeta-auto-modal" style="margin-bottom: 20px;">
                 <span class="badge-estado" style="color:#ff5252; border-color: rgba(255, 82, 82, 0.4);">🔥 Súper Promoción</span>
                 <img src="imagenes/autos/mobi.jpg" alt="Fiat Mobi Trekking" style="height: 140px;" onerror="this.src='https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=500'">
@@ -1223,7 +1256,7 @@
     </div>
 
     <script>
-        // Pantalla de carga optimizada (Sin bloqueo por imágenes lentas)
+        // Pantalla de carga optimizada
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(function() {
                 const splashScreen = document.getElementById('splash-screen');
@@ -1246,15 +1279,17 @@
         function openFinancingModal() { document.getElementById('financiamientoModal').style.display = 'block'; }
         function closeFinancingModal() { document.getElementById('financiamientoModal').style.display = 'none'; }
         
-        // Modal Código Promocional
         function openCodigoModal() { document.getElementById('codigoModal').style.display = 'block'; }
         function closeCodigoModal() { document.getElementById('codigoModal').style.display = 'none'; }
 
-        // Controles de Catálogo Integrado
         function openCatalogoModal() { document.getElementById('catalogoModal').style.display = 'block'; }
         function closeCatalogoModal() { document.getElementById('catalogoModal').style.display = 'none'; }
 
-        // Función para abrir financiamiento con un auto específico seleccionado
+        // Nuevos controles para el Modal de Búsqueda VIP
+        function openBusquedaModal() { document.getElementById('busquedaModal').style.display = 'block'; }
+        function closeBusquedaModal() { document.getElementById('busquedaModal').style.display = 'none'; }
+
+        // Función para abrir financiamiento con un auto específico
         function openFinancingModalWithCar(carName) {
             closeCatalogoModal();
             let selectCar = document.getElementById('fin-car');
@@ -1283,7 +1318,7 @@
             });
         }
 
-        // Función para enviar formulario de financiamiento a WhatsApp
+        // Función Financiamiento
         function sendFinancingForm() {
             let car = document.getElementById('fin-car').value;
             let phone = document.getElementById('fin-phone').value;
@@ -1305,17 +1340,37 @@
             window.open(`https://wa.me/5214525003073?text=${mensaje}`, '_blank');
         }
         
-        // Función para enviar el Código Promocional a WhatsApp
+        // Función Código Promocional
         function sendPromoCode() {
             let nombre = document.getElementById('promo-nombre').value;
             let codigo = document.getElementById('promo-codigo').value;
 
             if(!nombre || !codigo) {
-                alert('Por favor, ingresa tu nombre y el código de quien te recomendó para continuar.');
+                alert('Por favor, ingresa tu nombre y el código para continuar.');
                 return;
             }
 
-            let mensaje = `🚨 *CÓDIGO PROMOCIONAL* 🚨%0A%0AHola Johnny, mi nombre es ${nombre}.%0AVengo recomendado y mi código es *[${codigo.toUpperCase()}]*.%0A%0AQuiero ver opciones de autos y conocer mi beneficio sorpresa al concluir exitosamente mi compra/toma a cuenta.`;
+            let mensaje = `🚨 *CÓDIGO PROMOCIONAL* 🚨%0A%0AHola Johnny, mi nombre es ${nombre}.%0AVengo recomendado y mi código es *[${codigo.toUpperCase()}]*.%0A%0AQuiero ver opciones de autos y conocer mi beneficio sorpresa.`;
+            
+            window.open(`https://wa.me/5214525003073?text=${mensaje}`, '_blank');
+        }
+
+        // NUEVA: Función Enviar Formulario de Búsqueda VIP
+        function sendBusquedaForm() {
+            let nombre = document.getElementById('busq-nombre').value;
+            let telefono = document.getElementById('busq-telefono').value;
+            let auto = document.getElementById('busq-auto').value;
+
+            if(!nombre || !telefono || !auto) {
+                alert('Por favor, ingresa tu nombre, número y el auto que buscas para poder avisarte.');
+                return;
+            }
+
+            // Calculando la fecha automáticamente
+            let opcionesFecha = { day: '2-digit', month: '2-digit', year: 'numeric' };
+            let fechaHoy = new Date().toLocaleDateString('es-MX', opcionesFecha);
+
+            let mensaje = `🚨 *NUEVO REGISTRO DE BÚSQUEDA* 🚨%0A*Fecha:* ${fechaHoy}%0A%0AHola Johnny. No encontré el auto que busco en el catálogo actual, pero me gustaría que me avises en cuanto les llegue uno con estas características:%0A%0A👤 *Nombre:* ${nombre}%0A📱 *Contacto:* ${telefono}%0A🚘 *Auto que busco:* ${auto}`;
             
             window.open(`https://wa.me/5214525003073?text=${mensaje}`, '_blank');
         }
@@ -1329,7 +1384,7 @@
                     url: 'https://tuconfiautos.com'
                 }).catch((error) => console.log('Error al compartir', error));
             } else {
-                alert('Puedes copiar el enlace de la página principal: https://tuconfiautos.com');
+                alert('Puedes copiar el enlace: https://tuconfiautos.com');
             }
         }
     </script>
