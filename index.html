@@ -126,6 +126,9 @@
             background-size: cover;
             background-position: center 25%;
             position: relative;
+            overflow: hidden; /* Asegura que el logo respete el borde redondeado de la tarjeta */
+            border-top-left-radius: 35px;
+            border-top-right-radius: 35px;
         }
         .cover-photo::after {
             content: '';
@@ -136,15 +139,16 @@
 
         .cover-logo-badge {
             position: absolute;
-            top: 10px;
-            right: 12px;
-            width: 72px;
-            height: 72px;
-            border-radius: 50%;
+            top: 0px; /* Alineado exactamente al borde superior */
+            right: 0px; /* Alineado exactamente al borde derecho de la esquina curva */
+            width: 75px;
+            height: 75px;
+            border-radius: 0 35px 0 50%; /* Recorte orgánico para abrazar la esquina superior derecha */
             object-fit: cover;
-            border: 2px solid rgba(100, 181, 246, 0.6);
+            border-bottom: 2px solid rgba(100, 181, 246, 0.6);
+            border-left: 2px solid rgba(100, 181, 246, 0.6);
             background: #0d1b33;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+            box-shadow: -4px 4px 12px rgba(0, 0, 0, 0.6);
             z-index: 3;
         }
 
@@ -318,13 +322,12 @@
         .grid-item-promo i { color: #ffffff; }
         .grid-item-promo span { color: #ffffff; font-weight: 700; font-size: 0.95rem; }
 
-        /* NUEVO: Botón Radar de Búsqueda (Plata/Azul Hielo para máximo contraste elegante) */
         .grid-item-radar {
-            background: linear-gradient(135deg, #e3f2fd, #bbdefb); /* Azul hielo muy claro / Plata */
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
             border-color: #90caf9;
             box-shadow: 0 8px 20px rgba(144, 202, 249, 0.3);
         }
-        .grid-item-radar i { color: #0d47a1; } /* Ícono Azul Marino oscuro */
+        .grid-item-radar i { color: #0d47a1; }
         .grid-item-radar span { color: #0d47a1; font-weight: 800; font-size: 0.95rem; }
         .grid-item-radar:hover {
             background: linear-gradient(135deg, #ffffff, #e3f2fd);
@@ -711,7 +714,7 @@
             </button>
         </div>
 
-        <!-- CUADRÍCULA CON EL ORDEN ACTUALIZADO Y NUEVO BOTÓN VIP -->
+        <!-- CUADRÍCULA -->
         <div class="features-grid">
             <div class="grid-item" onclick="openPromoModal()">
                 <i class="fa-solid fa-tags" style="color: #ff5252;"></i>
@@ -736,7 +739,7 @@
                 <span>🎁 Canjear Código Sorpresa</span>
             </div>
 
-            <!-- NUEVO BOTÓN RADAR (En Inicio - Color Hielo/Plata) -->
+            <!-- BOTÓN RADAR -->
             <div class="grid-item grid-item-full grid-item-radar" onclick="openBusquedaModal()">
                 <i class="fa-solid fa-car-side"></i>
                 <span>¿No encontraste lo que buscabas?</span>
@@ -749,7 +752,7 @@
             <p class="footer-hours">Atención: Lunes a Sábado de 9:00 AM a 7:00 PM</p>
         </div>
 
-        <!-- MODAL LISTA DE ESPERA VIP (NUEVO) -->
+        <!-- MODAL LISTA DE ESPERA VIP -->
         <div id="busquedaModal" class="modal">
             <div class="modal-header">
                 <span class="modal-title-top">JOHNNY ENRÍQUEZ • RADAR DE UNIDADES</span>
