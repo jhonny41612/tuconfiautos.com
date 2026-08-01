@@ -6,13 +6,6 @@
     <title>Johnny Enríquez - Asesor Automotriz Certificado</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Etiquetas Open Graph para tarjetas interactivas en WhatsApp y Redes Sociales -->
-    <meta property="og:title" content="TuConfiAutos - Catálogo de Autos Seminuevos" />
-    <meta property="og:description" content="Encuentra el auto seminuevo ideal para ti. Calidad, confianza y los mejores modelos disponibles en Uruapan." />
-    <meta property="og:image" content="https://tuconfiautos.com/imagenes/cadillac.jpg" />
-    <meta property="og:url" content="https://tuconfiautos.com" />
-    <meta property="og:type" content="website" />
-
     <!-- Google official tracking tag (gtag.js) para Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag.js?id=G-XLT2VR7BHS"></script>
     <script>
@@ -32,11 +25,11 @@
 
         body {
             background-image: url('imagenes/logos/stelantis.jpeg');
-            background-size: 100% auto;
-            background-position: top center;
-            background-repeat: repeat-y;
+            background-size: cover;
+            background-position: center 25%;
+            background-repeat: no-repeat;
             background-attachment: fixed;
-            background-color: rgba(7, 11, 18, 0.85); 
+            background-color: rgba(7, 11, 18, 0.65);
             background-blend-mode: overlay;
             display: flex;
             justify-content: center;
@@ -105,7 +98,7 @@
             visibility: hidden;
         }
 
-        /* Contenedor principal (Celular) con ligera transparencia para que luzca el fondo */
+        /* Contenedor principal (Celular) */
         .smart-card {
             width: 100%;
             max-width: 380px;
@@ -126,9 +119,6 @@
             background-size: cover;
             background-position: center 25%;
             position: relative;
-            overflow: hidden; 
-            border-top-left-radius: 35px;
-            border-top-right-radius: 35px;
         }
         .cover-photo::after {
             content: '';
@@ -139,16 +129,15 @@
 
         .cover-logo-badge {
             position: absolute;
-            top: 0px; 
-            right: 0px; 
-            width: 58px; 
-            height: 58px; 
-            border-radius: 0 35px 0 50%; 
+            top: 10px;
+            right: 12px;
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
             object-fit: cover;
-            border-bottom: 2px solid rgba(100, 181, 246, 0.6);
-            border-left: 2px solid rgba(100, 181, 246, 0.6);
+            border: 2px solid rgba(100, 181, 246, 0.6);
             background: #0d1b33;
-            box-shadow: -4px 4px 12px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
             z-index: 3;
         }
 
@@ -255,19 +244,14 @@
             border: none;
         }
 
-        .main-cta:hover {
-            transform: scale(1.02);
-        }
+        .main-cta:hover { transform: scale(1.02); }
 
         .financing-btn {
             background: linear-gradient(135deg, #f57f17, #f57c00);
             box-shadow: 0 8px 20px rgba(245, 124, 0, 0.3);
             font-size: 0.95rem;
         }
-
-        .financing-btn:hover {
-            background: linear-gradient(135deg, #f57c00, #e65100);
-        }
+        .financing-btn:hover { background: linear-gradient(135deg, #f57c00, #e65100); }
 
         /* Cuadrícula Inferior */
         .features-grid {
@@ -293,15 +277,8 @@
             cursor: pointer;
         }
 
-        .grid-item i {
-            font-size: 1.6rem;
-            color: #64b5f6;
-        }
-
-        .grid-item span {
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
+        .grid-item i { font-size: 1.6rem; color: #64b5f6; }
+        .grid-item span { font-size: 0.8rem; font-weight: 500; }
 
         .grid-item:hover {
             background: rgba(30, 58, 107, 0.9);
@@ -309,12 +286,8 @@
             transform: translateY(-2px);
         }
 
-        /* Botones de Ancho Completo en Grid */
-        .grid-item-full {
-            grid-column: span 2;
-        }
-        
         .grid-item-promo {
+            grid-column: span 2;
             background: linear-gradient(135deg, #f57f17, #f57c00);
             border-color: #ffb300;
             box-shadow: 0 8px 20px rgba(245, 124, 0, 0.2);
@@ -322,17 +295,16 @@
         .grid-item-promo i { color: #ffffff; }
         .grid-item-promo span { color: #ffffff; font-weight: 700; font-size: 0.95rem; }
 
-        .grid-item-radar {
-            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
-            border-color: #90caf9;
-            box-shadow: 0 8px 20px rgba(144, 202, 249, 0.3);
+        .grid-item-busqueda-footer {
+            grid-column: span 2;
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            color: #0f172a;
         }
-        .grid-item-radar i { color: #0d47a1; }
-        .grid-item-radar span { color: #0d47a1; font-weight: 800; font-size: 0.95rem; }
-        .grid-item-radar:hover {
-            background: linear-gradient(135deg, #ffffff, #e3f2fd);
-            transform: translateY(-2px);
-        }
+        .grid-item-busqueda-footer i { color: #1d4ed8; font-size: 1.5rem; }
+        .grid-item-busqueda-footer span { color: #1e3a8a; font-weight: 700; font-size: 0.9rem; }
+        .grid-item-busqueda-footer:hover { background: #ffffff; border-color: #1d4ed8; }
 
         /* Barra de Confianza */
         .bottom-footer {
@@ -342,13 +314,7 @@
             text-align: center;
         }
 
-        .footer-title {
-            color: #64b5f6;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-bottom: 0;
-            letter-spacing: 0.5px;
-        }
+        .footer-title { color: #64b5f6; font-size: 0.85rem; font-weight: 600; }
 
         /* --- VENTANAS MODALES --- */
         .modal {
@@ -376,12 +342,7 @@
             padding-bottom: 12px;
         }
 
-        .modal-title-top {
-            font-size: 0.7rem;
-            letter-spacing: 1.5px;
-            color: #ffb300;
-            font-weight: 700;
-        }
+        .modal-title-top { font-size: 0.7rem; letter-spacing: 1.5px; color: #ffb300; font-weight: 700; }
 
         .close-btn {
             background: rgba(255, 255, 255, 0.1);
@@ -396,35 +357,44 @@
             align-items: center;
             justify-content: center;
         }
-        .close-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
+        .close-btn:hover { background: rgba(255, 255, 255, 0.2); }
 
-        .modal-heading {
-            font-size: 0.8rem;
-            color: #ffb300;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 6px;
-            font-weight: 600;
-        }
+        .modal-heading { font-size: 0.8rem; color: #ffb300; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; font-weight: 600; }
+        .modal-main-title { font-size: 1.25rem; font-weight: 700; color: #ffffff; margin-bottom: 12px; line-height: 1.2; }
+        .modal-desc { font-size: 0.8rem; color: #b0bec5; line-height: 1.4; margin-bottom: 20px; }
 
-        .modal-main-title {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #ffffff;
+        /* Estilo Exacto de las Tarjetas de Requisitos ("Compramos tu auto") */
+        .requisito-card {
+            background: rgba(21, 40, 74, 0.75);
+            border: 1px solid rgba(100, 181, 246, 0.3);
+            border-radius: 16px;
+            padding: 14px 16px;
             margin-bottom: 12px;
-            line-height: 1.2;
+            position: relative;
+            overflow: hidden;
+        }
+        .requisito-card h4 {
+            font-size: 0.95rem;
+            color: #64b5f6;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .requisito-card p {
+            font-size: 0.78rem;
+            color: #cbd5e1;
+            line-height: 1.35;
+        }
+        .requisito-numero {
+            position: absolute;
+            right: 12px;
+            bottom: 4px;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: rgba(100, 181, 246, 0.12);
+            line-height: 1;
         }
 
-        .modal-desc {
-            font-size: 0.8rem;
-            color: #b0bec5;
-            line-height: 1.4;
-            margin-bottom: 20px;
-        }
-
-        /* Estilos para el Catálogo Integrado */
+        /* Catálogo Integrado */
         .filtros-scroll {
             display: flex;
             gap: 10px;
@@ -446,11 +416,7 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        .chip-filtro.activo, .chip-filtro:hover {
-            background: #1976d2;
-            color: white;
-            border-color: #64b5f6;
-        }
+        .chip-filtro.activo, .chip-filtro:hover { background: #1976d2; color: white; border-color: #64b5f6; }
 
         .tarjeta-auto-modal {
             background: rgba(21, 40, 74, 0.7);
@@ -461,49 +427,18 @@
             position: relative;
         }
 
-        .tarjeta-auto-modal img {
-            width: 100%;
-            height: 160px;
-            object-fit: cover;
-        }
-
-        .info-auto-modal {
-            padding: 15px;
-        }
-
-        .info-auto-modal h3 {
-            font-size: 1rem;
-            color: white;
-            margin-bottom: 8px;
-        }
-
-        .info-auto-modal ul {
-            list-style: none;
-            font-size: 0.75rem;
-            color: #b0bec5;
-            margin-bottom: 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .precio-modal {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #ffb300;
-            margin-bottom: 12px;
-        }
-
-        .botones-auto-modal {
-            display: flex;
-            gap: 8px;
-        }
+        .tarjeta-auto-modal img { width: 100%; height: 160px; object-fit: cover; }
+        .info-auto-modal { padding: 15px; }
+        .info-auto-modal h3 { font-size: 1rem; color: white; margin-bottom: 8px; }
+        .info-auto-modal ul { list-style: none; font-size: 0.75rem; color: #b0bec5; margin-bottom: 10px; display: flex; flex-direction: column; gap: 4px; }
+        .precio-modal { font-size: 1.1rem; font-weight: 700; color: #ffb300; margin-bottom: 12px; }
+        .botones-auto-modal { display: flex; gap: 6px; }
 
         .btn-card-modal {
             flex: 1;
-            padding: 10px;
-            border-radius: 10px;
-            font-size: 0.75rem;
+            padding: 8px 4px;
+            border-radius: 8px;
+            font-size: 0.7rem;
             font-weight: 600;
             text-align: center;
             text-decoration: none;
@@ -511,17 +446,14 @@
             border: none;
         }
 
-        .btn-galeria {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-        }
-        .btn-galeria:hover { background: rgba(255, 255, 255, 0.2); }
+        .btn-galeria { background: #1976d2; color: white; }
+        .btn-galeria:hover { background: #115293; }
 
-        .btn-cotizar-auto {
-            background: linear-gradient(135deg, #2e7d32, #1b5e20);
-            color: white;
-        }
+        .btn-cotizar-auto { background: linear-gradient(135deg, #2e7d32, #1b5e20); color: white; }
         .btn-cotizar-auto:hover { transform: scale(1.02); }
+
+        .btn-agendar-auto { background: #f1f5f9; color: #1e3a8a; border: 1px solid #cbd5e1; }
+        .btn-agendar-auto:hover { background: #ffffff; border-color: #1d4ed8; }
 
         .badge-estado {
             position: absolute;
@@ -536,47 +468,24 @@
             border: 1px solid rgba(255, 82, 82, 0.4);
         }
 
-        /* Tarjetas de Pasos y Promociones */
-        .step-card {
-            background: rgba(21, 40, 74, 0.7);
-            border: 1px solid rgba(255, 179, 0, 0.3);
+        .banner-no-ideal-foto {
+            background: #f1f5f9;
+            border: 1px solid #cbd5e1;
             border-radius: 16px;
-            padding: 15px;
-            margin-bottom: 15px;
-            position: relative;
-            overflow: hidden;
+            padding: 16px;
+            text-align: center;
+            color: #0f172a;
+            margin-bottom: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            transition: transform 0.2s;
         }
+        .banner-no-ideal-foto:hover { transform: scale(1.02); background: #ffffff; border-color: #1d4ed8; }
+        .banner-no-ideal-foto i { font-size: 1.6rem; margin-bottom: 6px; color: #1d4ed8; }
+        .banner-no-ideal-foto h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 4px; color: #1e3a8a; }
+        .banner-no-ideal-foto p { font-size: 0.72rem; color: #475569; line-height: 1.3; }
 
-        .step-header {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 6px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            color: #ffffff;
-        }
-
-        .step-header i { color: #ffb300; }
-
-        .step-text {
-            font-size: 0.75rem;
-            color: #b0bec5;
-            line-height: 1.3;
-            margin-bottom: 10px;
-        }
-
-        .step-number {
-            position: absolute;
-            right: 10px;
-            bottom: -5px;
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: rgba(255, 179, 0, 0.08);
-            pointer-events: none;
-        }
-
-        /* Formularios */
+        /* Formularios y Tarjetas de Cita */
         .financing-form {
             display: flex;
             flex-direction: column;
@@ -588,8 +497,7 @@
             border: 1px solid rgba(255, 179, 0, 0.2);
         }
 
-        .financing-form input,
-        .financing-form select {
+        .financing-form input, .financing-form select {
             width: 100%;
             padding: 12px 15px;
             border-radius: 10px;
@@ -598,21 +506,8 @@
             color: white;
             outline: none;
             font-size: 0.85rem;
-            transition: all 0.3s ease;
         }
-
-        .financing-form input::placeholder { color: #78909c; }
-
-        .financing-form select option {
-            background: #0d1b33;
-            color: white;
-        }
-
-        .financing-form input:focus,
-        .financing-form select:focus {
-            border-color: #ffb300;
-            background: rgba(0, 0, 0, 0.6);
-        }
+        .financing-form select option { background: #0d1b33; color: white; }
 
         .modal-whatsapp-btn {
             display: flex;
@@ -621,45 +516,94 @@
             gap: 10px;
             width: 100%;
             padding: 15px;
-            background: linear-gradient(135deg, #2e7d32, #1b5e20);
+            background: linear-gradient(135deg, #1976d2, #0d47a1);
             color: #ffffff;
             text-decoration: none;
             border-radius: 25px;
             font-weight: 600;
             font-size: 0.9rem;
-            box-shadow: 0 8px 20px rgba(46, 125, 50, 0.4);
+            box-shadow: 0 8px 20px rgba(13, 71, 161, 0.4);
             margin-top: 15px;
             margin-bottom: 30px;
-            transition: all 0.3s ease;
             border: none;
             cursor: pointer;
         }
-
         .modal-whatsapp-btn:hover { transform: scale(1.02); }
 
-        .footer-cta-text {
-            font-size: 0.85rem;
-            color: #ffffff;
-            text-align: center;
-            font-weight: 600;
-            margin-bottom: 15px;
-            line-height: 1.4;
-            padding: 0 10px;
+        /* --- MODAL PERSONALIZADA DE ÉXITO --- */
+        #custom-success-modal {
+            display: none;
+            position: absolute;
+            inset: 0;
+            background: rgba(7, 11, 18, 0.92);
+            backdrop-filter: blur(10px);
+            z-index: 99999;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
 
-        .legal-note {
-            font-size: 0.65rem;
-            color: #78909c;
+        .success-box {
+            background: rgba(13, 27, 51, 0.95);
+            border: 2px solid rgba(100, 181, 246, 0.5);
+            border-radius: 24px;
+            padding: 30px 20px;
             text-align: center;
-            line-height: 1.3;
+            max-width: 310px;
+            width: 100%;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 20px rgba(47, 128, 237, 0.3);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .success-icon {
+            font-size: 2.8rem;
+            color: #64b5f6;
             margin-bottom: 15px;
-            padding: 0 15px;
+        }
+
+        .success-box h3 {
+            font-size: 1.2rem;
+            color: #ffffff;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .success-box p {
+            font-size: 0.85rem;
+            color: #b0bec5;
+            line-height: 1.4;
+            margin-bottom: 20px;
+        }
+
+        .success-btn {
+            background: linear-gradient(135deg, #1976d2, #0d47a1);
+            color: #ffffff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(13, 71, 161, 0.4);
+            transition: transform 0.2s;
+        }
+        .success-btn:hover { transform: scale(1.05); }
+
+        /* --- MODAL DE AGENDAMIENTO CON SELECTORES --- */
+        #agendarModal {
+            display: none;
+            position: absolute;
+            inset: 0;
+            background: rgba(7, 11, 18, 0.92);
+            z-index: 200;
+            overflow-y: auto;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
         }
     </style>
 </head>
 <body>
 
-    <!-- PANTALLA DE CARGA -->
     <div id="splash-screen">
         <div class="splash-content">
             <img src="imagenes/logos/fame.jpeg" alt="Grupo Fame" class="rotating-logo">
@@ -668,14 +612,54 @@
         </div>
     </div>
 
+    <!-- MODAL PERSONALIZADO DE ÉXITO -->
+    <div id="custom-success-modal">
+        <div class="success-box">
+            <div class="success-icon"><i class="fa-solid fa-handshake"></i></div>
+            <h3>¡Cita hecha!</h3>
+            <p>Te agradece tu asesor Johnny Enríquez, nos vemos pronto.</p>
+            <button class="success-btn" onclick="closeSuccessModal()">Aceptar</button>
+        </div>
+    </div>
+
+    <!-- MODAL UNIFICADO DE AGENDAMIENTO CON SELECTORES -->
+    <div id="agendarModal" class="modal">
+        <div class="modal-header">
+            <span class="modal-title-top" id="modal-subtitulo-agendar">JOHNNY ENRÍQUEZ • AGENDA</span>
+            <button class="close-btn" onclick="closeAgendarModal()"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-heading">RESERVA TU VISITA</div>
+        <div class="modal-main-title" id="modal-titulo-auto">Agendar Cita</div>
+        <div class="modal-desc">Selecciona el día y horario disponible para tu atención en piso.</div>
+        
+        <div class="financing-form">
+            <input type="text" id="ag-nombre" placeholder="Tu Nombre Completo" required>
+            <input type="tel" id="ag-telefono" placeholder="Número de WhatsApp (10 dígitos)" required>
+            
+            <div id="campo-extra-container">
+                <!-- Se inyecta dinámicamente si es búsqueda personalizada o categoría -->
+            </div>
+
+            <label style="font-size: 0.75rem; color: #64b5f6; font-weight: 600;">Selecciona el día:</label>
+            <select id="ag-fecha" onchange="actualizarHorariosDisponibles()" required>
+                <!-- Se generan dinámicamente los próximos días de la semana -->
+            </select>
+
+            <label style="font-size: 0.75rem; color: #64b5f6; font-weight: 600;">Selecciona el horario:</label>
+            <select id="ag-hora" required>
+                <!-- Se actualiza automáticamente según el día -->
+            </select>
+
+            <button onclick="enviarFormularioAgendar()" class="modal-whatsapp-btn" style="margin-top: 5px;">Confirmar Cita</button>
+        </div>
+    </div>
+
     <div class="smart-card">
         
-        <!-- Portada principal -->
         <div class="cover-photo">
             <img src="imagenes/logos/fame60anos.jpeg" alt="Fame 60 Años" class="cover-logo-badge">
         </div>
         
-        <!-- Foto de perfil -->
         <div class="profile-section">
             <img src="imagenes/perfil/johnny.jpeg" alt="Johnny Enríquez" class="profile-img">
             <p class="title">Asesor de Ventas</p>
@@ -683,32 +667,17 @@
         </div>
         
         <div class="quick-actions">
-            <a href="tel:+524525003073" class="circle-btn" title="Llamar">
-                <i class="fa-solid fa-phone"></i>
-            </a>
-            <a href="https://wa.me/5214525003073?text=Hola,%20Johnny,%20estoy%20interesado%20en%20ver%20el%20inventario%20de%20autos" class="circle-btn whatsapp" target="_blank" title="WhatsApp">
-                <i class="fa-brands fa-whatsapp"></i>
-            </a>
-            <a href="mailto:johnnyfameseminuevos@gmail.com" class="circle-btn" title="Correo Electrónico">
-                <i class="fa-solid fa-envelope"></i>
-            </a>
-            <a href="https://maps.google.com/?q=Fame+Seminuevos+Uruapan+La+Pineda" class="circle-btn" target="_blank" title="Ubicación">
-                <i class="fa-solid fa-location-dot"></i>
-            </a>
+            <a href="tel:+524525003073" class="circle-btn" title="Llamar"><i class="fa-solid fa-phone"></i></a>
+            <a href="https://wa.me/5214525003073?text=Hola,%20Johnny,%20estoy%20interesado%20en%20ver%20el%20inventario" class="circle-btn whatsapp" target="_blank" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="mailto:johnnyfameseminuevos@gmail.com" class="circle-btn" title="Correo"><i class="fa-solid fa-envelope"></i></a>
+            <a href="https://maps.google.com/?q=Fame+Seminuevos+Uruapan+La+Pineda" class="circle-btn" target="_blank" title="Ubicación"><i class="fa-solid fa-location-dot"></i></a>
         </div>
 
         <div class="main-cta-container">
-            <button onclick="openCatalogoModal()" class="main-cta">
-                <i class="fa-solid fa-car"></i>
-                Catálogo de seminuevos
-            </button>
-            <button onclick="openFinancingModal()" class="main-cta financing-btn">
-                <i class="fa-solid fa-file-invoice-dollar"></i>
-                Descubre tu plan de financiamiento ideal
-            </button>
+            <button onclick="openCatalogoModal()" class="main-cta"><i class="fa-solid fa-car"></i> Catálogo de seminuevos</button>
+            <button onclick="openFinancingModal()" class="main-cta financing-btn"><i class="fa-solid fa-file-invoice-dollar"></i> Descubre tu plan de financiamiento ideal</button>
         </div>
 
-        <!-- CUADRÍCULA -->
         <div class="features-grid">
             <div class="grid-item" onclick="openPromoModal()">
                 <i class="fa-solid fa-tags" style="color: #ff5252;"></i>
@@ -718,56 +687,32 @@
                 <i class="fa-solid fa-money-check-dollar"></i>
                 <span>Compramos tu auto</span>
             </div>
-            <a href="https://wa.me/5214525003073?text=Hola,%20Johnny,%20quiero%20agendar%20una%20cita" target="_blank" class="grid-item">
+            <!-- Agendar Cita General -->
+            <div onclick="openAgendarCitaGeneralForm()" class="grid-item">
                 <i class="fa-solid fa-calendar-check"></i>
                 <span>Agendar Cita</span>
-            </a>
+            </div>
+            <!-- Compartir -->
             <div class="grid-item" onclick="shareCard()">
                 <i class="fa-solid fa-share-nodes"></i>
                 <span>Compartir</span>
             </div>
             
-            <!-- BOTÓN DE CÓDIGO PROMOCIONAL -->
-            <div class="grid-item grid-item-full grid-item-promo" onclick="openCodigoModal()">
+            <!-- Canjear Código Sorpresa -->
+            <div class="grid-item grid-item-promo" onclick="openCodigoModal()">
                 <i class="fa-solid fa-gift"></i>
                 <span>🎁 Canjear Código Sorpresa</span>
             </div>
 
-            <!-- BOTÓN RADAR -->
-            <div class="grid-item grid-item-full grid-item-radar" onclick="openBusquedaModal()">
-                <i class="fa-solid fa-car-side"></i>
+            <!-- Botón de búsqueda personalizada -->
+            <div class="grid-item grid-item-busqueda-footer" onclick="openBusquedaPersonalizadaForm()">
+                <i class="fa-solid fa-car"></i>
                 <span>¿No encontraste lo que buscabas?</span>
             </div>
         </div>
 
-        <!-- BARRA DE CONFIANZA -->
         <div class="bottom-footer">
             <p class="footer-title">Asesor Automotriz Autorizado • Fame Seminuevos</p>
-        </div>
-
-        <!-- MODAL LISTA DE ESPERA VIP -->
-        <div id="busquedaModal" class="modal">
-            <div class="modal-header">
-                <span class="modal-title-top">JOHNNY ENRÍQUEZ • RADAR DE UNIDADES</span>
-                <button class="close-btn" onclick="closeBusquedaModal()"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-
-            <div class="modal-heading">¡NO TE DESANIMES!</div>
-            <div class="modal-main-title">Nosotros te avisamos</div>
-            <div class="modal-desc">
-                Sabemos lo importante que es encontrar el auto ideal. Déjanos tus datos y el modelo que tienes en mente. Te agregaremos a nuestra lista de prioridad y, en cuanto esa unidad llegue a nuestro piso de ventas, serás el primero en saberlo antes de que se publique.
-            </div>
-
-            <div class="financing-form">
-                <input type="text" id="busq-nombre" placeholder="Tu nombre completo" required>
-                <input type="tel" id="busq-telefono" placeholder="Número de contacto (10 dígitos)" required>
-                <input type="text" id="busq-auto" placeholder="¿Qué auto buscas? (Ej. SUV Honda 2021)" required>
-                
-                <button onclick="sendBusquedaForm()" class="modal-whatsapp-btn" style="margin-top: 15px; margin-bottom: 0;">
-                    <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"></i>
-                    ¡Activar Aviso de Llegadas!
-                </button>
-            </div>
         </div>
 
         <!-- MODAL CÓDIGO PROMOCIONAL -->
@@ -776,25 +721,17 @@
                 <span class="modal-title-top">JOHNNY ENRÍQUEZ • ALIANZAS</span>
                 <button class="close-btn" onclick="closeCodigoModal()"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            
             <div class="modal-heading">RECOMPENSA EXCLUSIVA</div>
             <div class="modal-main-title">¡Desbloquea tu beneficio sorpresa! 🎁</div>
-            <div class="modal-desc">
-                Ingresa el nombre o código del negocio o amigo que te recomendó. Al <strong>concretar exitosamente la compra o toma a cuenta</strong> de tu vehículo, le entregaremos una cortesía local a tu recomendador como agradecimiento por su confianza y recomendación. ¡Y tú también podrías beneficiarte!
-            </div>
-            
+            <div class="modal-desc">Ingresa el código de quien te recomendó para recibir cortesías al concretar tu auto.</div>
             <div class="financing-form">
                 <input type="text" id="promo-nombre" placeholder="Tu nombre completo" required>
                 <input type="text" id="promo-codigo" placeholder="Ej. BARBERÍA PERSEO" required>
-                
-                <button onclick="sendPromoCode()" class="modal-whatsapp-btn" style="margin-top: 15px; margin-bottom: 0;">
-                    <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"></i>
-                    ¡Canjear Código!
-                </button>
+                <button onclick="sendPromoCode()" class="modal-whatsapp-btn" style="margin-top: 5px;">Canjear Código</button>
             </div>
         </div>
 
-        <!-- MODAL CATÁLOGO DE SEMINUEVOS INTEGRADO -->
+        <!-- MODAL CATÁLOGO 100% COMPLETO -->
         <div id="catalogoModal" class="modal">
             <div class="modal-header">
                 <span class="modal-title-top">JOHNNY ENRÍQUEZ • INVENTARIO</span>
@@ -803,14 +740,14 @@
 
             <div class="modal-heading">EXPLORA EL STOCK</div>
             <div class="modal-main-title">Catálogo de Seminuevos</div>
-            
-            <!-- BANNER DE BÚSQUEDA AL PRINCIPIO DEL CATÁLOGO -->
-            <div style="background: linear-gradient(135deg, #e3f2fd, #bbdefb); border-radius: 12px; padding: 15px; margin-bottom: 20px; text-align: center; border: 1px solid #90caf9; cursor: pointer; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.3s ease;" onclick="closeCatalogoModal(); openBusquedaModal();" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
-                <h4 style="color: #0d47a1; font-size: 0.95rem; margin-bottom: 5px; font-weight: 700;"><i class="fa-solid fa-car-side"></i> ¿No ves tu auto ideal?</h4>
-                <p style="color: #1565c0; font-size: 0.75rem; font-weight: 600;">Toca aquí, déjanos tus datos y nosotros te avisaremos cuando llegue.</p>
+            <div class="modal-desc">Selecciona una categoría o revisa las unidades disponibles y próximas llegadas.</div>
+
+            <div class="banner-no-ideal-foto" onclick="openBusquedaPersonalizadaFormFromCatalog()">
+                <i class="fa-solid fa-car-side"></i>
+                <h4>¿No ves tu auto ideal?</h4>
+                <p>Toca aquí, déjanos tus datos y nosotros te avisaremos cuando llegue.</p>
             </div>
 
-            <!-- Filtros de Segmento -->
             <div class="filtros-scroll">
                 <button class="chip-filtro activo" onclick="filtrarCatalogo('todos', this)">✨ Todo</button>
                 <button class="chip-filtro" onclick="filtrarCatalogo('sedan', this)">🚗 Sedán</button>
@@ -821,28 +758,9 @@
                 <button class="chip-filtro" onclick="filtrarCatalogo('proximas', this)">⏳ Próximas Unidades</button>
             </div>
 
-            <!-- Lista de Autos del Inventario -->
             <div id="lista-autos-inventario">
                 
-                <!-- Fiat Argo Precision -->
-                <div class="tarjeta-auto-modal" data-categoria="hatchback">
-                    <span class="badge-estado" style="color:#ff5252; border-color: rgba(255, 82, 82, 0.4);">🔥 Súper Promoción</span>
-                    <img src="imagenes/autos/argo.jpg" alt="Fiat Argo Precision" onerror="this.src='https://images.unsplash.com/photo-1550355191-aa8f8bd36209?w=500'">
-                    <div class="info-auto-modal">
-                        <h3>Fiat Argo Precision</h3>
-                        <ul>
-                            <li><strong>Modelo:</strong> 2021 | <strong>KM:</strong> 42,589</li>
-                            <li><strong>Motor:</strong> 1.8L (130 HP) | Pantalla 7"</li>
-                        </ul>
-                        <div class="precio-modal">$199,900 MXN</div>
-                        <div class="botones-auto-modal">
-                            <a href="https://drive.google.com/drive/folders/1Ej03CXbjCtuFHYg-GyiyV3EHXOAQL_M_" target="_blank" class="btn-card-modal btn-galeria">Galería</a>
-                            <button onclick="openFinancingModalWithCar('Fiat Argo Precision 2021')" class="btn-card-modal btn-cotizar-auto">Cotizar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Fiat Mobi Trekking -->
+                <!-- 1. Fiat Mobi Trekking (Promoción Principal) -->
                 <div class="tarjeta-auto-modal" data-categoria="hatchback">
                     <span class="badge-estado" style="color:#ff5252; border-color: rgba(255, 82, 82, 0.4);">🔥 Súper Promoción</span>
                     <img src="imagenes/autos/mobi.jpg" alt="Fiat Mobi Trekking" onerror="this.src='https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=500'">
@@ -856,11 +774,50 @@
                         <div class="botones-auto-modal">
                             <a href="https://drive.google.com/drive/folders/1EeJ3TZ6jZYIE2VtLuBuD_lycElItelA8" target="_blank" class="btn-card-modal btn-galeria">Galería</a>
                             <button onclick="openFinancingModalWithCar('Fiat Mobi Trekking 2024')" class="btn-card-modal btn-cotizar-auto">Cotizar</button>
+                            <button onclick="openAgendarAutoModal('Fiat Mobi Trekking 2024')" class="btn-card-modal btn-agendar-auto">Agendar</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Jeep Commander Overland -->
+                <!-- 2. Fiat Argo Precision (Promoción Principal) -->
+                <div class="tarjeta-auto-modal" data-categoria="hatchback">
+                    <span class="badge-estado" style="color:#ff5252; border-color: rgba(255, 82, 82, 0.4);">🔥 Súper Promoción</span>
+                    <img src="imagenes/autos/argo.jpg" alt="Fiat Argo Precision" onerror="this.src='https://images.unsplash.com/photo-1550355191-aa8f8bd36209?w=500'">
+                    <div class="info-auto-modal">
+                        <h3>Fiat Argo Precision</h3>
+                        <ul>
+                            <li><strong>Modelo:</strong> 2021 | <strong>KM:</strong> 42,589</li>
+                            <li><strong>Motor:</strong> 1.8L (130 HP) | Pantalla 7"</li>
+                        </ul>
+                        <div class="precio-modal">$199,900 MXN</div>
+                        <div class="botones-auto-modal">
+                            <a href="https://drive.google.com/drive/folders/1Ej03CXbjCtuFHYg-GyiyV3EHXOAQL_M_" target="_blank" class="btn-card-modal btn-galeria">Galería</a>
+                            <button onclick="openFinancingModalWithCar('Fiat Argo Precision 2021')" class="btn-card-modal btn-cotizar-auto">Cotizar</button>
+                            <button onclick="openAgendarAutoModal('Fiat Argo Precision 2021')" class="btn-card-modal btn-agendar-auto">Agendar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Chevrolet Montana RS 2025 -->
+                <div class="tarjeta-auto-modal" data-categoria="pickup">
+                    <span class="badge-estado" style="color:#ff5252; border-color: rgba(255, 82, 82, 0.4);">🔥 Súper Promoción</span>
+                    <img src="imagenes/autos/montana.jpg" alt="Chevrolet Montana RS" onerror="this.src='https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=500'">
+                    <div class="info-auto-modal">
+                        <h3>Chevrolet Montana RS</h3>
+                        <ul>
+                            <li><strong>Modelo:</strong> 2025 | <strong>KM:</strong> 10,253</li>
+                            <li><strong>Versión:</strong> RS Deportiva | Doble Cabina</li>
+                        </ul>
+                        <div class="precio-modal">$445,000 MXN</div>
+                        <div class="botones-auto-modal">
+                            <a href="https://drive.google.com/drive/folders/1xmwD6AOwK2iQSaWtQJBQLWYaNT_f-87R" target="_blank" class="btn-card-modal btn-galeria">Galería</a>
+                            <button onclick="openFinancingModalWithCar('Chevrolet Montana RS 2025')" class="btn-card-modal btn-cotizar-auto">Cotizar</button>
+                            <button onclick="openAgendarAutoModal('Chevrolet Montana RS 2025')" class="btn-card-modal btn-agendar-auto">Agendar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Jeep Commander Overland -->
                 <div class="tarjeta-auto-modal" data-categoria="suv">
                     <span class="badge-estado">Disponible</span>
                     <img src="imagenes/autos/commander.jpg" alt="Jeep Commander Overland" onerror="this.src='https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=500'">
@@ -874,11 +831,12 @@
                         <div class="botones-auto-modal">
                             <a href="https://drive.google.com/drive/folders/1X0o_9Ce8lH81KNfpKAUJtpvh_VPA3GJW" target="_blank" class="btn-card-modal btn-galeria">Galería</a>
                             <button onclick="openFinancingModalWithCar('Jeep Commander Overland 2025')" class="btn-card-modal btn-cotizar-auto">Cotizar</button>
+                            <button onclick="openAgendarAutoModal('Jeep Commander Overland 2025')" class="btn-card-modal btn-agendar-auto">Agendar</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Ford Bronco -->
+                <!-- 5. Ford Bronco Outer Banks -->
                 <div class="tarjeta-auto-modal" data-categoria="suv">
                     <span class="badge-estado">Disponible</span>
                     <img src="imagenes/autos/bronco.jpg" alt="Ford Bronco Outer Banks" onerror="this.src='https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=500'">
@@ -892,11 +850,12 @@
                         <div class="botones-auto-modal">
                             <a href="https://drive.google.com/drive/folders/1F8l9-baEJ2eC8t9KmESMvZwtUO5gL4CI" target="_blank" class="btn-card-modal btn-galeria">Galería</a>
                             <button onclick="openFinancingModalWithCar('Ford Bronco Outer Banks 2023')" class="btn-card-modal btn-cotizar-auto">Cotizar</button>
+                            <button onclick="openAgendarAutoModal('Ford Bronco Outer Banks 2023')" class="btn-card-modal btn-agendar-auto">Agendar</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Jeep JT Mojave -->
+                <!-- 6. Jeep JT Mojave -->
                 <div class="tarjeta-auto-modal" data-categoria="pickup">
                     <span class="badge-estado">Disponible</span>
                     <img src="imagenes/autos/mojave1.jpg" alt="Jeep JT Mojave" onerror="this.src='https://images.unsplash.com/photo-1563720223185-11003d516935?w=500'">
@@ -910,11 +869,12 @@
                         <div class="botones-auto-modal">
                             <a href="https://drive.google.com/drive/folders/1F4CzlSidPcNxBlv2_TL9By9kD3XVaw6T" target="_blank" class="btn-card-modal btn-galeria">Galería</a>
                             <button onclick="openFinancingModalWithCar('Jeep JT Mojave 2023')" class="btn-card-modal btn-cotizar-auto">Cotizar</button>
+                            <button onclick="openAgendarAutoModal('Jeep JT Mojave 2023')" class="btn-card-modal btn-agendar-auto">Agendar</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Nissan Kicks -->
+                <!-- 7. Nissan Kicks Platinum -->
                 <div class="tarjeta-auto-modal" data-categoria="crossover">
                     <span class="badge-estado">Disponible</span>
                     <img src="imagenes/autos/kicks.jpg" alt="Nissan Kicks Platinum" onerror="this.src='https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=500'">
@@ -928,11 +888,12 @@
                         <div class="botones-auto-modal">
                             <a href="https://drive.google.com/drive/folders/1EbLnjh-3B8Xmfi5vNalyd8NM6L9hBlgR" target="_blank" class="btn-card-modal btn-galeria">Galería</a>
                             <button onclick="openFinancingModalWithCar('Nissan Kicks Platinum 2025')" class="btn-card-modal btn-cotizar-auto">Cotizar</button>
+                            <button onclick="openAgendarAutoModal('Nissan Kicks Platinum 2025')" class="btn-card-modal btn-agendar-auto">Agendar</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Nissan Versa -->
+                <!-- 8. Nissan Versa SR -->
                 <div class="tarjeta-auto-modal" data-categoria="sedan">
                     <span class="badge-estado">Disponible</span>
                     <img src="imagenes/autos/versa.jpg" alt="Nissan Versa SR" onerror="this.src='https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=500'">
@@ -946,11 +907,12 @@
                         <div class="botones-auto-modal">
                             <a href="https://drive.google.com/drive/folders/1FE1BemeSxCnHT_mD44V0MGdO21ma0lW9" target="_blank" class="btn-card-modal btn-galeria">Galería</a>
                             <button onclick="openFinancingModalWithCar('Nissan Versa SR 2025')" class="btn-card-modal btn-cotizar-auto">Cotizar</button>
+                            <button onclick="openAgendarAutoModal('Nissan Versa SR 2025')" class="btn-card-modal btn-agendar-auto">Agendar</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- VW Teramont Cross Sport -->
+                <!-- 9. VW Teramont Cross Sport -->
                 <div class="tarjeta-auto-modal" data-categoria="suv">
                     <span class="badge-estado" style="color:#ffb300;">🔥 Súper Precio</span>
                     <img src="imagenes/autos/teramont.jpg" alt="VW Teramont Cross Sport" onerror="this.src='https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=500'">
@@ -960,15 +922,16 @@
                             <li><strong>Modelo:</strong> 2022 | <strong>KM:</strong> 51,187</li>
                             <li><strong>Confort:</strong> Máximo Confort Familiar</li>
                         </ul>
-                        <div class="precio-modal">$630,000 MXN <span style="text-decoration: line-through; font-size:0.8rem; color:#78909c;">$640k</span></div>
+                        <div class="precio-modal">$630,000 MXN</div>
                         <div class="botones-auto-modal">
                             <a href="https://drive.google.com/drive/folders/1Ee2No5HRTntyjy2mJgejnw9Jlh3YBhNT" target="_blank" class="btn-card-modal btn-galeria">Galería</a>
                             <button onclick="openFinancingModalWithCar('VW Teramont Cross Sport 2022')" class="btn-card-modal btn-cotizar-auto">Cotizar</button>
+                            <button onclick="openAgendarAutoModal('VW Teramont Cross Sport 2022')" class="btn-card-modal btn-agendar-auto">Agendar</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Chevrolet Captiva 7 Pasajeros -->
+                <!-- 10. Chevrolet Captiva 7 Pasajeros -->
                 <div class="tarjeta-auto-modal" data-categoria="suv">
                     <span class="badge-estado" style="color:#ffb300;">🔥 Súper Precio</span>
                     <img src="imagenes/autos/captiva.jpg" alt="Chevrolet Captiva 7 Pasajeros" onerror="this.src='https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=500'">
@@ -978,16 +941,16 @@
                             <li><strong>Modelo:</strong> 2023 | <strong>KM:</strong> 94,213</li>
                             <li><strong>Distribución:</strong> 3 Filas de Asientos</li>
                         </ul>
-                        <div class="precio-modal">$235,000 MXN <span style="text-decoration: line-through; font-size:0.8rem; color:#78909c;">$249k</span></div>
+                        <div class="precio-modal">$235,000 MXN</div>
                         <div class="botones-auto-modal">
                             <a href="https://drive.google.com/drive/folders/1EXEHAHiTW0bek2E-3TkRE6nGlNn3B3kJ" target="_blank" class="btn-card-modal btn-galeria">Galería</a>
                             <button onclick="openFinancingModalWithCar('Captiva 7 Pasajeros 2023')" class="btn-card-modal btn-cotizar-auto">Cotizar</button>
+                            <button onclick="openAgendarAutoModal('Captiva 7 Pasajeros 2023')" class="btn-card-modal btn-agendar-auto">Agendar</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- PRÓXIMAS UNIDADES -->
-                <!-- 1. Buick Envision Avenir -->
+                <!-- 11. Buick Envision Avenir (Próxima) -->
                 <div class="tarjeta-auto-modal" data-categoria="proximas">
                     <span class="badge-estado" style="color:#2196f3;">⏳ Próxima Llegada</span>
                     <img src="imagenes/autos/buick.jpeg" alt="Buick Envision Avenir" onerror="this.src='https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=500'">
@@ -995,17 +958,16 @@
                         <h3>Buick Envision Avenir</h3>
                         <ul>
                             <li><strong>Estatus:</strong> Más Equipada / En Tránsito</li>
-                            <li><strong>Motor:</strong> 2.0L Turbo | Tracción AWD</li>
                         </ul>
                         <div class="precio-modal" style="color:#64b5f6;">Aparta Próximamente</div>
                         <div class="botones-auto-modal">
-                            <a href="https://wa.me/5214525003073?text=Hola%20Johnny,%20estoy%20interesado%20en%20la%20Buick%20Envision%20Avenir%20de%20próximas%20unidades" target="_blank" class="btn-card-modal btn-galeria" style="flex:1;">Interesado</a>
-                            <button onclick="openFinancingModalWithCar('Buick Envision Avenir (Próxima)')" class="btn-card-modal btn-cotizar-auto">Pre-Cotizar</button>
+                            <button onclick="openFinancingModalWithCar('Buick Envision Avenir (Próxima)')" class="btn-card-modal btn-cotizar-auto">Cotizar</button>
+                            <button onclick="openAgendarAutoModal('Buick Envision Avenir (Próxima)')" class="btn-card-modal btn-agendar-auto">Agendar</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- 2. GMC Terrain Black Edition -->
+                <!-- 12. GMC Terrain Black Edition (Próxima) -->
                 <div class="tarjeta-auto-modal" data-categoria="proximas">
                     <span class="badge-estado" style="color:#2196f3;">⏳ Próxima Llegada</span>
                     <img src="imagenes/autos/terrain.jpg" alt="GMC Terrain Black Edition" onerror="this.src='https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=500'">
@@ -1013,17 +975,16 @@
                         <h3>GMC Terrain Black Ed.</h3>
                         <ul>
                             <li><strong>Estatus:</strong> En Tránsito a Piso</li>
-                            <li><strong>Motor:</strong> 1.5L Turbo | Rines 19" Black</li>
                         </ul>
                         <div class="precio-modal" style="color:#64b5f6;">Aparta Próximamente</div>
                         <div class="botones-auto-modal">
-                            <a href="https://wa.me/5214525003073?text=Hola%20Johnny,%20estoy%20interesado%20en%20la%20GMC%20Terrain%20Black%20Edition%20de%20próximas%20unidades" target="_blank" class="btn-card-modal btn-galeria" style="flex:1;">Interesado</a>
-                            <button onclick="openFinancingModalWithCar('GMC Terrain Black Edition (Próxima)')" class="btn-card-modal btn-cotizar-auto">Pre-Cotizar</button>
+                            <button onclick="openFinancingModalWithCar('GMC Terrain Black Ed. (Próxima)')" class="btn-card-modal btn-cotizar-auto">Cotizar</button>
+                            <button onclick="openAgendarAutoModal('GMC Terrain Black Ed. (Próxima)')" class="btn-card-modal btn-agendar-auto">Agendar</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- 3. Cadillac XT4 -->
+                <!-- 13. Cadillac XT4 (Próxima) -->
                 <div class="tarjeta-auto-modal" data-categoria="proximas">
                     <span class="badge-estado" style="color:#2196f3;">⏳ Próxima Llegada</span>
                     <img src="imagenes/autos/cadillac.jpg" alt="Cadillac XT4" onerror="this.src='https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=500'">
@@ -1031,72 +992,54 @@
                         <h3>Cadillac XT4</h3>
                         <ul>
                             <li><strong>Estatus:</strong> En Tránsito a Piso</li>
-                            <li><strong>Motor:</strong> 2.0L Turbo | Lujo Ejecutivo</li>
                         </ul>
                         <div class="precio-modal" style="color:#64b5f6;">Aparta Próximamente</div>
                         <div class="botones-auto-modal">
-                            <a href="https://wa.me/5214525003073?text=Hola%20Johnny,%20estoy%20interesado%20en%20la%20Cadillac%20XT4%20de%20próximas%20unidades" target="_blank" class="btn-card-modal btn-galeria" style="flex:1;">Interesado</a>
-                            <button onclick="openFinancingModalWithCar('Cadillac XT4 (Próxima)')" class="btn-card-modal btn-cotizar-auto">Pre-Cotizar</button>
+                            <button onclick="openFinancingModalWithCar('Cadillac XT4 (Próxima)')" class="btn-card-modal btn-cotizar-auto">Cotizar</button>
+                            <button onclick="openAgendarAutoModal('Cadillac XT4 (Próxima)')" class="btn-card-modal btn-agendar-auto">Agendar</button>
                         </div>
                     </div>
                 </div>
-            </div>
 
+            </div>
         </div>
 
-        <!-- MODAL TOMA A CUENTA -->
+        <!-- MODAL TOMA A CUENTA / COMPRAMOS TU AUTO (CON TUS BLOQUES NUMERADOS 01 A 04) -->
         <div id="tomaCuentaModal" class="modal">
             <div class="modal-header">
                 <span class="modal-title-top">JOHNNY ENRÍQUEZ • SEMINUEVOS CERTIFICADOS</span>
                 <button class="close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
             </div>
-
             <div class="modal-heading">¿Planeas cambiar o vender tu auto actual?</div>
             <div class="modal-main-title">Nosotros lo compramos con total seguridad bancaria</div>
-            <div class="modal-desc">
-                Evita los peligros de negociar con particulares y los fraudes digitales. Te ofrezco un proceso transparente, valuación justa en piso de venta y una transacción blindada de cuenta a cuenta. Iniciamos tu análisis preliminar con solo 4 datos básicos:
+            <div class="modal-desc">Evita los peligros de negociar con particulares y los fraudes digitales. Te ofrezco un proceso transparente, valuación justa en piso de venta y una transacción blindada de cuenta a cuenta. Iniciamos tu análisis preliminar con solo 4 datos básicos:</div>
+            
+            <!-- Bloques 01 al 04 exactos de tu foto -->
+            <div class="requisito-card">
+                <h4>Ficha Técnica</h4>
+                <p>Marca, línea, año y la versión exacta de tu unidad actual.</p>
+                <div class="requisito-numero">01</div>
             </div>
 
-            <div class="step-card">
-                <div class="step-header">
-                    <i class="fa-solid fa-clipboard-list"></i>
-                    <span>Ficha Técnica</span>
-                </div>
-                <div class="step-text">Marca, línea, año y la versión exacta de tu unidad actual.</div>
-                <div class="step-number">01</div>
+            <div class="requisito-card">
+                <h4>Antigüedad</h4>
+                <p>Recibimos unidades en stock preferentemente de modelos 2020 en adelante.</p>
+                <div class="requisito-numero">02</div>
             </div>
 
-            <div class="step-card">
-                <div class="step-header">
-                    <i class="fa-solid fa-calendar-days"></i>
-                    <span>Antigüedad</span>
-                </div>
-                <div class="step-text">Recibimos unidades en stock preferentemente de modelos 2020 en adelante.</div>
-                <div class="step-number">02</div>
+            <div class="requisito-card">
+                <h4>Kilometraje</h4>
+                <p>Lectura real reflejada en tu odómetro para validación mecánica preliminar.</p>
+                <div class="requisito-numero">03</div>
             </div>
 
-            <div class="step-card">
-                <div class="step-header">
-                    <i class="fa-solid fa-gauge-high"></i>
-                    <span>Kilometraje</span>
-                </div>
-                <div class="step-text">Lectura real reflejada en tu odómetro para validación mecánica preliminar.</div>
-                <div class="step-number">03</div>
+            <div class="requisito-card">
+                <h4>Evidencia Visual</h4>
+                <p>Captura el exterior, interior y kilometraje actual. Con esto agilizamos tu oferta inicial.</p>
+                <div class="requisito-numero">04</div>
             </div>
 
-            <div class="step-card">
-                <div class="step-header">
-                    <i class="fa-solid fa-camera"></i>
-                    <span>Evidencia Visual</span>
-                </div>
-                <div class="step-text">Captura el exterior, interior y kilometraje actual. Con esto agilizamos tu oferta inicial.</div>
-                <div class="step-number">04</div>
-            </div>
-
-            <a href="https://wa.me/5214525003073?text=Hola,%20Johnny,%20quiero%20iniciar%20el%20análisis%20para%20vender%20o%20dejar%20a%20cuenta%20mi%20auto." class="modal-whatsapp-btn" target="_blank">
-                <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"></i>
-                Enviar Datos por WhatsApp
-            </a>
+            <a href="https://wa.me/5214525003073?text=Hola,%20Johnny,%20quiero%20vender%20o%20dejar%20a%20cuenta%20mi%20auto.%20Tengo%20listos%20mis%20requisitos." class="modal-whatsapp-btn" target="_blank">Enviar Datos por WhatsApp</a>
         </div>
 
         <!-- MODAL FINANCIAMIENTO -->
@@ -1105,18 +1048,14 @@
                 <span class="modal-title-top">JOHNNY ENRÍQUEZ • FINANCIAMIENTO</span>
                 <button class="close-btn" onclick="closeFinancingModal()"><i class="fa-solid fa-xmark"></i></button>
             </div>
-
             <div class="modal-heading">ÁGIL Y FLEXIBLE</div>
             <div class="modal-main-title">¿Necesitas Financiamiento?</div>
-            <div class="modal-desc">
-                Te perfilo con las principales opciones bancarias y financieras para armar un plan cómodo con la tasa más baja. Llena tus datos y te hago una corrida financiera hoy mismo:
-            </div>
-
             <div class="financing-form">
                 <select id="fin-car" required>
-                    <option value="" disabled selected>Selecciona el auto de tu interés</option>
-                    <option value="Fiat Argo Precision 2021">Fiat Argo Precision 2021</option>
+                    <option value="" disabled selected>Selecciona el auto</option>
                     <option value="Fiat Mobi Trekking 2024">Fiat Mobi Trekking 2024</option>
+                    <option value="Fiat Argo Precision 2021">Fiat Argo Precision 2021</option>
+                    <option value="Chevrolet Montana RS 2025">Chevrolet Montana RS 2025</option>
                     <option value="Jeep Commander Overland 2025">Jeep Commander Overland 2025</option>
                     <option value="Ford Bronco Outer Banks 2023">Ford Bronco Outer Banks 2023</option>
                     <option value="Jeep JT Mojave 2023">Jeep JT Mojave 2023</option>
@@ -1125,152 +1064,113 @@
                     <option value="VW Teramont Cross Sport 2022">VW Teramont Cross Sport 2022</option>
                     <option value="Captiva 7 Pasajeros 2023">Captiva 7 Pasajeros 2023</option>
                     <option value="Buick Envision Avenir (Próxima)">Buick Envision Avenir (Próxima)</option>
-                    <option value="GMC Terrain Black Edition (Próxima)">GMC Terrain Black Edition (Próxima)</option>
+                    <option value="GMC Terrain Black Ed. (Próxima)">GMC Terrain Black Ed. (Próxima)</option>
                     <option value="Cadillac XT4 (Próxima)">Cadillac XT4 (Próxima)</option>
-                    <option value="Otro modelo del catálogo">Otro modelo del catálogo</option>
                 </select>
-
                 <input type="tel" id="fin-phone" placeholder="Número de teléfono (10 dígitos)" required>
                 <input type="email" id="fin-email" placeholder="Correo electrónico" required>
                 <input type="number" id="fin-income" placeholder="Ingresos fijos mensuales ($)" required>
-                <input type="text" id="fin-variable" placeholder="Ingresos variables (Si aplica)">
-                
-                <select id="fin-term" required>
-                    <option value="" disabled selected>Plazo de mensualidades deseado</option>
-                    <option value="12 meses">12 meses</option>
-                    <option value="24 meses">24 meses</option>
-                    <option value="36 meses">36 meses</option>
-                    <option value="48 meses">48 meses</option>
-                    <option value="60 meses">60 meses</option>
-                </select>
-                
-                <input type="text" id="fin-downpayment" placeholder="¿Enganche en mente o mínimo?" required>
-                
-                <button onclick="sendFinancingForm()" class="modal-whatsapp-btn" style="margin-top: 5px; margin-bottom: 0;">
-                    <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"></i>
-                    ¡Solicitar Mi Cotización!
-                </button>
+                <button onclick="sendFinancingForm()" class="modal-whatsapp-btn" style="margin-top: 5px;">¡Solicitar Cotización!</button>
             </div>
-
-            <div class="modal-heading" style="margin-top: 25px;">DOCUMENTOS REQUERIDOS</div>
-            <div class="modal-desc">
-                Una vez iniciada tu solicitud, reuniremos estos 4 documentos base para formalizar tu expediente:
-            </div>
-
-            <div class="step-card">
-                <div class="step-header">
-                    <i class="fa-solid fa-id-card"></i>
-                    <span>Identificación Oficial</span>
-                </div>
-                <div class="step-text">INE o IFE vigente. Es el arranque indispensable para tu consulta financiera.</div>
-                <div class="step-number">01</div>
-            </div>
-            
-            <div class="step-card">
-                <div class="step-header">
-                    <i class="fa-solid fa-file-invoice"></i>
-                    <span>Comprobante de Domicilio</span>
-                </div>
-                <div class="step-text">Recibo de luz CFE, agua o telefonía fija no mayor a 3 meses.</div>
-                <div class="step-number">02</div>
-            </div>
-
-            <div class="step-card">
-                <div class="step-header">
-                    <i class="fa-solid fa-money-bill-trend-up"></i>
-                    <span>Solvencia Económica</span>
-                </div>
-                <div class="step-text">Tus últimos 3 estados de cuenta bancarios completos para comprobar ingresos.</div>
-                <div class="step-number">03</div>
-            </div>
-
-            <div class="step-card">
-                <div class="step-header">
-                    <i class="fa-solid fa-file-signature"></i>
-                    <span>Situación Fiscal</span>
-                </div>
-                <div class="step-text">Constancia de Situación Fiscal (SAT) actualizada para validar tu expediente.</div>
-                <div class="step-number">04</div>
-            </div>
-            
-            <div class="legal-note">
-                Nota de asesoría: Los plazos finales, enganches y autorizaciones definitivas varían conforme a las políticas vigentes de la entidad financiera según el año modelo y el plazo.
-            </div>
-        </div>
-
-        <!-- MODAL PROMOCIONES -->
-        <div id="promosModal" class="modal">
-            <div class="modal-header">
-                <span class="modal-title-top">JOHNNY ENRÍQUEZ • OFERTAS ESPECIALES</span>
-                <button class="close-btn" onclick="closePromoModal()"><i class="fa-solid fa-xmark"></i></button>
-            </div>
-            
-            <div class="modal-heading">SÚPER PROMOCIONES DEL MES</div>
-            <div class="modal-main-title">Destacados Imperdibles</div>
-            <div class="modal-desc">Aprovecha nuestras unidades en promoción con especificaciones listas para reestrenar:</div>
-            
-            <div class="tarjeta-auto-modal" style="margin-bottom: 15px;">
-                <span class="badge-estado" style="color:#ff5252; border-color: rgba(255, 82, 82, 0.4);">🔥 Súper Promoción</span>
-                <img src="imagenes/autos/argo.jpg" alt="Fiat Argo Precision" style="height: 140px;" onerror="this.src='https://images.unsplash.com/photo-1550355191-aa8f8bd36209?w=500'">
-                <div class="info-auto-modal">
-                    <h3>Fiat Argo Precision</h3>
-                    <ul>
-                        <li><strong>Modelo:</strong> 2021 | <strong>KM:</strong> 42,589</li>
-                        <li><strong>Motor:</strong> 1.8L (130 HP) | Pantalla 7"</li>
-                        <li><strong>Atributo:</strong> Excelente balance deportivo y potencia superior.</li>
-                    </ul>
-                    <div class="precio-modal">$199,900 MXN</div>
-                    <div class="botones-auto-modal">
-                        <button onclick="closePromoModal(); openFinancingModalWithCar('Fiat Argo Precision 2021')" class="btn-card-modal btn-cotizar-auto">Cotizar Promoción</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tarjeta-auto-modal" style="margin-bottom: 20px;">
-                <span class="badge-estado" style="color:#ff5252; border-color: rgba(255, 82, 82, 0.4);">🔥 Súper Promoción</span>
-                <img src="imagenes/autos/mobi.jpg" alt="Fiat Mobi Trekking" style="height: 140px;" onerror="this.src='https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=500'">
-                <div class="info-auto-modal">
-                    <h3>Fiat Mobi Trekking</h3>
-                    <ul>
-                        <li><strong>Modelo:</strong> 2024 | <strong>KM:</strong> 34,409</li>
-                        <li><strong>Motor:</strong> 1.0L de alta eficiencia (Hasta 18 KM/L)</li>
-                        <li><strong>Atributo:</strong> Estética aventurera, mayor altura y súper ahorrador.</li>
-                    </ul>
-                    <div class="precio-modal">$199,900 MXN</div>
-                    <div class="botones-auto-modal">
-                        <button onclick="closePromoModal(); openFinancingModalWithCar('Fiat Mobi Trekking 2024')" class="btn-card-modal btn-cotizar-auto">Cotizar Promoción</button>
-                    </div>
-                </div>
-            </div>
-
-            <a href="https://wa.me/5214525003073?text=Hola,%20Johnny,%20quisiera%20saber%20más%20sobre%20las%20promociones%20vigentes." class="modal-whatsapp-btn" target="_blank" style="margin-bottom: 20px;">
-                <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"></i>
-                Preguntar por más promociones
-            </a>
         </div>
 
     </div>
 
     <script>
-        // Pantalla de carga optimizada
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(function() {
                 const splashScreen = document.getElementById('splash-screen');
                 if (splashScreen) {
                     splashScreen.classList.add('fade-out');
-                    setTimeout(function() {
-                        splashScreen.style.display = 'none';
-                    }, 800);
+                    setTimeout(() => splashScreen.style.display = 'none', 800);
                 }
             }, 2500);
+
+            generarFechasDisponibles();
         });
 
-        // Controles de Modales Generales
+        function generarFechasDisponibles() {
+            let selectFecha = document.getElementById('ag-fecha');
+            selectFecha.innerHTML = '';
+            
+            let diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+            let meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+
+            let hoy = new Date();
+            for (let i = 0; i < 7; i++) {
+                let d = new Date();
+                d.setDate(hoy.getDate() + i);
+                
+                let anio = d.getFullYear();
+                let mesNum = String(d.getMonth() + 1).padStart(2, '0');
+                let diaNum = String(d.getDate()).padStart(2, '0');
+                let fechaIso = `${anio}-${mesNum}-${diaNum}`;
+                
+                let nombreDia = diasSemana[d.getDay()];
+                let textoVisual = `${nombreDia} ${d.getDate()} de ${meses[d.getMonth()]}`;
+                
+                let option = document.createElement('option');
+                option.value = fechaIso;
+                option.setAttribute('data-diaindex', d.getDay());
+                option.textContent = textoVisual;
+                selectFecha.appendChild(option);
+            }
+
+            actualizarHorariosDisponibles();
+        }
+
+        function actualizarHorariosDisponibles() {
+            let selectFecha = document.getElementById('ag-fecha');
+            let selectHora = document.getElementById('ag-hora');
+            selectHora.innerHTML = '';
+
+            let optionSeleccionada = selectFecha.options[selectFecha.selectedIndex];
+            if (!optionSeleccionada) return;
+
+            let diaIndex = parseInt(optionSeleccionada.getAttribute('data-diaindex'));
+            let horasPermitidas = [];
+
+            if (diaIndex === 0) {
+                // Domingo: 11:00 AM a 3:00 PM
+                horasPermitidas = ["11:00 AM", "12:00 PM", "01:00 PM", "02:00 PM", "03:00 PM"];
+            } else if (diaIndex === 6) {
+                // Sábado: 9:00 AM a 5:00 PM
+                horasPermitidas = ["09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM"];
+            } else {
+                // Lunes a Viernes: 9:00 AM a 7:00 PM
+                horasPermitidas = ["09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM", "06:00 PM", "07:00 PM"];
+            }
+
+            horasPermitidas.forEach(h => {
+                let opt = document.createElement('option');
+                opt.value = h;
+                opt.textContent = h;
+                selectHora.appendChild(opt);
+            });
+        }
+
         function openModal() { document.getElementById('tomaCuentaModal').style.display = 'block'; }
         function closeModal() { document.getElementById('tomaCuentaModal').style.display = 'none'; }
         
-        function openPromoModal() { document.getElementById('promosModal').style.display = 'block'; }
-        function closePromoModal() { document.getElementById('promosModal').style.display = 'none'; }
+        // --- BOTÓN PROMOCIONES DIRECTO AL CATÁLOGO EN SECCIÓN PROMOS ---
+        function openPromoModal() { 
+            openCatalogoModal();
+            filtrarCatalogoPorPromos();
+        }
+
+        function filtrarCatalogoPorPromos() {
+            let botones = document.querySelectorAll('.chip-filtro');
+            botones.forEach(btn => btn.classList.remove('activo'));
+            let autos = document.querySelectorAll('.tarjeta-auto-modal');
+            autos.forEach(auto => {
+                let badge = auto.querySelector('.badge-estado');
+                if (badge && badge.textContent.includes('Súper Promoción')) {
+                    auto.style.display = 'block';
+                } else {
+                    auto.style.display = 'none';
+                }
+            });
+        }
 
         function openFinancingModal() { document.getElementById('financiamientoModal').style.display = 'block'; }
         function closeFinancingModal() { document.getElementById('financiamientoModal').style.display = 'none'; }
@@ -1281,11 +1181,6 @@
         function openCatalogoModal() { document.getElementById('catalogoModal').style.display = 'block'; }
         function closeCatalogoModal() { document.getElementById('catalogoModal').style.display = 'none'; }
 
-        // Nuevos controles para el Modal de Búsqueda VIP
-        function openBusquedaModal() { document.getElementById('busquedaModal').style.display = 'block'; }
-        function closeBusquedaModal() { document.getElementById('busquedaModal').style.display = 'none'; }
-
-        // Función para abrir financiamiento con un auto específico
         function openFinancingModalWithCar(carName) {
             closeCatalogoModal();
             let selectCar = document.getElementById('fin-car');
@@ -1298,14 +1193,110 @@
             openFinancingModal();
         }
 
-        // Filtro de Categorías del Catálogo
+        function showSuccessModal() {
+            document.getElementById('custom-success-modal').style.display = 'flex';
+        }
+        function closeSuccessModal() {
+            document.getElementById('custom-success-modal').style.display = 'none';
+        }
+
+        // --- SISTEMA UNIFICADO DE AGENDAMIENTO ---
+        let tipoAgendamientoActual = 'general';
+        let autoSeleccionadoActual = '';
+
+        function abrirModalAgendar(tipo, autoNombre = '') {
+            closeCatalogoModal();
+            closeFinancingModal();
+            closeModal();
+
+            tipoAgendamientoActual = tipo;
+            autoSeleccionadoActual = autoNombre;
+            
+            document.getElementById('ag-nombre').value = '';
+            document.getElementById('ag-telefono').value = '';
+            
+            let contenedorExtra = document.getElementById('campo-extra-container');
+            contenedorExtra.innerHTML = '';
+
+            if(tipo === 'general') {
+                document.getElementById('modal-titulo-auto').textContent = 'Agendar Cita General';
+                document.getElementById('modal-subtitulo-agendar').textContent = 'JOHNNY ENRÍQUEZ • AGENDA';
+                contenedorExtra.innerHTML = `
+                    <label style="font-size: 0.75rem; color: #64b5f6; font-weight: 600;">Categoría o Interés:</label>
+                    <select id="ag-extra-val">
+                        <option value="SUV">SUV</option>
+                        <option value="Sedán">Sedán</option>
+                        <option value="Crossover">Crossover</option>
+                        <option value="Hatchback">Hatchback</option>
+                        <option value="Pick-ups">Pick-ups</option>
+                        <option value="Otro">Otro modelo</option>
+                    </select>
+                `;
+            } else if(tipo === 'auto') {
+                document.getElementById('modal-titulo-auto').textContent = autoNombre;
+                document.getElementById('modal-subtitulo-agendar').textContent = 'JOHNNY ENRÍQUEZ • APARTADO';
+            } else if(tipo === 'busqueda') {
+                document.getElementById('modal-titulo-auto').textContent = 'Búsqueda Personalizada';
+                document.getElementById('modal-subtitulo-agendar').textContent = 'JOHNNY ENRÍQUEZ • RASTREO';
+                contenedorExtra.innerHTML = `
+                    <label style="font-size: 0.75rem; color: #64b5f6; font-weight: 600;">¿Qué auto o características buscas?</label>
+                    <input type="text" id="ag-extra-val" placeholder="Ej. Ford Territory Titanium, color blanco..." required>
+                `;
+            }
+
+            document.getElementById('agendarModal').style.display = 'block';
+        }
+
+        function closeAgendarModal() {
+            document.getElementById('agendarModal').style.display = 'none';
+        }
+
+        function openAgendarCitaGeneralForm() { abrirModalAgendar('general'); }
+        function openBusquedaPersonalizadaForm() { abrirModalAgendar('busqueda'); }
+        function openBusquedaPersonalizadaFormFromCatalog() { abrirModalAgendar('busqueda'); }
+        function openAgendarAutoModal(autoNombre) { abrirModalAgendar('auto', autoNombre); }
+
+        function enviarFormularioAgendar() {
+            let nombre = document.getElementById('ag-nombre').value.trim();
+            let telefono = document.getElementById('ag-telefono').value.trim();
+            let fecha = document.getElementById('ag-fecha').value;
+            let hora = document.getElementById('ag-hora').value;
+
+            if(!nombre || !telefono) {
+                alert('Por favor, ingresa tu nombre y número de WhatsApp.');
+                return;
+            }
+
+            let identificadorAuto = '';
+            if(tipoAgendamientoActual === 'general') {
+                let cat = document.getElementById('ag-extra-val').value;
+                identificadorAuto = `Interesado en ${cat}`;
+            } else if(tipoAgendamientoActual === 'auto') {
+                identificadorAuto = autoSeleccionadoActual;
+            } else if(tipoAgendamientoActual === 'busqueda') {
+                let descBusqueda = document.getElementById('ag-extra-val').value.trim();
+                if(!descBusqueda) {
+                    alert('Por favor, especifica el auto que estás buscando.');
+                    return;
+                }
+                identificadorAuto = `Busca: ${descBusqueda}`;
+            }
+
+            let urlCrm = `https://earnest-kringle-2a4224.netlify.app/?auto=${encodeURIComponent(identificadorAuto)}&nombre=${encodeURIComponent(nombre)}&tel=${encodeURIComponent(telefono)}&fecha=${encodeURIComponent(fecha)}&hora=${encodeURIComponent(hora)}`;
+            
+            fetch(urlCrm, { mode: 'no-cors' }).catch(() => {});
+
+            closeAgendarModal();
+            showSuccessModal();
+        }
+
         function filtrarCatalogo(categoria, elementoSeleccionado) {
             let botones = document.querySelectorAll('.chip-filtro');
-            botones.forEach(function(btn) { btn.classList.remove('activo'); });
-            elementoSeleccionado.classList.add('activo');
+            botones.forEach(btn => btn.classList.remove('activo'));
+            if(elementoSeleccionado) elementoSeleccionado.classList.add('activo');
 
             let autos = document.querySelectorAll('.tarjeta-auto-modal');
-            autos.forEach(function(auto) {
+            autos.forEach(auto => {
                 if (categoria === 'todos' || auto.getAttribute('data-categoria') === categoria) {
                     auto.style.display = 'block'; 
                 } else {
@@ -1314,73 +1305,32 @@
             });
         }
 
-        // Función Financiamiento
         function sendFinancingForm() {
             let car = document.getElementById('fin-car').value;
             let phone = document.getElementById('fin-phone').value;
             let email = document.getElementById('fin-email').value;
             let income = document.getElementById('fin-income').value;
-            let variable = document.getElementById('fin-variable').value;
-            let term = document.getElementById('fin-term').value;
-            let downpayment = document.getElementById('fin-downpayment').value;
 
-            if(!car || !phone || !email || !income || !term || !downpayment) {
-                alert('Por favor, completa todos los campos requeridos para continuar.');
+            if(!car || !phone || !email || !income) {
+                alert('Por favor, completa los campos requeridos.');
                 return;
             }
-
-            let textoVariable = variable ? `$${variable}` : 'No aplica';
-            
-            let mensaje = `Hola Johnny, tengo mis datos listos. Quiero solicitar mi cotización financiera.%0A%0A*Mis Datos de Perfilamiento:*%0A🚗 Auto de Interés: ${car}%0A📱 Teléfono: ${phone}%0A📧 Correo: ${email}%0A💵 Ingresos Fijos Mensuales: $${income}%0A📈 Ingresos Variables: ${textoVariable}%0A📅 Plazo Deseado: ${term}%0A💰 Enganche: ${downpayment}`;
-            
-            window.open(`https://wa.me/5214525003073?text=${mensaje}`, '_blank');
+            let mensaje = `Hola Johnny, quiero solicitar mi cotización para el ${car}. Mi cel: ${phone}`;
+            window.open(`https://wa.me/5214525003073?text=${encodeURIComponent(mensaje)}`, '_blank');
         }
         
-        // Función Código Promocional
         function sendPromoCode() {
             let nombre = document.getElementById('promo-nombre').value;
             let codigo = document.getElementById('promo-codigo').value;
-
-            if(!nombre || !codigo) {
-                alert('Por favor, ingresa tu nombre y el código para continuar.');
-                return;
-            }
-
-            let mensaje = `🚨 *CÓDIGO PROMOCIONAL* 🚨%0A%0AHola Johnny, mi nombre es ${nombre}.%0AVengo recomendado y mi código es *[${codigo.toUpperCase()}]*.%0A%0AQuiero ver opciones de autos y conocer mi beneficio sorpresa.`;
-            
-            window.open(`https://wa.me/5214525003073?text=${mensaje}`, '_blank');
+            if(!nombre || !codigo) return alert('Ingresa nombre y código.');
+            window.open(`https://wa.me/5214525003073?text=Mi%20nombre%20es%20${encodeURIComponent(nombre)}%20y%20mi%20código%20es%20${encodeURIComponent(codigo)}`, '_blank');
         }
 
-        // NUEVA: Función Enviar Formulario de Búsqueda VIP
-        function sendBusquedaForm() {
-            let nombre = document.getElementById('busq-nombre').value;
-            let telefono = document.getElementById('busq-telefono').value;
-            let auto = document.getElementById('busq-auto').value;
-
-            if(!nombre || !telefono || !auto) {
-                alert('Por favor, ingresa tu nombre, número y el auto que buscas para poder avisarte.');
-                return;
-            }
-
-            // Calculando la fecha automáticamente
-            let opcionesFecha = { day: '2-digit', month: '2-digit', year: 'numeric' };
-            let fechaHoy = new Date().toLocaleDateString('es-MX', opcionesFecha);
-
-            let mensaje = `🚨 *NUEVO REGISTRO DE BÚSQUEDA* 🚨%0A*Fecha:* ${fechaHoy}%0A%0AHola Johnny. No encontré el auto que busco en el catálogo actual, pero me gustaría que me avises en cuanto les llegue uno con estas características:%0A%0A👤 *Nombre:* ${nombre}%0A📱 *Contacto:* ${telefono}%0A🚘 *Auto que busco:* ${auto}`;
-            
-            window.open(`https://wa.me/5214525003073?text=${mensaje}`, '_blank');
-        }
-
-        // Compartir
         function shareCard() {
             if (navigator.share) {
-                navigator.share({
-                    title: 'Johnny Enríquez - Asesor de Ventas',
-                    text: 'Conoce mi catálogo de autos seminuevos y descubre tu plan de financiamiento ideal.',
-                    url: 'https://tuconfiautos.com'
-                }).catch((error) => console.log('Error al compartir', error));
+                navigator.share({ title: 'Johnny Enríquez - Asesor de Ventas', url: 'https://tuconfiautos.com' });
             } else {
-                alert('Puedes copiar el enlace: https://tuconfiautos.com');
+                alert('Enlace copiado: https://tuconfiautos.com');
             }
         }
     </script>
