@@ -344,20 +344,45 @@
 
         .modal-title-top { font-size: 0.7rem; letter-spacing: 1.5px; color: #ffb300; font-weight: 700; }
 
-        .close-btn {
+        .back-btn {
             background: rgba(255, 255, 255, 0.1);
-            border: none;
+            border: 1px solid rgba(100, 181, 246, 0.3);
             color: #ffffff;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            font-size: 1rem;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
             cursor: pointer;
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 6px;
+            transition: all 0.3s ease;
         }
-        .close-btn:hover { background: rgba(255, 255, 255, 0.2); }
+        .back-btn:hover { background: rgba(255, 255, 255, 0.2); border-color: #64b5f6; }
+
+        .modal-home-btn {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            padding: 14px;
+            background: rgba(255, 255, 255, 0.08);
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid rgba(100, 181, 246, 0.3);
+            cursor: pointer;
+            margin-top: 10px;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+        .modal-home-btn:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #64b5f6;
+        }
 
         .modal-heading { font-size: 0.8rem; color: #ffb300; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; font-weight: 600; }
         .modal-main-title { font-size: 1.25rem; font-weight: 700; color: #ffffff; margin-bottom: 12px; line-height: 1.2; }
@@ -524,7 +549,7 @@
             font-size: 0.9rem;
             box-shadow: 0 8px 20px rgba(13, 71, 161, 0.4);
             margin-top: 15px;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
             border: none;
             cursor: pointer;
         }
@@ -628,7 +653,7 @@
     <div id="agendarModal" class="modal">
         <div class="modal-header">
             <span class="modal-title-top" id="modal-subtitulo-agendar">JOHNNY ENRÍQUEZ • AGENDA</span>
-            <button class="close-btn" onclick="closeAgendarModal()"><i class="fa-solid fa-xmark"></i></button>
+            <button class="back-btn" onclick="closeAgendarModal()"><i class="fa-solid fa-arrow-left"></i> Regresar</button>
         </div>
         <div class="modal-heading" id="modal-heading-label">RESERVA TU VISITA</div>
         <div class="modal-main-title" id="modal-titulo-auto">Agendar Cita</div>
@@ -655,6 +680,7 @@
             </div>
 
             <button onclick="enviarFormularioAgendar()" class="modal-whatsapp-btn" style="margin-top: 5px;" id="btn-confirmar-texto">Confirmar Cita</button>
+            <button type="button" class="modal-home-btn" onclick="closeAllModals()"><i class="fa-solid fa-house"></i> Regresar a página principal</button>
         </div>
     </div>
 
@@ -723,7 +749,7 @@
         <div id="codigoModal" class="modal">
             <div class="modal-header">
                 <span class="modal-title-top">JOHNNY ENRÍQUEZ • ALIANZAS</span>
-                <button class="close-btn" onclick="closeCodigoModal()"><i class="fa-solid fa-xmark"></i></button>
+                <button class="back-btn" onclick="closeCodigoModal()"><i class="fa-solid fa-arrow-left"></i> Regresar</button>
             </div>
             <div class="modal-heading">RECOMPENSA EXCLUSIVA</div>
             <div class="modal-main-title">¡Desbloquea tu beneficio sorpresa! 🎁</div>
@@ -732,6 +758,7 @@
                 <input type="text" id="promo-nombre" placeholder="Tu nombre completo" required>
                 <input type="text" id="promo-codigo" placeholder="Ej. BARBERÍA PERSEO" required>
                 <button onclick="sendPromoCode()" class="modal-whatsapp-btn" style="margin-top: 5px;">Canjear Código</button>
+                <button type="button" class="modal-home-btn" onclick="closeAllModals()"><i class="fa-solid fa-house"></i> Regresar a página principal</button>
             </div>
         </div>
 
@@ -739,7 +766,7 @@
         <div id="catalogoModal" class="modal">
             <div class="modal-header">
                 <span class="modal-title-top">JOHNNY ENRÍQUEZ • INVENTARIO</span>
-                <button class="close-btn" onclick="closeCatalogoModal()"><i class="fa-solid fa-xmark"></i></button>
+                <button class="back-btn" onclick="closeCatalogoModal()"><i class="fa-solid fa-arrow-left"></i> Regresar</button>
             </div>
 
             <div class="modal-heading">EXPLORA EL STOCK</div>
@@ -1006,13 +1033,15 @@
                 </div>
 
             </div>
+
+            <button type="button" class="modal-home-btn" onclick="closeAllModals()"><i class="fa-solid fa-house"></i> Regresar a página principal</button>
         </div>
 
         <!-- MODAL TOMA A CUENTA / COMPRAMOS TU AUTO -->
         <div id="tomaCuentaModal" class="modal">
             <div class="modal-header">
                 <span class="modal-title-top">JOHNNY ENRÍQUEZ • SEMINUEVOS CERTIFICADOS</span>
-                <button class="close-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+                <button class="back-btn" onclick="closeModal()"><i class="fa-solid fa-arrow-left"></i> Regresar</button>
             </div>
             <div class="modal-heading">¿Planeas cambiar o vender tu auto actual?</div>
             <div class="modal-main-title">Nosotros lo compramos con total seguridad bancaria</div>
@@ -1043,13 +1072,14 @@
             </div>
 
             <a href="https://wa.me/5214525003073?text=Hola,%20Johnny,%20quiero%20vender%20o%20dejar%20a%20cuenta%20mi%20auto.%20Tengo%20listos%20mis%20requisitos." class="modal-whatsapp-btn" target="_blank">Enviar Datos por WhatsApp</a>
+            <button type="button" class="modal-home-btn" onclick="closeAllModals()"><i class="fa-solid fa-house"></i> Regresar a página principal</button>
         </div>
 
         <!-- MODAL FINANCIAMIENTO -->
         <div id="financiamientoModal" class="modal">
             <div class="modal-header">
                 <span class="modal-title-top">JOHNNY ENRÍQUEZ • FINANCIAMIENTO</span>
-                <button class="close-btn" onclick="closeFinancingModal()"><i class="fa-solid fa-xmark"></i></button>
+                <button class="back-btn" onclick="closeFinancingModal()"><i class="fa-solid fa-arrow-left"></i> Regresar</button>
             </div>
             <div class="modal-heading">ÁGIL Y FLEXIBLE</div>
             <div class="modal-main-title">¿Necesitas Financiamiento?</div>
@@ -1070,10 +1100,18 @@
                     <option value="GMC Terrain Black Ed. (Próxima)">GMC Terrain Black Ed. (Próxima)</option>
                     <option value="Cadillac XT4 (Próxima)">Cadillac XT4 (Próxima)</option>
                 </select>
+                <select id="fin-months" required>
+                    <option value="" disabled selected>Selecciona el plazo (meses)</option>
+                    <option value="12 meses">12 meses</option>
+                    <option value="24 meses">24 meses</option>
+                    <option value="48 meses">48 meses</option>
+                    <option value="60 meses">60 meses</option>
+                </select>
                 <input type="tel" id="fin-phone" placeholder="Número de teléfono (10 dígitos)" required>
                 <input type="email" id="fin-email" placeholder="Correo electrónico" required>
                 <input type="number" id="fin-income" placeholder="Ingresos fijos mensuales ($)" required>
                 <button onclick="sendFinancingForm()" class="modal-whatsapp-btn" style="margin-top: 5px;">¡Solicitar Cotización!</button>
+                <button type="button" class="modal-home-btn" onclick="closeAllModals()"><i class="fa-solid fa-house"></i> Regresar a página principal</button>
             </div>
         </div>
 
@@ -1252,6 +1290,10 @@
         function openCatalogoModal() { document.getElementById('catalogoModal').style.display = 'block'; }
         function closeCatalogoModal() { document.getElementById('catalogoModal').style.display = 'none'; }
 
+        function closeAllModals() {
+            document.querySelectorAll('.modal').forEach(m => m.style.display = 'none');
+        }
+
         function openFinancingModalWithCar(carName) {
             closeCatalogoModal();
             let selectCar = document.getElementById('fin-car');
@@ -1360,15 +1402,16 @@
 
         function sendFinancingForm() {
             let car = document.getElementById('fin-car').value;
+            let months = document.getElementById('fin-months').value;
             let phone = document.getElementById('fin-phone').value;
             let email = document.getElementById('fin-email').value;
             let income = document.getElementById('fin-income').value;
 
-            if(!car || !phone || !email || !income) {
+            if(!car || !months || !phone || !email || !income) {
                 alert('Por favor, completa los campos requeridos.');
                 return;
             }
-            let mensaje = `Hola Johnny, quiero solicitar mi cotización para el ${car}. Mi cel: ${phone}`;
+            let mensaje = `Hola Johnny, quiero solicitar mi cotización para el ${car} a un plazo de ${months}. Mi cel: ${phone}`;
             window.open(`https://wa.me/5214525003073?text=${encodeURIComponent(mensaje)}`, '_blank');
         }
         
