@@ -530,13 +530,13 @@
         }
         .modal-whatsapp-btn:hover { transform: scale(1.02); }
 
-        /* --- MODAL PERSONALIZADA DE ÉXITO --- */
+        /* --- MODAL PERSONALIZADA DE ÉXITO (MANOS ENTRELAZADAS) --- */
         #custom-success-modal {
             display: none;
             position: absolute;
             inset: 0;
-            background: rgba(7, 11, 18, 0.92);
-            backdrop-filter: blur(10px);
+            background: rgba(7, 11, 18, 0.94);
+            backdrop-filter: blur(12px);
             z-index: 99999;
             justify-content: center;
             align-items: center;
@@ -544,50 +544,52 @@
         }
 
         .success-box {
-            background: rgba(13, 27, 51, 0.95);
-            border: 2px solid rgba(100, 181, 246, 0.5);
-            border-radius: 24px;
-            padding: 30px 20px;
+            background: rgba(13, 27, 51, 0.98);
+            border: 2px solid rgba(100, 181, 246, 0.6);
+            border-radius: 28px;
+            padding: 35px 25px;
             text-align: center;
-            max-width: 310px;
+            max-width: 320px;
             width: 100%;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 20px rgba(47, 128, 237, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9), 0 0 25px rgba(47, 128, 237, 0.4);
             animation: fadeIn 0.3s ease;
         }
 
         .success-icon {
-            font-size: 2.8rem;
+            font-size: 3.2rem;
             color: #64b5f6;
             margin-bottom: 15px;
+            text-shadow: 0 0 15px rgba(100, 181, 246, 0.5);
         }
 
         .success-box h3 {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: #ffffff;
             font-weight: 700;
             margin-bottom: 10px;
         }
 
         .success-box p {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: #b0bec5;
-            line-height: 1.4;
-            margin-bottom: 20px;
+            line-height: 1.5;
+            margin-bottom: 25px;
         }
 
         .success-btn {
             background: linear-gradient(135deg, #1976d2, #0d47a1);
             color: #ffffff;
             border: none;
-            padding: 12px 25px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.9rem;
+            padding: 14px 30px;
+            border-radius: 25px;
+            font-weight: 650;
+            font-size: 0.95rem;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(13, 71, 161, 0.4);
+            box-shadow: 0 8px 20px rgba(13, 71, 161, 0.5);
             transition: transform 0.2s;
+            width: 100%;
         }
-        .success-btn:hover { transform: scale(1.05); }
+        .success-btn:hover { transform: scale(1.03); }
 
         /* --- MODAL DE AGENDAMIENTO CON SELECTORES --- */
         #agendarModal {
@@ -612,12 +614,12 @@
         </div>
     </div>
 
-    <!-- MODAL PERSONALIZADO DE ÉXITO -->
+    <!-- MODAL PERSONALIZADO DE ÉXITO (TRATO CERRADO) -->
     <div id="custom-success-modal">
         <div class="success-box">
             <div class="success-icon"><i class="fa-solid fa-handshake"></i></div>
-            <h3>¡Listo!</h3>
-            <p>Tus datos se han registrado en la lista de espera. Te avisaremos en cuanto haya novedades.</p>
+            <h3>¡Trato Cerrado!</h3>
+            <p>Johnny Enríquez te agradece tu confianza. ¡Nos vemos pronto en piso para atenderte como te mereces!</p>
             <button class="success-btn" onclick="closeSuccessModal()">Aceptar</button>
         </div>
     </div>
@@ -1077,6 +1079,76 @@
 
     </div>
 
+    <!-- SCRIPTS DE FIREBASE Y GUARDADO DIRECTO -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDMD5V1nEg_SmV7VdlZ1--HJfc3_zeb7sg",
+            authDomain: "agenda-inteligente-b43d9.firebaseapp.com",
+            projectId: "agenda-inteligente-b43d9",
+            storageBucket: "agenda-inteligente-b43d9.firebasestorage.app",
+            messagingSenderId: "76660144842",
+            appId: "1:76660144842:web:cdc3b2a5122ea448f39233"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        window.enviarFormularioAgendarFirebase = async function() {
+            let nombre = document.getElementById('ag-nombre').value.trim();
+            let telefono = document.getElementById('ag-telefono').value.trim();
+            
+            if(!nombre || !telefono) {
+                alert('Por favor, ingresa tu nombre y número de WhatsApp.');
+                return;
+            }
+
+            let identificadorAuto = '';
+            let fecha = '';
+            let hora = '';
+
+            if(tipoAgendamientoActual === 'general') {
+                let cat = document.getElementById('ag-extra-val').value;
+                identificadorAuto = `Interesado en ${cat}`;
+                fecha = document.getElementById('ag-fecha').value;
+                hora = document.getElementById('ag-hora').value;
+            } else if(tipoAgendamientoActual === 'auto') {
+                identificadorAuto = autoSeleccionadoActual;
+                fecha = document.getElementById('ag-fecha').value;
+                hora = document.getElementById('ag-hora').value;
+            } else if(tipoAgendamientoActual === 'busqueda') {
+                let descBusqueda = document.getElementById('ag-extra-val').value.trim();
+                if(!descBusqueda) {
+                    alert('Por favor, especifica el auto que estás buscando.');
+                    return;
+                }
+                identificadorAuto = `Busca: ${descBusqueda}`;
+            }
+
+            try {
+                await addDoc(collection(db, "clientes"), {
+                    nombre: nombre,
+                    telefono: telefono.replace(/\D/g,''),
+                    correo: 'No proporcionado',
+                    interes: identificadorAuto,
+                    fechaCita: fecha || '',
+                    horaCita: hora || '',
+                    caliente: true,
+                    fechaCreacion: Date.now()
+                });
+
+                closeAgendarModal();
+                document.getElementById('custom-success-modal').style.display = 'flex';
+
+            } catch (e) {
+                console.error("Error al registrar en Firebase", e);
+                alert('Hubo un error al registrar la cita. Verifica tu conexión.');
+            }
+        };
+    </script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(function() {
@@ -1092,6 +1164,7 @@
 
         function generarFechasDisponibles() {
             let selectFecha = document.getElementById('ag-fecha');
+            if(!selectFecha) return;
             selectFecha.innerHTML = '';
             
             let diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
@@ -1123,6 +1196,7 @@
         function actualizarHorariosDisponibles() {
             let selectFecha = document.getElementById('ag-fecha');
             let selectHora = document.getElementById('ag-hora');
+            if(!selectFecha || !selectHora) return;
             selectHora.innerHTML = '';
 
             let optionSeleccionada = selectFecha.options[selectFecha.selectedIndex];
@@ -1190,14 +1264,11 @@
             openFinancingModal();
         }
 
-        function showSuccessModal() {
-            document.getElementById('custom-success-modal').style.display = 'flex';
-        }
         function closeSuccessModal() {
             document.getElementById('custom-success-modal').style.display = 'none';
+            location.reload();
         }
 
-        // --- SISTEMA UNIFICADO DE AGENDAMIENTO Y RASTREO ---
         let tipoAgendamientoActual = 'general';
         let autoSeleccionadoActual = '';
 
@@ -1267,40 +1338,9 @@
         function openAgendarAutoModal(autoNombre) { abrirModalAgendar('auto', autoNombre); }
 
         function enviarFormularioAgendar() {
-            let nombre = document.getElementById('ag-nombre').value.trim();
-            let telefono = document.getElementById('ag-telefono').value.trim();
-            
-            if(!nombre || !telefono) {
-                alert('Por favor, ingresa tu nombre y número de WhatsApp.');
-                return;
+            if (window.enviarFormularioAgendarFirebase) {
+                window.enviarFormularioAgendarFirebase();
             }
-
-            let identificadorAuto = '';
-            let fecha = '';
-            let hora = '';
-
-            if(tipoAgendamientoActual === 'general') {
-                let cat = document.getElementById('ag-extra-val').value;
-                identificadorAuto = `Interesado en ${cat}`;
-                fecha = document.getElementById('ag-fecha').value;
-                hora = document.getElementById('ag-hora').value;
-            } else if(tipoAgendamientoActual === 'auto') {
-                identificadorAuto = autoSeleccionadoActual;
-                fecha = document.getElementById('ag-fecha').value;
-                hora = document.getElementById('ag-hora').value;
-            } else if(tipoAgendamientoActual === 'busqueda') {
-                let descBusqueda = document.getElementById('ag-extra-val').value.trim();
-                if(!descBusqueda) {
-                    alert('Por favor, especifica el auto que estás buscando.');
-                    return;
-                }
-                identificadorAuto = `Busca: ${descBusqueda}`;
-            }
-
-            // Redirección directa al CRM en Netlify para procesar y guardar en Firebase
-            let urlCrm = `https://earnest-kringle-2a4224.netlify.app/?auto=${encodeURIComponent(identificadorAuto)}&nombre=${encodeURIComponent(nombre)}&tel=${encodeURIComponent(telefono)}&fecha=${encodeURIComponent(fecha)}&hora=${encodeURIComponent(hora)}`;
-            
-            window.location.href = urlCrm;
         }
 
         function filtrarCatalogo(categoria, elementoSeleccionado) {
