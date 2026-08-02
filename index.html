@@ -616,8 +616,8 @@
     <div id="custom-success-modal">
         <div class="success-box">
             <div class="success-icon"><i class="fa-solid fa-handshake"></i></div>
-            <h3>¡Cita hecha!</h3>
-            <p>Te agradece tu asesor Johnny Enríquez, nos vemos pronto.</p>
+            <h3>¡Listo!</h3>
+            <p>Tus datos se han registrado en la lista de espera. Te avisaremos en cuanto haya novedades.</p>
             <button class="success-btn" onclick="closeSuccessModal()">Aceptar</button>
         </div>
     </div>
@@ -628,9 +628,9 @@
             <span class="modal-title-top" id="modal-subtitulo-agendar">JOHNNY ENRÍQUEZ • AGENDA</span>
             <button class="close-btn" onclick="closeAgendarModal()"><i class="fa-solid fa-xmark"></i></button>
         </div>
-        <div class="modal-heading">RESERVA TU VISITA</div>
+        <div class="modal-heading" id="modal-heading-label">RESERVA TU VISITA</div>
         <div class="modal-main-title" id="modal-titulo-auto">Agendar Cita</div>
-        <div class="modal-desc">Selecciona el día y horario disponible para tu atención en piso.</div>
+        <div class="modal-desc" id="modal-desc-texto">Selecciona el día y horario disponible para tu atención en piso.</div>
         
         <div class="financing-form">
             <input type="text" id="ag-nombre" placeholder="Tu Nombre Completo" required>
@@ -640,17 +640,19 @@
                 <!-- Se inyecta dinámicamente si es búsqueda personalizada o categoría -->
             </div>
 
-            <label style="font-size: 0.75rem; color: #64b5f6; font-weight: 600;">Selecciona el día:</label>
-            <select id="ag-fecha" onchange="actualizarHorariosDisponibles()" required>
-                <!-- Se generan dinámicamente los próximos días de la semana -->
-            </select>
+            <div id="bloque-fecha-hora">
+                <label style="font-size: 0.75rem; color: #64b5f6; font-weight: 600;">Selecciona el día:</label>
+                <select id="ag-fecha" onchange="actualizarHorariosDisponibles()" required>
+                    <!-- Se generan dinámicamente los próximos días de la semana -->
+                </select>
 
-            <label style="font-size: 0.75rem; color: #64b5f6; font-weight: 600;">Selecciona el horario:</label>
-            <select id="ag-hora" required>
-                <!-- Se actualiza automáticamente según el día -->
-            </select>
+                <label style="font-size: 0.75rem; color: #64b5f6; font-weight: 600; margin-top: 10px; display:block;">Selecciona el horario:</label>
+                <select id="ag-hora" required>
+                    <!-- Se actualiza automáticamente según el día -->
+                </select>
+            </div>
 
-            <button onclick="enviarFormularioAgendar()" class="modal-whatsapp-btn" style="margin-top: 5px;">Confirmar Cita</button>
+            <button onclick="enviarFormularioAgendar()" class="modal-whatsapp-btn" style="margin-top: 5px;" id="btn-confirmar-texto">Confirmar Cita</button>
         </div>
     </div>
 
@@ -760,7 +762,7 @@
 
             <div id="lista-autos-inventario">
                 
-                <!-- 1. Fiat Mobi Trekking (Promoción Principal) -->
+                <!-- 1. Fiat Mobi Trekking -->
                 <div class="tarjeta-auto-modal" data-categoria="hatchback">
                     <span class="badge-estado" style="color:#ff5252; border-color: rgba(255, 82, 82, 0.4);">🔥 Súper Promoción</span>
                     <img src="imagenes/autos/mobi.jpg" alt="Fiat Mobi Trekking" onerror="this.src='https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=500'">
@@ -779,7 +781,7 @@
                     </div>
                 </div>
 
-                <!-- 2. Fiat Argo Precision (Promoción Principal) -->
+                <!-- 2. Fiat Argo Precision -->
                 <div class="tarjeta-auto-modal" data-categoria="hatchback">
                     <span class="badge-estado" style="color:#ff5252; border-color: rgba(255, 82, 82, 0.4);">🔥 Súper Promoción</span>
                     <img src="imagenes/autos/argo.jpg" alt="Fiat Argo Precision" onerror="this.src='https://images.unsplash.com/photo-1550355191-aa8f8bd36209?w=500'">
@@ -1004,7 +1006,7 @@
             </div>
         </div>
 
-        <!-- MODAL TOMA A CUENTA / COMPRAMOS TU AUTO (CON TUS BLOQUES NUMERADOS 01 A 04) -->
+        <!-- MODAL TOMA A CUENTA / COMPRAMOS TU AUTO -->
         <div id="tomaCuentaModal" class="modal">
             <div class="modal-header">
                 <span class="modal-title-top">JOHNNY ENRÍQUEZ • SEMINUEVOS CERTIFICADOS</span>
@@ -1014,7 +1016,6 @@
             <div class="modal-main-title">Nosotros lo compramos con total seguridad bancaria</div>
             <div class="modal-desc">Evita los peligros de negociar con particulares y los fraudes digitales. Te ofrezco un proceso transparente, valuación justa en piso de venta y una transacción blindada de cuenta a cuenta. Iniciamos tu análisis preliminar con solo 4 datos básicos:</div>
             
-            <!-- Bloques 01 al 04 exactos de tu foto -->
             <div class="requisito-card">
                 <h4>Ficha Técnica</h4>
                 <p>Marca, línea, año y la versión exacta de tu unidad actual.</p>
@@ -1131,13 +1132,10 @@
             let horasPermitidas = [];
 
             if (diaIndex === 0) {
-                // Domingo: 11:00 AM a 3:00 PM
                 horasPermitidas = ["11:00 AM", "12:00 PM", "01:00 PM", "02:00 PM", "03:00 PM"];
             } else if (diaIndex === 6) {
-                // Sábado: 9:00 AM a 5:00 PM
                 horasPermitidas = ["09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM"];
             } else {
-                // Lunes a Viernes: 9:00 AM a 7:00 PM
                 horasPermitidas = ["09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM", "06:00 PM", "07:00 PM"];
             }
 
@@ -1152,7 +1150,6 @@
         function openModal() { document.getElementById('tomaCuentaModal').style.display = 'block'; }
         function closeModal() { document.getElementById('tomaCuentaModal').style.display = 'none'; }
         
-        // --- BOTÓN PROMOCIONES DIRECTO AL CATÁLOGO EN SECCIÓN PROMOS ---
         function openPromoModal() { 
             openCatalogoModal();
             filtrarCatalogoPorPromos();
@@ -1200,7 +1197,7 @@
             document.getElementById('custom-success-modal').style.display = 'none';
         }
 
-        // --- SISTEMA UNIFICADO DE AGENDAMIENTO ---
+        // --- SISTEMA UNIFICADO DE AGENDAMIENTO Y RASTREO ---
         let tipoAgendamientoActual = 'general';
         let autoSeleccionadoActual = '';
 
@@ -1216,11 +1213,16 @@
             document.getElementById('ag-telefono').value = '';
             
             let contenedorExtra = document.getElementById('campo-extra-container');
+            let bloqueFechaHora = document.getElementById('bloque-fecha-hora');
             contenedorExtra.innerHTML = '';
 
             if(tipo === 'general') {
+                document.getElementById('modal-heading-label').textContent = 'RESERVA TU VISITA';
                 document.getElementById('modal-titulo-auto').textContent = 'Agendar Cita General';
                 document.getElementById('modal-subtitulo-agendar').textContent = 'JOHNNY ENRÍQUEZ • AGENDA';
+                document.getElementById('modal-desc-texto').textContent = 'Selecciona el día y horario disponible para tu atención en piso.';
+                bloqueFechaHora.style.display = 'block';
+                document.getElementById('btn-confirmar-texto').textContent = 'Confirmar Cita';
                 contenedorExtra.innerHTML = `
                     <label style="font-size: 0.75rem; color: #64b5f6; font-weight: 600;">Categoría o Interés:</label>
                     <select id="ag-extra-val">
@@ -1233,11 +1235,19 @@
                     </select>
                 `;
             } else if(tipo === 'auto') {
+                document.getElementById('modal-heading-label').textContent = 'RESERVA TU VISITA';
                 document.getElementById('modal-titulo-auto').textContent = autoNombre;
                 document.getElementById('modal-subtitulo-agendar').textContent = 'JOHNNY ENRÍQUEZ • APARTADO';
+                document.getElementById('modal-desc-texto').textContent = 'Selecciona el día y horario disponible para tu atención en piso.';
+                bloqueFechaHora.style.display = 'block';
+                document.getElementById('btn-confirmar-texto').textContent = 'Confirmar Cita';
             } else if(tipo === 'busqueda') {
+                document.getElementById('modal-heading-label').textContent = 'LISTA DE ESPERA';
                 document.getElementById('modal-titulo-auto').textContent = 'Búsqueda Personalizada';
                 document.getElementById('modal-subtitulo-agendar').textContent = 'JOHNNY ENRÍQUEZ • RASTREO';
+                document.getElementById('modal-desc-texto').textContent = 'Déjanos tus datos y qué auto buscas para avisarte en cuanto llegue.';
+                bloqueFechaHora.style.display = 'none'; // Se oculta fecha y hora porque es lista de espera
+                document.getElementById('btn-confirmar-texto').textContent = 'Guardar en Lista de Espera';
                 contenedorExtra.innerHTML = `
                     <label style="font-size: 0.75rem; color: #64b5f6; font-weight: 600;">¿Qué auto o características buscas?</label>
                     <input type="text" id="ag-extra-val" placeholder="Ej. Ford Territory Titanium, color blanco..." required>
@@ -1259,20 +1269,25 @@
         function enviarFormularioAgendar() {
             let nombre = document.getElementById('ag-nombre').value.trim();
             let telefono = document.getElementById('ag-telefono').value.trim();
-            let fecha = document.getElementById('ag-fecha').value;
-            let hora = document.getElementById('ag-hora').value;
-
+            
             if(!nombre || !telefono) {
                 alert('Por favor, ingresa tu nombre y número de WhatsApp.');
                 return;
             }
 
             let identificadorAuto = '';
+            let fecha = '';
+            let hora = '';
+
             if(tipoAgendamientoActual === 'general') {
                 let cat = document.getElementById('ag-extra-val').value;
                 identificadorAuto = `Interesado en ${cat}`;
+                fecha = document.getElementById('ag-fecha').value;
+                hora = document.getElementById('ag-hora').value;
             } else if(tipoAgendamientoActual === 'auto') {
                 identificadorAuto = autoSeleccionadoActual;
+                fecha = document.getElementById('ag-fecha').value;
+                hora = document.getElementById('ag-hora').value;
             } else if(tipoAgendamientoActual === 'busqueda') {
                 let descBusqueda = document.getElementById('ag-extra-val').value.trim();
                 if(!descBusqueda) {
@@ -1280,6 +1295,7 @@
                     return;
                 }
                 identificadorAuto = `Busca: ${descBusqueda}`;
+                // Fecha y hora quedan vacías intencionalmente para la lista de espera
             }
 
             let urlCrm = `https://earnest-kringle-2a4224.netlify.app/?auto=${encodeURIComponent(identificadorAuto)}&nombre=${encodeURIComponent(nombre)}&tel=${encodeURIComponent(telefono)}&fecha=${encodeURIComponent(fecha)}&hora=${encodeURIComponent(hora)}`;
