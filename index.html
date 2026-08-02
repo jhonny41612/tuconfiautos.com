@@ -1266,7 +1266,7 @@
         function openBusquedaPersonalizadaFormFromCatalog() { abrirModalAgendar('busqueda'); }
         function openAgendarAutoModal(autoNombre) { abrirModalAgendar('auto', autoNombre); }
 
-        function enviarFormularioAgendar() {
+        async function enviarFormularioAgendar() {
             let nombre = document.getElementById('ag-nombre').value.trim();
             let telefono = document.getElementById('ag-telefono').value.trim();
             
@@ -1295,15 +1295,33 @@
                     return;
                 }
                 identificadorAuto = `Busca: ${descBusqueda}`;
-                // Fecha y hora quedan vacías intencionalmente para la lista de espera
+                fecha = ''; 
+                hora = '';
             }
 
-            let urlCrm = `https://earnest-kringle-2a4224.netlify.app/?auto=${encodeURIComponent(identificadorAuto)}&nombre=${encodeURIComponent(nombre)}&tel=${encodeURIComponent(telefono)}&fecha=${encodeURIComponent(fecha)}&hora=${encodeURIComponent(hora)}`;
-            
-            fetch(urlCrm, { mode: 'no-cors' }).catch(() => {});
+            let datosCliente = {
+                nombre: nombre, 
+                telefono: telefono.replace(/\D/g,''),
+                correo: 'Desde Tarjeta Digital',
+                interes: identificadorAuto,
+                fechaCita: fecha, 
+                horaCita: hora, 
+                caliente: true, 
+                fechaCreacion: Date.now()
+            };
 
-            closeAgendarModal();
-            showSuccessModal();
+            if (window.guardarEnNube) {
+                try {
+                    await window.guardarEnNube(datosCliente);
+                    closeAgendarModal();
+                    showSuccessModal();
+                } catch (error) {
+                    console.error("Error al agendar:", error);
+                    alert("No pudimos conectar con la agenda. Revisa tu conexión a internet.");
+                }
+            } else {
+                alert("Cargando sistema seguro, intenta presionar en un segundo...");
+            }
         }
 
         function filtrarCatalogo(categoria, elementoSeleccionado) {
@@ -1349,6 +1367,28 @@
                 alert('Enlace copiado: https://tuconfiautos.com');
             }
         }
+    </script>
+
+    <!-- CONEXIÓN DIRECTA CON FIREBASE (CRM) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDMD5V1nEg_SmV7VdlZ1--HJfc3_zeb7sg",
+            authDomain: "agenda-inteligente-b43d9.firebaseapp.com",
+            projectId: "agenda-inteligente-b43d9",
+            storageBucket: "agenda-inteligente-b43d9.firebasestorage.app",
+            messagingSenderId: "76660144842",
+            appId: "1:76660144842:web:cdc3b2a5122ea448f39233"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        
+        window.guardarEnNube = async function(datos) {
+            await addDoc(collection(db, "clientes"), datos);
+        };
     </script>
 </body>
 </html>
