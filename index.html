@@ -651,7 +651,7 @@
         <div class="modal-main-title">¿Aún no encuentras tu auto ideal?</div>
         <div class="modal-desc">Antes de irte, dinos qué auto buscas o contáctanos directamente para enviarte fotos, promociones y el inventario actualizado al instante.</div>
        
-        <a href="https://wa.me/5214525003073?text=Hola%20Johnny,%20estuve%20en%20tu%20p%C3%A1gina%20y%20me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa%20con%20las%20unidades%20disponibles." class="modal-whatsapp-btn" target="_blank">
+        <a id="btn-wa-exit" href="https://wa.me/5214525003073?text=Hola%20Johnny,%20estuve%20en%20tu%20p%C3%A1gina%20y%20me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa%20con%20las%20unidades%20disponibles." class="modal-whatsapp-btn" target="_blank">
             <i class="fa-brands fa-whatsapp"></i> Contactar por WhatsApp ahora
         </a>
        
@@ -705,7 +705,7 @@
        
         <div class="quick-actions">
             <a href="tel:+524525003073" class="circle-btn" title="Llamar"><i class="fa-solid fa-phone"></i></a>
-            <a href="https://wa.me/5214525003073?text=Hola,%20Johnny,%20estoy%20interesado%20en%20ver%20el%20inventario" class="circle-btn whatsapp" target="_blank" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+            <a id="btn-wa-principal" href="https://wa.me/5214525003073?text=Hola,%20Johnny,%20estoy%20interesado%20en%20ver%20el%20inventario" class="circle-btn whatsapp" target="_blank" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
             <a href="mailto:johnnyenriquez@famemedina.com" class="circle-btn" title="Correo"><i class="fa-solid fa-envelope"></i></a>
             <a href="https://maps.google.com/?q=Fame+Seminuevos+Uruapan+La+Pineda" class="circle-btn" target="_blank" title="Ubicación"><i class="fa-solid fa-location-dot"></i></a>
         </div>
@@ -791,7 +791,6 @@
                 <button class="chip-filtro" onclick="filtrarCatalogo('proximas', this)">⏳ Próximas Unidades</button>
             </div>
 
-            <!-- AQUÍ SE INYECTAN LOS AUTOS DESDE AUTOS.JSON -->
             <div id="lista-autos-inventario"></div>
 
             <button type="button" class="modal-home-btn" onclick="closeAllModals()"><i class="fa-solid fa-house"></i> Regresar a página principal</button>
@@ -835,7 +834,6 @@
             <button type="button" class="modal-home-btn" onclick="closeAllModals()"><i class="fa-solid fa-house"></i> Regresar a página principal</button>
         </div>
 
-        <!-- MODAL FINANCIAMIENTO (LLENADO AUTOMÁTICO) -->
         <div id="financiamientoModal" class="modal">
             <div class="modal-header">
                 <span class="modal-title-top">JOHNNY ENRÍQUEZ • FINANCIAMIENTO</span>
@@ -865,7 +863,7 @@
 
     </div>
 
-    <!-- SCRIPTS DE FIREBASE Y GUARDADO DIRECTO -->
+    <!-- SCRIPTS DE FIREBASE Y GUARDADO DIRECTO CON RASTREO DE ORIGEN -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
         import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
@@ -913,12 +911,15 @@
                 identificadorAuto = `Busca: ${descBusqueda}`;
             }
 
+            let origenRastreado = sessionStorage.getItem('origen_cliente') || 'Directo / Web';
+
             try {
                 await addDoc(collection(db, "clientes"), {
                     nombre: nombre,
                     telefono: telefono.replace(/\D/g,''),
                     correo: 'No proporcionado',
                     interes: identificadorAuto,
+                    origen: origenRastreado,
                     fechaCita: fecha || '',
                     horaCita: hora || '',
                     caliente: true,
@@ -939,6 +940,29 @@
         let inventarioAutos = [];
 
         document.addEventListener('DOMContentLoaded', function() {
+            // DETECTAR PARÁMETRO DE ORIGEN EN LA URL (EJ. ?origen=El%20Encanto)
+            const urlParams = new URLSearchParams(window.location.search);
+            const origenParam = urlParams.get('origen');
+            if (origenParam) {
+                sessionStorage.setItem('origen_cliente', origenParam);
+            }
+
+            // AJUSTAR BOTONES DE WHATSAPP SI EXISTE UN ORIGEN REGISTRADO
+            const origenFinal = sessionStorage.getItem('origen_cliente');
+            if (origenFinal) {
+                const btnWaP = document.getElementById('btn-wa-principal');
+                if (btnWaP) {
+                    const msj = `Hola Johnny, vi tu tarjeta en ${origenFinal} y me interesa ver el inventario.`;
+                    btnWaP.href = `https://wa.me/5214525003073?text=${encodeURIComponent(msj)}`;
+                }
+
+                const btnWaExit = document.getElementById('btn-wa-exit');
+                if (btnWaExit) {
+                    const msjExit = `Hola Johnny, estuve en tu página (vía ${origenFinal}) y me gustaría recibir información.`;
+                    btnWaExit.href = `https://wa.me/5214525003073?text=${encodeURIComponent(msjExit)}`;
+                }
+            }
+
             setTimeout(function() {
                 const splashScreen = document.getElementById('splash-screen');
                 if (splashScreen) {
@@ -1243,7 +1267,8 @@
                 alert('Por favor, completa los campos requeridos.');
                 return;
             }
-            let mensaje = `Hola Johnny, quiero solicitar mi cotización para el ${car} a un plazo de ${months}. Mi cel: ${phone}`;
+            let origen = sessionStorage.getItem('origen_cliente') ? ` (vía ${sessionStorage.getItem('origen_cliente')})` : '';
+            let mensaje = `Hola Johnny, quiero solicitar mi cotización para el ${car}${origen} a un plazo de ${months}. Mi cel: ${phone}`;
             window.open(`https://wa.me/5214525003073?text=${encodeURIComponent(mensaje)}`, '_blank');
         }
        
@@ -1251,7 +1276,8 @@
             let nombre = document.getElementById('promo-nombre').value;
             let codigo = document.getElementById('promo-codigo').value;
             if(!nombre || !codigo) return alert('Ingresa nombre y código.');
-            window.open(`https://wa.me/5214525003073?text=Mi%20nombre%20es%20${encodeURIComponent(nombre)}%20y%20mi%20código%20es%20${encodeURIComponent(codigo)}`, '_blank');
+            let origen = sessionStorage.getItem('origen_cliente') ? ` (vía ${sessionStorage.getItem('origen_cliente')})` : '';
+            window.open(`https://wa.me/5214525003073?text=Mi%20nombre%20es%20${encodeURIComponent(nombre)}%20y%20mi%20código%20es%20${encodeURIComponent(codigo)}${encodeURIComponent(origen)}`, '_blank');
         }
 
         function shareCard() {
