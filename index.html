@@ -863,7 +863,7 @@
 
     </div>
 
-    <!-- SCRIPTS DE FIREBASE Y GUARDADO DIRECTO CON RASTREO DINÁMICO DE ORIGEN -->
+    <!-- SCRIPTS DE FIREBASE Y GUARDADO DIRECTO CON RASTREO DE ORIGEN -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
         import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
@@ -940,7 +940,7 @@
         let inventarioAutos = [];
 
         document.addEventListener('DOMContentLoaded', function() {
-            // DETECTAR Y GUARDAR CUALQUIER ORIGEN DESDE EL PARÁMETRO URL (?origen=...)
+            // DETECTAR PARÁMETRO DE ORIGEN EN LA URL (EJ. ?origen=Restaurante%20El%20Encanto)
             const urlParams = new URLSearchParams(window.location.search);
             const origenParam = urlParams.get('origen');
             if (origenParam) {
@@ -949,21 +949,21 @@
 
             const origenFinal = sessionStorage.getItem('origen_cliente');
             if (origenFinal) {
-                // 1. Ajustar Botón Principal de WhatsApp
+                // 1. WhatsApp Principal
                 const btnWaP = document.getElementById('btn-wa-principal');
                 if (btnWaP) {
                     const msj = `Hola Johnny, vi tu tarjeta en ${origenFinal} y me interesa ver el inventario.`;
                     btnWaP.href = `https://wa.me/5214525003073?text=${encodeURIComponent(msj)}`;
                 }
 
-                // 2. Ajustar Botón de WhatsApp en Modal de Retención (Salida)
+                // 2. WhatsApp Modal de Salida
                 const btnWaExit = document.getElementById('btn-wa-exit');
                 if (btnWaExit) {
                     const msjExit = `Hola Johnny, estuve en tu página (vía ${origenFinal}) y me gustaría recibir información.`;
                     btnWaExit.href = `https://wa.me/5214525003073?text=${encodeURIComponent(msjExit)}`;
                 }
 
-                // 3. Ajustar Botón de WhatsApp en Modal "Compramos tu auto"
+                // 3. WhatsApp "Compramos tu auto"
                 const btnTomaCuenta = document.querySelector('#tomaCuentaModal .modal-whatsapp-btn');
                 if (btnTomaCuenta) {
                     const msjToma = `Hola Johnny, quiero vender o dejar a cuenta mi auto (vía ${origenFinal}). Tengo listos mis requisitos.`;
@@ -1017,6 +1017,7 @@
                 card.setAttribute('data-categoria', auto.categoria);
 
                 let btnGaleria = '';
+                // SI EL AUTO TIENE DRIVE, SE MANTIENE EL BOTÓN DE GALERÍA DE GOOGLE DRIVE DIRECTO
                 if(auto.galeria && auto.galeria.trim() !== '') {
                     btnGaleria = `<a href="${auto.galeria}" target="_blank" class="btn-card-modal btn-galeria">Galería</a>`;
                 } else {
