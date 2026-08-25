@@ -99,7 +99,7 @@
             visibility: hidden;
         }
 
-        /* Contenedor principal (Celular / Adaptativo PC) */
+        /* Contenedor principal */
         .smart-card {
             width: 100%;
             max-width: 380px;
@@ -114,7 +114,6 @@
             transition: max-width 0.3s ease;
         }
 
-        /* Vista optimizada para PC / Computadoras */
         @media (min-width: 768px) {
             .smart-card {
                 max-width: 550px;
@@ -150,7 +149,7 @@
             z-index: 3;
         }
 
-        /* Perfil Modificado */
+        /* Perfil */
         .profile-section {
             text-align: center;
             margin-top: -85px;
@@ -389,15 +388,12 @@
             box-shadow: 0 4px 15px rgba(13, 71, 161, 0.4);
             transition: all 0.3s ease;
         }
-        .modal-home-btn:hover {
-            transform: scale(1.02);
-        }
+        .modal-home-btn:hover { transform: scale(1.02); }
 
         .modal-heading { font-size: 0.8rem; color: #ffb300; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; font-weight: 600; }
         .modal-main-title { font-size: 1.25rem; font-weight: 700; color: #ffffff; margin-bottom: 12px; line-height: 1.2; }
         .modal-desc { font-size: 0.8rem; color: #b0bec5; line-height: 1.4; margin-bottom: 20px; }
 
-        /* Estilo Exacto de las Tarjetas de Requisitos ("Compramos tu auto") */
         .requisito-card {
             background: rgba(21, 40, 74, 0.75);
             border: 1px solid rgba(100, 181, 246, 0.3);
@@ -407,17 +403,8 @@
             position: relative;
             overflow: hidden;
         }
-        .requisito-card h4 {
-            font-size: 0.95rem;
-            color: #64b5f6;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-        .requisito-card p {
-            font-size: 0.78rem;
-            color: #cbd5e1;
-            line-height: 1.35;
-        }
+        .requisito-card h4 { font-size: 0.95rem; color: #64b5f6; font-weight: 700; margin-bottom: 4px; }
+        .requisito-card p { font-size: 0.78rem; color: #cbd5e1; line-height: 1.35; }
         .requisito-numero {
             position: absolute;
             right: 12px;
@@ -428,7 +415,6 @@
             line-height: 1;
         }
 
-        /* Catálogo Integrado */
         .filtros-scroll {
             display: flex;
             gap: 10px;
@@ -466,11 +452,11 @@
         .info-auto-modal h3 { font-size: 1rem; color: white; margin-bottom: 8px; }
         .info-auto-modal ul { list-style: none; font-size: 0.75rem; color: #b0bec5; margin-bottom: 10px; display: flex; flex-direction: column; gap: 4px; }
         .precio-modal { font-size: 1.1rem; font-weight: 700; color: #ffb300; margin-bottom: 12px; }
-        
-        .botones-auto-modal { 
-            display: flex; 
-            gap: 6px; 
-            flex-wrap: wrap; 
+       
+        .botones-auto-modal {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
         }
 
         .btn-card-modal {
@@ -532,7 +518,6 @@
         .banner-no-ideal-foto h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 4px; color: #1e3a8a; }
         .banner-no-ideal-foto p { font-size: 0.72rem; color: #475569; line-height: 1.3; }
 
-        /* Formularios y Tarjetas de Cita */
         .financing-form {
             display: flex;
             flex-direction: column;
@@ -577,7 +562,6 @@
         }
         .modal-whatsapp-btn:hover { transform: scale(1.02); }
 
-        /* --- MODAL PERSONALIZADA DE ÉXITO (TRATO CERRADO) --- */
         #custom-success-modal {
             display: none;
             position: absolute;
@@ -609,19 +593,8 @@
             text-shadow: 0 0 15px rgba(100, 181, 246, 0.5);
         }
 
-        .success-box h3 {
-            font-size: 1.3rem;
-            color: #ffffff;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .success-box p {
-            font-size: 0.9rem;
-            color: #b0bec5;
-            line-height: 1.5;
-            margin-bottom: 25px;
-        }
+        .success-box h3 { font-size: 1.3rem; color: #ffffff; font-weight: 700; margin-bottom: 10px; }
+        .success-box p { font-size: 0.9rem; color: #b0bec5; line-height: 1.5; margin-bottom: 25px; }
 
         .success-btn {
             background: linear-gradient(135deg, #1976d2, #0d47a1);
@@ -638,7 +611,6 @@
         }
         .success-btn:hover { transform: scale(1.03); }
 
-        /* --- MODAL DE AGENDAMIENTO --- */
         #agendarModal {
             display: none;
             position: absolute;
@@ -661,7 +633,6 @@
         </div>
     </div>
 
-    <!-- MODAL PERSONALIZADO DE ÉXITO (TRATO CERRADO) -->
     <div id="custom-success-modal">
         <div class="success-box">
             <div class="success-icon"><i class="fa-solid fa-handshake"></i></div>
@@ -671,7 +642,6 @@
         </div>
     </div>
 
-    <!-- MODAL DE RETENCIÓN AL PRESIONAR BOTÓN DE ATRÁS EN NAVEGADOR -->
     <div id="exitModal" class="modal">
         <div class="modal-header">
             <span class="modal-title-top">JOHNNY ENRÍQUEZ • ATENCIÓN PERSONALIZADA</span>
@@ -680,21 +650,20 @@
         <div class="modal-heading" style="color:#ff5252;">🛑 ¡UN MOMENTO!</div>
         <div class="modal-main-title">¿Aún no encuentras tu auto ideal?</div>
         <div class="modal-desc">Antes de irte, dinos qué auto buscas o contáctanos directamente para enviarte fotos, promociones y el inventario actualizado al instante.</div>
-        
+       
         <a href="https://wa.me/5214525003073?text=Hola%20Johnny,%20estuve%20en%20tu%20p%C3%A1gina%20y%20me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa%20con%20las%20unidades%20disponibles." class="modal-whatsapp-btn" target="_blank">
             <i class="fa-brands fa-whatsapp"></i> Contactar por WhatsApp ahora
         </a>
-        
+       
         <button type="button" class="modal-home-btn" onclick="stayOnPage()" style="margin-top: 10px;">
             <i class="fa-solid fa-house"></i> Regresar al Inicio / Quedarme aquí
         </button>
-        
+       
         <button type="button" onclick="realExit()" style="background: transparent; border: none; color: #94a3b8; font-size: 0.8rem; width: 100%; text-decoration: underline; cursor: pointer; margin-top: 5px;">
             Salir de la página
         </button>
     </div>
 
-    <!-- MODAL UNIFICADO DE AGENDAMIENTO CON SELECTORES -->
     <div id="agendarModal" class="modal">
         <div class="modal-header">
             <span class="modal-title-top" id="modal-subtitulo-agendar">JOHNNY ENRÍQUEZ • AGENDA</span>
@@ -779,7 +748,6 @@
             <p class="footer-title">Asesor Automotriz Autorizado • Fame Seminuevos</p>
         </div>
 
-        <!-- MODAL CÓDIGO PROMOCIONAL -->
         <div id="codigoModal" class="modal">
             <div class="modal-header">
                 <span class="modal-title-top">JOHNNY ENRÍQUEZ • ALIANZAS</span>
@@ -796,7 +764,7 @@
             </div>
         </div>
 
-        <!-- MODAL CATÁLOGO DE INVENTARIO COMPLETO -->
+        <!-- MODAL CATÁLOGO (CARGA DINÁMICA VIA JSON) -->
         <div id="catalogoModal" class="modal">
             <div class="modal-header">
                 <span class="modal-title-top">JOHNNY ENRÍQUEZ • INVENTARIO</span>
@@ -823,270 +791,12 @@
                 <button class="chip-filtro" onclick="filtrarCatalogo('proximas', this)">⏳ Próximas Unidades</button>
             </div>
 
-            <div id="lista-autos-inventario">
-               
-                <!-- 1. Fiat Mobi Trekking -->
-                <div class="tarjeta-auto-modal" data-categoria="hatchback">
-                    <span class="badge-estado" style="color:#ff5252; border-color: rgba(255, 82, 82, 0.4);">🔥 Súper Promoción</span>
-                    <img src="imagenes/autos/mobi.jpg" alt="Fiat Mobi Trekking" onerror="this.src='https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=500'">
-                    <div class="info-auto-modal">
-                        <h3>Fiat Mobi Trekking</h3>
-                        <ul>
-                            <li><strong>Modelo:</strong> 2024 | <strong>KM:</strong> 34,409</li>
-                            <li><strong>Motor:</strong> 1.0L (Hasta 18 KM/L)</li>
-                        </ul>
-                        <div class="precio-modal">$199,900 MXN</div>
-                        <div class="botones-auto-modal">
-                            <a href="https://drive.google.com/drive/folders/1EeJ3TZ6jZYIE2VtLuBuD_lycElItelA8" target="_blank" class="btn-card-modal btn-galeria">Galería</a>
-                            <a href="https://wa.me/5214525003073?text=Hola%20Johnny,%20me%20gustar%C3%ADa%20recibir%20el%20video%20del%20Fiat%20Mobi%20Trekking%202024." target="_blank" class="btn-card-modal btn-video-wa"><i class="fa-solid fa-video"></i> Pedir Video</a>
-                            <button onclick="openFinancingModalWithCar('Fiat Mobi Trekking 2024')" class="btn-card-modal btn-cotizar-auto">Cotizar</button>
-                            <button onclick="openAgendarAutoModal('Fiat Mobi Trekking 2024')" class="btn-card-modal btn-agendar-auto">Agendar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 2. Chevrolet Montana RS 2025 (Unidad 1) -->
-                <div class="tarjeta-auto-modal" data-categoria="pickup">
-                    <span class="badge-estado" style="color:#ff5252; border-color: rgba(255, 82, 82, 0.4);">🔥 Súper Promoción</span>
-                    <img src="imagenes/autos/montana.jpg" alt="Chevrolet Montana RS" onerror="this.src='https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=500'">
-                    <div class="info-auto-modal">
-                        <h3>Chevrolet Montana RS</h3>
-                        <ul>
-                            <li><strong>Modelo:</strong> 2025 | <strong>KM:</strong> 10,253</li>
-                            <li><strong>Versión:</strong> RS Deportiva | Doble Cabina</li>
-                        </ul>
-                        <div class="precio-modal">$448,000 MXN</div>
-                        <div class="botones-auto-modal">
-                            <a href="https://drive.google.com/drive/folders/1xmwD6AOwK2iQSaWtQJBQLWYaNT_f-87R" target="_blank" class="btn-card-modal btn-galeria">Galería</a>
-                            <a href="https://wa.me/5214525003073?text=Hola%20Johnny,%20me%20gustar%C3%ADa%20recibir%20el%20video%20de%20la%20Chevrolet%20Montana%20RS%202025%20(10,253%20KM)." target="_blank" class="btn-card-modal btn-video-wa"><i class="fa-solid fa-video"></i> Pedir Video</a>
-                            <button onclick="openFinancingModalWithCar('Chevrolet Montana RS 2025')" class="btn-card-modal btn-cotizar-auto">Cotizar</button>
-                            <button onclick="openAgendarAutoModal('Chevrolet Montana RS 2025')" class="btn-card-modal btn-agendar-auto">Agendar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 3. Chevrolet Montana RS 2025 (Unidad 2 - Nueva) -->
-                <div class="tarjeta-auto-modal" data-categoria="pickup">
-                    <span class="badge-estado" style="color:#ff5252; border-color: rgba(255, 82, 82, 0.4);">🔥 Súper Promoción</span>
-                    <img src="imagenes/autos/montana2.jpeg" alt="Chevrolet Montana RS" onerror="this.src='https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=500'">
-                    <div class="info-auto-modal">
-                        <h3>Chevrolet Montana RS</h3>
-                        <ul>
-                            <li><strong>Modelo:</strong> 2025 | <strong>KM:</strong> 10,250</li>
-                            <li><strong>Versión:</strong> RS Deportiva | Doble Cabina</li>
-                        </ul>
-                        <div class="precio-modal">$448,000 MXN</div>
-                        <div class="botones-auto-modal">
-                            <a href="https://wa.me/5214525003073?text=Hola%20Johnny,%20me%20interesa%20apartar%20o%20recibir%20m%C3%A1s%20fotos%20de%20la%20Chevrolet%20Montana%20RS%202025%20(10,250%20KM)." target="_blank" class="btn-card-modal btn-galeria">Apartar / Fotos</a>
-                            <a href="https://wa.me/5214525003073?text=Hola%20Johnny,%20me%20gustar%C3%ADa%20recibir%20el%20video%20de%20la%20Chevrolet%20Montana%20RS%202025%20(10,250%20KM)." target="_blank" class="btn-card-modal btn-video-wa"><i class="fa-solid fa-video"></i> Pedir Video</a>
-                            <button onclick="openFinancingModalWithCar('Chevrolet Montana RS 2025 (Unidad 2)')" class="btn-card-modal btn-cotizar-auto">Cotizar</button>
-                            <button onclick="openAgendarAutoModal('Chevrolet Montana RS 2025 (Unidad 2)')" class="btn-card-modal btn-agendar-auto">Agendar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 4. Jeep Commander Overland -->
-                <div class="tarjeta-auto-modal" data-categoria="suv">
-                    <span class="badge-estado">Disponible</span>
-                    <img src="imagenes/autos/commander.jpg" alt="Jeep Commander Overland" onerror="this.src='https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=500'">
-                    <div class="info-auto-modal">
-                        <h3>Jeep Commander Overland</h3>
-                        <ul>
-                            <li><strong>Modelo:</strong> 2025 | <strong>KM:</strong> 8,318</li>
-                            <li><strong>Inspección:</strong> Certificación Vigente</li>
-                        </ul>
-                        <div class="precio-modal">$565,000 MXN</div>
-                        <div class="botones-auto-modal">
-                            <a href="https://drive.google.com/drive/folders/1X0o_9Ce8lH81KNfpKAUJtpvh_VPA3GJW" target="_blank" class="btn-card-modal btn-galeria">Galería</a>
-                            <a href="https://wa.me/5214525003073?text=Hola%20Johnny,%20me%20gustar%C3%ADa%20recibir%20el%20video%20de%20la%20Jeep%20Commander%20Overland%202025." target="_blank" class="btn-card-modal btn-video-wa"><i class="fa-solid fa-video"></i> Pedir Video</a>
-                            <button onclick="openFinancingModalWithCar('Jeep Commander Overland 2025')" class="btn-card-modal btn-cotizar-auto">Cotizar</button>
-                            <button onclick="openAgendarAutoModal('Jeep Commander Overland 2025')" class="btn-card-modal btn-agendar-auto">Agendar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 5. Ford Bronco Outer Banks -->
-                <div class="tarjeta-auto-modal" data-categoria="suv">
-                    <span class="badge-estado">Disponible</span>
-                    <img src="imagenes/autos/bronco.jpg" alt="Ford Bronco Outer Banks" onerror="this.src='https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=500'">
-                    <div class="info-auto-modal">
-                        <h3>Ford Bronco Outer B.</h3>
-                        <ul>
-                            <li><strong>Modelo:</strong> 2023 | <strong>KM:</strong> 65,272</li>
-                            <li><strong>Tracción:</strong> 4x4 Impecable</li>
-                        </ul>
-                        <div class="precio-modal">$499,900 MXN</div>
-                        <div class="botones-auto-modal">
-                            <a href="https://drive.google.com/drive/folders/1F8l9-baEJ2eC8t9KmESMvZwtUO5gL4CI" target="_blank" class="btn-card-modal btn-galeria">Galería</a>
-                            <a href="https://wa.me/5214525003073?text=Hola%20Johnny,%20me%20gustar%C3%ADa%20recibir%20el%20video%20de%20la%20Ford%20Bronco%20Outer%20Banks%202023." target="_blank" class="btn-card-modal btn-video-wa"><i class="fa-solid fa-video"></i> Pedir Video</a>
-                            <button onclick="openFinancingModalWithCar('Ford Bronco Outer Banks 2023')" class="btn-card-modal btn-cotizar-auto">Cotizar</button>
-                            <button onclick="openAgendarAutoModal('Ford Bronco Outer Banks 2023')" class="btn-card-modal btn-agendar-auto">Agendar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 6. Jeep JT Mojave -->
-                <div class="tarjeta-auto-modal" data-categoria="pickup">
-                    <span class="badge-estado">Disponible</span>
-                    <img src="imagenes/autos/mojave1.jpg" alt="Jeep JT Mojave" onerror="this.src='https://images.unsplash.com/photo-1563720223185-11003d516935?w=500'">
-                    <div class="info-auto-modal">
-                        <h3>Jeep JT Mojave</h3>
-                        <ul>
-                            <li><strong>Modelo:</strong> 2023 | <strong>KM:</strong> 55,433</li>
-                            <li><strong>Tracción:</strong> 4x4 Máximo Equipo</li>
-                        </ul>
-                        <div class="precio-modal">$890,000 MXN</div>
-                        <div class="botones-auto-modal">
-                            <a href="https://drive.google.com/drive/folders/1F4CzlSidPcNxBlv2_TL9By9kD3XVaw6T" target="_blank" class="btn-card-modal btn-galeria">Galería</a>
-                            <a href="https://wa.me/5214525003073?text=Hola%20Johnny,%20me%20gustar%C3%ADa%20recibir%20el%20video%20de%20la%20Jeep%20JT%20Mojave%202023." target="_blank" class="btn-card-modal btn-video-wa"><i class="fa-solid fa-video"></i> Pedir Video</a>
-                            <button onclick="openFinancingModalWithCar('Jeep JT Mojave 2023')" class="btn-card-modal btn-cotizar-auto">Cotizar</button>
-                            <button onclick="openAgendarAutoModal('Jeep JT Mojave 2023')" class="btn-card-modal btn-agendar-auto">Agendar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 7. Nissan Kicks Platinum -->
-                <div class="tarjeta-auto-modal" data-categoria="crossover">
-                    <span class="badge-estado">Disponible</span>
-                    <img src="imagenes/autos/kicks.jpg" alt="Nissan Kicks Platinum" onerror="this.src='https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=500'">
-                    <div class="info-auto-modal">
-                        <h3>Nissan Kicks Platinum</h3>
-                        <ul>
-                            <li><strong>Modelo:</strong> 2025 | <strong>KM:</strong> 9,800</li>
-                            <li><strong>Versión:</strong> Full Equipo</li>
-                        </ul>
-                        <div class="precio-modal">$488,000 MXN</div>
-                        <div class="botones-auto-modal">
-                            <a href="https://drive.google.com/drive/folders/1EbLnjh-3B8Xmfi5vNalyd8NM6L9hBlgR" target="_blank" class="btn-card-modal btn-galeria">Galería</a>
-                            <a href="https://wa.me/5214525003073?text=Hola%20Johnny,%20me%20gustar%C3%ADa%20recibir%20el%20video%20de%20la%20Nissan%20Kicks%20Platinum%202025." target="_blank" class="btn-card-modal btn-video-wa"><i class="fa-solid fa-video"></i> Pedir Video</a>
-                            <button onclick="openFinancingModalWithCar('Nissan Kicks Platinum 2025')" class="btn-card-modal btn-cotizar-auto">Cotizar</button>
-                            <button onclick="openAgendarAutoModal('Nissan Kicks Platinum 2025')" class="btn-card-modal btn-agendar-auto">Agendar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 8. Nissan Versa SR -->
-                <div class="tarjeta-auto-modal" data-categoria="sedan">
-                    <span class="badge-estado">Disponible</span>
-                    <img src="imagenes/autos/versa.jpg" alt="Nissan Versa SR" onerror="this.src='https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=500'">
-                    <div class="info-auto-modal">
-                        <h3>Nissan Versa SR</h3>
-                        <ul>
-                            <li><strong>Modelo:</strong> 2025 | <strong>KM:</strong> 23,180</li>
-                            <li><strong>Edición:</strong> SR Deportiva</li>
-                        </ul>
-                        <div class="precio-modal">$326,000 MXN</div>
-                        <div class="botones-auto-modal">
-                            <a href="https://drive.google.com/drive/folders/1FE1BemeSxCnHT_mD44V0MGdO21ma0lW9" target="_blank" class="btn-card-modal btn-galeria">Galería</a>
-                            <a href="https://wa.me/5214525003073?text=Hola%20Johnny,%20me%20gustar%C3%ADa%20recibir%20el%20video%20del%20Nissan%20Versa%20SR%202025." target="_blank" class="btn-card-modal btn-video-wa"><i class="fa-solid fa-video"></i> Pedir Video</a>
-                            <button onclick="openFinancingModalWithCar('Nissan Versa SR 2025')" class="btn-card-modal btn-cotizar-auto">Cotizar</button>
-                            <button onclick="openAgendarAutoModal('Nissan Versa SR 2025')" class="btn-card-modal btn-agendar-auto">Agendar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 9. VW Teramont Cross Sport -->
-                <div class="tarjeta-auto-modal" data-categoria="suv">
-                    <span class="badge-estado" style="color:#ffb300;">🔥 Súper Precio</span>
-                    <img src="imagenes/autos/teramont.jpg" alt="VW Teramont Cross Sport" onerror="this.src='https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=500'">
-                    <div class="info-auto-modal">
-                        <h3>VW Teramont Cross Sport</h3>
-                        <ul>
-                            <li><strong>Modelo:</strong> 2022 | <strong>KM:</strong> 51,187</li>
-                            <li><strong>Confort:</strong> Máximo Confort Familiar</li>
-                        </ul>
-                        <div class="precio-modal">$630,000 MXN</div>
-                        <div class="botones-auto-modal">
-                            <a href="https://drive.google.com/drive/folders/1Ee2No5HRTntyjy2mJgejnw9Jlh3YBhNT" target="_blank" class="btn-card-modal btn-galeria">Galería</a>
-                            <a href="https://wa.me/5214525003073?text=Hola%20Johnny,%20me%20gustar%C3%ADa%20recibir%20el%20video%20de%20la%20VW%20Teramont%20Cross%20Sport%202022." target="_blank" class="btn-card-modal btn-video-wa"><i class="fa-solid fa-video"></i> Pedir Video</a>
-                            <button onclick="openFinancingModalWithCar('VW Teramont Cross Sport 2022')" class="btn-card-modal btn-cotizar-auto">Cotizar</button>
-                            <button onclick="openAgendarAutoModal('VW Teramont Cross Sport 2022')" class="btn-card-modal btn-agendar-auto">Agendar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 10. BMW X2 M Sport 2021 (Nueva) -->
-                <div class="tarjeta-auto-modal" data-categoria="crossover">
-                    <span class="badge-estado">Disponible</span>
-                    <img src="imagenes/autos/bmw_x2.jpeg" alt="BMW X2 M Sport 20iA" onerror="this.src='https://images.unsplash.com/photo-1555215695-3004980ad54e?w=500'">
-                    <div class="info-auto-modal">
-                        <h3>BMW X2 M Sport 20iA</h3>
-                        <ul>
-                            <li><strong>Modelo:</strong> 2021 | <strong>Motor:</strong> 2.0L Turbo (192 HP)</li>
-                            <li><strong>Transmisión:</strong> Automática Doble Embrague 7 vel.</li>
-                        </ul>
-                        <div class="precio-modal">$395,000 MXN</div>
-                        <div class="botones-auto-modal">
-                            <a href="https://wa.me/5214525003073?text=Hola%20Johnny,%20me%20interesa%20apartar%20o%20recibir%20m%C3%A1s%20fotos%20de%20la%20BMW%20X2%20M%20Sport%202021." target="_blank" class="btn-card-modal btn-galeria">Apartar / Fotos</a>
-                            <a href="https://wa.me/5214525003073?text=Hola%20Johnny,%20me%20gustar%C3%ADa%20recibir%20el%20video%20de%20la%20BMW%20X2%20M%20Sport%202021." target="_blank" class="btn-card-modal btn-video-wa"><i class="fa-solid fa-video"></i> Pedir Video</a>
-                            <button onclick="openFinancingModalWithCar('BMW X2 M Sport 2021')" class="btn-card-modal btn-cotizar-auto">Cotizar</button>
-                            <button onclick="openAgendarAutoModal('BMW X2 M Sport 2021')" class="btn-card-modal btn-agendar-auto">Agendar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 11. Chevrolet Tracker 2025 (Nueva - Próxima) -->
-                <div class="tarjeta-auto-modal" data-categoria="proximas">
-                    <span class="badge-estado" style="color:#2196f3;">⏳ Próxima Llegada</span>
-                    <img src="imagenes/autos/tracker.jpeg" alt="Chevrolet Tracker" onerror="this.src='https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=500'">
-                    <div class="info-auto-modal">
-                        <h3>Chevrolet Tracker</h3>
-                        <ul>
-                            <li><strong>Modelo:</strong> 2025 | <strong>KM:</strong> 19,900</li>
-                            <li><strong>Transmisión:</strong> Estándar</li>
-                        </ul>
-                        <div class="precio-modal">$328,000 MXN</div>
-                        <div class="botones-auto-modal">
-                            <a href="https://wa.me/5214525003073?text=Hola%20Johnny,%20me%20interesa%20apartar%20o%20recibir%20m%C3%A1s%20fotos%20de%20la%20Chevrolet%20Tracker%202025." target="_blank" class="btn-card-modal btn-galeria">Apartar / Fotos</a>
-                            <a href="https://wa.me/5214525003073?text=Hola%20Johnny,%20me%20gustar%C3%ADa%20recibir%20el%20video%20de%20la%20Chevrolet%20Tracker%202025." target="_blank" class="btn-card-modal btn-video-wa"><i class="fa-solid fa-video"></i> Pedir Video</a>
-                            <button onclick="openFinancingModalWithCar('Chevrolet Tracker 2025')" class="btn-card-modal btn-cotizar-auto">Cotizar</button>
-                            <button onclick="openAgendarAutoModal('Chevrolet Tracker 2025')" class="btn-card-modal btn-agendar-auto">Agendar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 12. Buick Envision Avenir (Próxima) -->
-                <div class="tarjeta-auto-modal" data-categoria="proximas">
-                    <span class="badge-estado" style="color:#2196f3;">⏳ Próxima Llegada</span>
-                    <img src="imagenes/autos/buick.jpeg" alt="Buick Envision Avenir" onerror="this.src='https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=500'">
-                    <div class="info-auto-modal">
-                        <h3>Buick Envision Avenir</h3>
-                        <ul>
-                            <li><strong>Estatus:</strong> Más Equipada / En Tránsito</li>
-                        </ul>
-                        <div class="precio-modal" style="color:#64b5f6;">Aparta Próximamente</div>
-                        <div class="botones-auto-modal">
-                            <a href="https://wa.me/5214525003073?text=Hola%20Johnny,%20me%20gustar%C3%ADa%20recibir%20el%20video%20de%20la%20Buick%20Envision%20Avenir." target="_blank" class="btn-card-modal btn-video-wa"><i class="fa-solid fa-video"></i> Pedir Video</a>
-                            <button onclick="openFinancingModalWithCar('Buick Envision Avenir (Próxima)')" class="btn-card-modal btn-cotizar-auto">Cotizar</button>
-                            <button onclick="openAgendarAutoModal('Buick Envision Avenir (Próxima)')" class="btn-card-modal btn-agendar-auto">Agendar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 13. Cadillac XT4 (Próxima) -->
-                <div class="tarjeta-auto-modal" data-categoria="proximas">
-                    <span class="badge-estado" style="color:#2196f3;">⏳ Próxima Llegada</span>
-                    <img src="imagenes/autos/cadillac.jpg" alt="Cadillac XT4" onerror="this.src='https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=500'">
-                    <div class="info-auto-modal">
-                        <h3>Cadillac XT4</h3>
-                        <ul>
-                            <li><strong>Estatus:</strong> En Tránsito a Piso</li>
-                        </ul>
-                        <div class="precio-modal" style="color:#64b5f6;">Aparta Próximamente</div>
-                        <div class="botones-auto-modal">
-                            <a href="https://wa.me/5214525003073?text=Hola%20Johnny,%20me%20gustar%C3%ADa%20recibir%20el%20video%20de%20la%20Cadillac%20XT4." target="_blank" class="btn-card-modal btn-video-wa"><i class="fa-solid fa-video"></i> Pedir Video</a>
-                            <button onclick="openFinancingModalWithCar('Cadillac XT4 (Próxima)')" class="btn-card-modal btn-cotizar-auto">Cotizar</button>
-                            <button onclick="openAgendarAutoModal('Cadillac XT4 (Próxima)')" class="btn-card-modal btn-agendar-auto">Agendar</button>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+            <!-- AQUÍ SE INYECTAN LOS AUTOS DESDE AUTOS.JSON -->
+            <div id="lista-autos-inventario"></div>
 
             <button type="button" class="modal-home-btn" onclick="closeAllModals()"><i class="fa-solid fa-house"></i> Regresar a página principal</button>
         </div>
 
-        <!-- MODAL TOMA A CUENTA / COMPRAMOS TU AUTO -->
         <div id="tomaCuentaModal" class="modal">
             <div class="modal-header">
                 <span class="modal-title-top">JOHNNY ENRÍQUEZ • SEMINUEVOS CERTIFICADOS</span>
@@ -1125,7 +835,7 @@
             <button type="button" class="modal-home-btn" onclick="closeAllModals()"><i class="fa-solid fa-house"></i> Regresar a página principal</button>
         </div>
 
-        <!-- MODAL FINANCIAMIENTO (ACTUALIZADO SIN AUTOS ELIMINADOS) -->
+        <!-- MODAL FINANCIAMIENTO (LLENADO AUTOMÁTICO) -->
         <div id="financiamientoModal" class="modal">
             <div class="modal-header">
                 <span class="modal-title-top">JOHNNY ENRÍQUEZ • FINANCIAMIENTO</span>
@@ -1136,19 +846,6 @@
             <div class="financing-form">
                 <select id="fin-car" required>
                     <option value="" disabled selected>Selecciona el auto</option>
-                    <option value="Fiat Mobi Trekking 2024">Fiat Mobi Trekking 2024</option>
-                    <option value="Chevrolet Montana RS 2025">Chevrolet Montana RS 2025 (Unidad 1)</option>
-                    <option value="Chevrolet Montana RS 2025 (Unidad 2)">Chevrolet Montana RS 2025 (Unidad 2)</option>
-                    <option value="BMW X2 M Sport 2021">BMW X2 M Sport 2021</option>
-                    <option value="Chevrolet Tracker 2025">Chevrolet Tracker 2025</option>
-                    <option value="Jeep Commander Overland 2025">Jeep Commander Overland 2025</option>
-                    <option value="Ford Bronco Outer Banks 2023">Ford Bronco Outer Banks 2023</option>
-                    <option value="Jeep JT Mojave 2023">Jeep JT Mojave 2023</option>
-                    <option value="Nissan Kicks Platinum 2025">Nissan Kicks Platinum 2025</option>
-                    <option value="Nissan Versa SR 2025">Nissan Versa SR 2025</option>
-                    <option value="VW Teramont Cross Sport 2022">VW Teramont Cross Sport 2022</option>
-                    <option value="Buick Envision Avenir (Próxima)">Buick Envision Avenir (Próxima)</option>
-                    <option value="Cadillac XT4 (Próxima)">Cadillac XT4 (Próxima)</option>
                 </select>
                 <select id="fin-months" required>
                     <option value="" disabled selected>Selecciona el plazo (meses)</option>
@@ -1239,6 +936,8 @@
     </script>
 
     <script>
+        let inventarioAutos = [];
+
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(function() {
                 const splashScreen = document.getElementById('splash-screen');
@@ -1249,8 +948,8 @@
             }, 2500);
 
             generarFechasDisponibles();
+            cargarAutosJSON();
 
-            // Intercepción del botón "Atrás" del navegador / celular
             history.pushState({ page: 1 }, "", "");
             window.onpopstate = function(event) {
                 let exitModal = document.getElementById('exitModal');
@@ -1260,6 +959,98 @@
                 }
             };
         });
+
+        async function cargarAutosJSON() {
+            try {
+                const res = await fetch('autos.json');
+                inventarioAutos = await res.json();
+                renderizarCatalogo(inventarioAutos);
+                poblarSelectFinanciamiento(inventarioAutos);
+            } catch (e) {
+                console.error("Error al cargar autos.json", e);
+            }
+        }
+
+        function renderizarCatalogo(lista) {
+            const contenedor = document.getElementById('lista-autos-inventario');
+            if(!contenedor) return;
+            contenedor.innerHTML = '';
+
+            lista.forEach(auto => {
+                const card = document.createElement('div');
+                card.className = 'tarjeta-auto-modal';
+                card.setAttribute('data-categoria', auto.categoria);
+
+                let btnGaleria = '';
+                if(auto.galeria && auto.galeria.trim() !== '') {
+                    btnGaleria = `<a href="${auto.galeria}" target="_blank" class="btn-card-modal btn-galeria">Galería</a>`;
+                } else {
+                    let textWa = encodeURIComponent(`Hola Johnny, me interesa recibir fotos de la ${auto.nombre} ${auto.modelo}.`);
+                    btnGaleria = `<a href="https://wa.me/5214525003073?text=${textWa}" target="_blank" class="btn-card-modal btn-galeria">Pedir Fotos</a>`;
+                }
+
+                let textVideoWa = encodeURIComponent(`Hola Johnny, me gustaría recibir el video de la ${auto.nombre} ${auto.modelo}.`);
+
+                let badgeStyle = '';
+                if(auto.estado.includes('Promoción') || auto.estado.includes('Precio')) {
+                    badgeStyle = 'color:#ff5252; border-color: rgba(255, 82, 82, 0.4);';
+                } else if(auto.estado.includes('Próxima') || auto.estado.includes('Proceso')) {
+                    badgeStyle = 'color:#2196f3;';
+                }
+
+                card.innerHTML = `
+                    <span class="badge-estado" style="${badgeStyle}">${auto.estado}</span>
+                    <img src="${auto.foto}" alt="${auto.nombre}" onerror="this.src='https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=500'">
+                    <div class="info-auto-modal">
+                        <h3>${auto.nombre}</h3>
+                        <ul>
+                            <li><strong>Modelo:</strong> ${auto.modelo} | <strong>KM:</strong> ${auto.km}</li>
+                            <li>${auto.detalle}</li>
+                        </ul>
+                        <div class="precio-modal" style="${auto.precio.includes('Aparta') ? 'color:#64b5f6;' : ''}">${auto.precio}</div>
+                        <div class="botones-auto-modal">
+                            ${btnGaleria}
+                            <a href="https://wa.me/5214525003073?text=${textVideoWa}" target="_blank" class="btn-card-modal btn-video-wa"><i class="fa-solid fa-video"></i> Pedir Video</a>
+                            <button onclick="openFinancingModalWithCar('${auto.nombre} ${auto.modelo}')" class="btn-card-modal btn-cotizar-auto">Cotizar</button>
+                            <button onclick="openAgendarAutoModal('${auto.nombre} ${auto.modelo}')" class="btn-card-modal btn-agendar-auto">Agendar</button>
+                        </div>
+                    </div>
+                `;
+                contenedor.appendChild(card);
+            });
+        }
+
+        function poblarSelectFinanciamiento(lista) {
+            const select = document.getElementById('fin-car');
+            if(!select) return;
+            select.innerHTML = '<option value="" disabled selected>Selecciona el auto</option>';
+            lista.forEach(auto => {
+                let opt = document.createElement('option');
+                opt.value = `${auto.nombre} ${auto.modelo}`;
+                opt.textContent = `${auto.nombre} ${auto.modelo}`;
+                select.appendChild(opt);
+            });
+        }
+
+        function filtrarCatalogo(categoria, elementoSeleccionado) {
+            let botones = document.querySelectorAll('.chip-filtro');
+            botones.forEach(btn => btn.classList.remove('activo'));
+            if(elementoSeleccionado) elementoSeleccionado.classList.add('activo');
+
+            if(categoria === 'todos') {
+                renderizarCatalogo(inventarioAutos);
+            } else {
+                let filtrados = inventarioAutos.filter(a => a.categoria === categoria);
+                renderizarCatalogo(filtrados);
+            }
+        }
+
+        function filtrarCatalogoPorPromos() {
+            let botones = document.querySelectorAll('.chip-filtro');
+            botones.forEach(btn => btn.classList.remove('activo'));
+            let filtrados = inventarioAutos.filter(a => a.estado.includes('Promoción') || a.estado.includes('Precio'));
+            renderizarCatalogo(filtrados);
+        }
 
         function stayOnPage() {
             closeAllModals();
@@ -1335,20 +1126,6 @@
         function openPromoModal() {
             openCatalogoModal();
             filtrarCatalogoPorPromos();
-        }
-
-        function filtrarCatalogoPorPromos() {
-            let botones = document.querySelectorAll('.chip-filtro');
-            botones.forEach(btn => btn.classList.remove('activo'));
-            let autos = document.querySelectorAll('.tarjeta-auto-modal');
-            autos.forEach(auto => {
-                let badge = auto.querySelector('.badge-estado');
-                if (badge && badge.textContent.includes('Súper Promoción')) {
-                    auto.style.display = 'block';
-                } else {
-                    auto.style.display = 'none';
-                }
-            });
         }
 
         function openFinancingModal() { document.getElementById('financiamientoModal').style.display = 'block'; }
@@ -1453,21 +1230,6 @@
             if (window.enviarFormularioAgendarFirebase) {
                 window.enviarFormularioAgendarFirebase();
             }
-        }
-
-        function filtrarCatalogo(categoria, elementoSeleccionado) {
-            let botones = document.querySelectorAll('.chip-filtro');
-            botones.forEach(btn => btn.classList.remove('activo'));
-            if(elementoSeleccionado) elementoSeleccionado.classList.add('activo');
-
-            let autos = document.querySelectorAll('.tarjeta-auto-modal');
-            autos.forEach(auto => {
-                if (categoria === 'todos' || auto.getAttribute('data-categoria') === categoria) {
-                    auto.style.display = 'block';
-                } else {
-                    auto.style.display = 'none';
-                }
-            });
         }
 
         function sendFinancingForm() {
