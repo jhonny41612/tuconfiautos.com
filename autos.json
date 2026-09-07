@@ -12,28 +12,16 @@
     "galeria": "https://drive.google.com/drive/folders/1EeJ3TZ6jZYIE2VtLuBuD_lycElItelA8"
   },
   {
-    "id": "montana-2025-1",
+    "id": "montana-2025",
     "nombre": "Chevrolet Montana RS",
     "modelo": "2025",
-    "km": "10,253",
+    "km": "12,420",
     "detalle": "Versión RS Deportiva | Doble Cabina",
     "precio": "$448,000 MXN",
     "categoria": "pickup",
     "estado": "🔥 Súper Promoción",
     "foto": "imagenes/autos/montana.jpg",
     "galeria": "https://drive.google.com/drive/folders/1xmwD6AOwK2iQSaWtQJBQLWYaNT_f-87R"
-  },
-  {
-    "id": "montana-2025-2",
-    "nombre": "Chevrolet Montana RS (Unidad 2)",
-    "modelo": "2025",
-    "km": "12,500",
-    "detalle": "Versión RS Deportiva | Doble Cabina",
-    "precio": "$448,000 MXN",
-    "categoria": "pickup",
-    "estado": "🔥 Súper Promoción",
-    "foto": "imagenes/autos/montana2.jpeg",
-    "galeria": ""
   },
   {
     "id": "trax-2019",
@@ -108,30 +96,6 @@
     "galeria": "https://drive.google.com/drive/folders/1EbLnjh-3B8Xmfi5vNalyd8NM6L9hBlgR"
   },
   {
-    "id": "versa-2025",
-    "nombre": "Nissan Versa SR",
-    "modelo": "2025",
-    "km": "23,180",
-    "detalle": "Edición SR Deportiva",
-    "precio": "$326,000 MXN",
-    "categoria": "sedan",
-    "estado": "Disponible",
-    "foto": "imagenes/autos/versa.jpg",
-    "galeria": "https://drive.google.com/drive/folders/1FE1BemeSxCnHT_mD44V0MGdO21ma0lW9"
-  },
-  {
-    "id": "teramont-2022",
-    "nombre": "VW Teramont Cross Sport",
-    "modelo": "2022",
-    "km": "51,187",
-    "detalle": "Máximo Confort Familiar",
-    "precio": "$630,000 MXN",
-    "categoria": "suv",
-    "estado": "🔥 Súper Precio",
-    "foto": "imagenes/autos/teramont.jpg",
-    "galeria": "https://drive.google.com/drive/folders/1Ee2No5HRTntyjy2mJgejnw9Jlh3YBhNT"
-  },
-  {
     "id": "bmw-x2-2021",
     "nombre": "BMW X2 M Sport 20iA",
     "modelo": "2021",
@@ -177,6 +141,42 @@
     "categoria": "proximas",
     "estado": "⏳ Próxima Llegada",
     "foto": "imagenes/autos/cadillac.jpg",
+    "galeria": ""
+  },
+  {
+    "id": "terrain-2022",
+    "nombre": "GMC Terrain SLT",
+    "modelo": "2022",
+    "km": "50,285",
+    "detalle": "Color Negro Brillante | Transmisión Automática",
+    "precio": "$320,000 MXN",
+    "categoria": "suv",
+    "estado": "⏳ Proceso de Toma",
+    "foto": "imagenes/autos/fame seminuevos.jpeg",
+    "galeria": ""
+  },
+  {
+    "id": "acadia-2023",
+    "nombre": "GMC Acadia Denali",
+    "modelo": "2023",
+    "km": "43,028",
+    "detalle": "Versión Denali | Color Blanco",
+    "precio": "$530,000 MXN",
+    "categoria": "suv",
+    "estado": "⏳ Proceso de Toma",
+    "foto": "imagenes/autos/fame seminuevos.jpeg",
+    "galeria": ""
+  },
+  {
+    "id": "outlander-2016",
+    "nombre": "Mitsubishi Outlander Limited",
+    "modelo": "2016",
+    "km": "79,960",
+    "detalle": "Versión Limited | Transmisión Automática",
+    "precio": "$240,000 MXN",
+    "categoria": "suv",
+    "estado": "Disponible",
+    "foto": "imagenes/autos/fame seminuevos.jpeg",
     "galeria": ""
   }
 ]
