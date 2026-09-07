@@ -24,18 +24,6 @@
     "galeria": "https://drive.google.com/drive/folders/1xmwD6AOwK2iQSaWtQJBQLWYaNT_f-87R"
   },
   {
-    "id": "trax-2019",
-    "nombre": "Chevrolet Trax LT Aut",
-    "modelo": "2019",
-    "km": "80,833",
-    "detalle": "Transmisión Automática | Color Rojo Tinto",
-    "precio": "$185,000 MXN",
-    "categoria": "suv",
-    "estado": "⏳ Proceso de Toma",
-    "foto": "imagenes/autos/fame seminuevos.jpeg",
-    "galeria": ""
-  },
-  {
     "id": "frontier-2019",
     "nombre": "Nissan Frontier LE Manual",
     "modelo": "2019",
@@ -104,7 +92,7 @@
     "precio": "$395,000 MXN",
     "categoria": "crossover",
     "estado": "Disponible",
-    "foto": "imagenes/autos/bmw_x2.jpeg",
+    "foto": "imagenes/autos/bmwx22.jpg",
     "galeria": ""
   },
   {
@@ -116,7 +104,7 @@
     "precio": "$328,000 MXN",
     "categoria": "proximas",
     "estado": "⏳ Próxima Llegada",
-    "foto": "imagenes/autos/tracker.jpeg",
+    "foto": "imagenes/autos/tracker.jpg",
     "galeria": ""
   },
   {
@@ -152,7 +140,7 @@
     "precio": "$320,000 MXN",
     "categoria": "suv",
     "estado": "⏳ Proceso de Toma",
-    "foto": "imagenes/autos/fame seminuevos.jpeg",
+    "foto": "imagenes/autos/terraint.jpg",
     "galeria": ""
   },
   {
@@ -164,7 +152,7 @@
     "precio": "$530,000 MXN",
     "categoria": "suv",
     "estado": "⏳ Proceso de Toma",
-    "foto": "imagenes/autos/fame seminuevos.jpeg",
+    "foto": "imagenes/autos/acadia.jpg",
     "galeria": ""
   },
   {
@@ -175,8 +163,8 @@
     "detalle": "Versión Limited | Transmisión Automática",
     "precio": "$240,000 MXN",
     "categoria": "suv",
-    "estado": "Disponible",
-    "foto": "imagenes/autos/fame seminuevos.jpeg",
+    "estado": "⏳ Proceso de Toma",
+    "foto": "imagenes/autos/outlander.jpg",
     "galeria": ""
   }
 ]
