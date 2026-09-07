@@ -20,7 +20,7 @@
     "precio": "$448,000 MXN",
     "categoria": "pickup",
     "estado": "🔥 Súper Promoción",
-    "foto": "imagenes/autos/montana.jpg",
+    "foto": "imagenes/autos/montana2.jpeg",
     "galeria": "https://drive.google.com/drive/folders/1xmwD6AOwK2iQSaWtQJBQLWYaNT_f-87R"
   },
   {
@@ -91,7 +91,7 @@
     "detalle": "Motor 2.0L Turbo (192 HP) | Aut 7 vel.",
     "precio": "$395,000 MXN",
     "categoria": "crossover",
-    "estado": "Disponible",
+    "estado": "⏳ Proceso de Toma",
     "foto": "imagenes/autos/bmwx22.jpg",
     "galeria": ""
   },
@@ -103,7 +103,7 @@
     "detalle": "Transmisión Estándar",
     "precio": "$328,000 MXN",
     "categoria": "proximas",
-    "estado": "⏳ Próxima Llegada",
+    "estado": "Disponible",
     "foto": "imagenes/autos/tracker.jpg",
     "galeria": ""
   },
