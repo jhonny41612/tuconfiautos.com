@@ -21,7 +21,7 @@
     "categoria": "pickup",
     "estado": "🔥 Súper Promoción",
     "foto": "imagenes/autos/montana rs roja.jpg",
-    "galeria": "https://drive.google.com/drive/folders/1xmwD6AOwK2iQSaWtQJBQLWYaNT_f-87R"
+    "galeria": "https://drive.google.com/drive/folders/1rzJO7qvsxwfygjn4ldm6AXiz55FPpwW4"
   },
   {
     "id": "frontier-2019",
@@ -32,8 +32,8 @@
     "precio": "$285,000 MXN",
     "categoria": "pickup",
     "estado": "⏳ Próxima Llegada",
-    "foto": "imagenes/autos/fame seminuevos.jpeg",
-    "galeria": ""
+    "foto": "imagenes/autos/frontier.jpg",
+    "galeria": "https://drive.google.com/drive/folders/1Vr75xaZNWTf9hgmfsjeySLiI-DsU8sSX"
   },
   {
     "id": "commander-2025",
@@ -93,7 +93,7 @@
     "categoria": "crossover",
     "estado": "⏳ Proceso de Toma",
     "foto": "imagenes/autos/bmwx22.jpg",
-    "galeria": ""
+    "galeria": "https://drive.google.com/drive/folders/1exwrEzRt9nB8KeQs84jwuOnBMYcEidhO"
   },
   {
     "id": "tracker-2025",
@@ -105,7 +105,7 @@
     "categoria": "proximas",
     "estado": "Disponible",
     "foto": "imagenes/autos/tracker.jpg",
-    "galeria": ""
+    "galeria": "https://drive.google.com/drive/folders/1z4wQ94E_YaN9qRcJYRqyAHKHovJ7Fe5F"
   },
   {
     "id": "buick-avenir",
@@ -141,7 +141,7 @@
     "categoria": "suv",
     "estado": "⏳ Proceso de Toma",
     "foto": "imagenes/autos/terraint.jpg",
-    "galeria": ""
+    "galeria": "https://drive.google.com/drive/folders/1DUtRRMUPKDoXb4KV5weDmrmLd2Asv4LL"
   },
   {
     "id": "acadia-2023",
@@ -153,7 +153,7 @@
     "categoria": "suv",
     "estado": "⏳ Proceso de Toma",
     "foto": "imagenes/autos/acadia.jpg",
-    "galeria": ""
+    "galeria": "https://drive.google.com/drive/folders/1IKbFsPUdtFMXMBPKmO4JNfuE45KUcnn7"
   },
   {
     "id": "outlander-2016",
@@ -165,6 +165,6 @@
     "categoria": "suv",
     "estado": "⏳ Proceso de Toma",
     "foto": "imagenes/autos/outlander.jpg",
-    "galeria": ""
+    "galeria": "https://drive.google.com/drive/folders/1Bn0I2cm8VzrhgQmdZ5aVpIMr-PNRV0UC"
   }
 ]
