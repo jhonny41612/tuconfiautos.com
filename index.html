@@ -677,6 +677,9 @@
             <input type="text" id="ag-nombre" placeholder="Tu Nombre Completo" required>
             <input type="tel" id="ag-telefono" placeholder="Número de WhatsApp (10 dígitos)" required>
            
+            <!-- 🔥 NUEVO CAMPO OCULTO PARA EL QR 🔥 -->
+            <input type="hidden" id="origen_cliente_input" value="Directo / Web">
+
             <div id="campo-extra-container"></div>
 
             <div id="bloque-fecha-hora">
@@ -911,7 +914,8 @@
                 identificadorAuto = `Busca: ${descBusqueda}`;
             }
 
-            let origenRastreado = sessionStorage.getItem('origen_cliente') || 'Directo / Web';
+            // 🔥 AQUÍ ATRAPAMOS EL VALOR DEL INPUT OCULTO 🔥
+            let origenRastreado = document.getElementById('origen_cliente_input').value;
 
             try {
                 await addDoc(collection(db, "clientes"), {
@@ -940,11 +944,22 @@
         let inventarioAutos = [];
 
         document.addEventListener('DOMContentLoaded', function() {
-            // DETECTAR PARÁMETRO DE ORIGEN EN LA URL (EJ. ?origen=Restaurante%20El%20Encanto)
+            // 🔥 DETECTAR PARÁMETRO DE ORIGEN EN LA URL (EJ. ?origen=QR_ElEncanto) 🔥
             const urlParams = new URLSearchParams(window.location.search);
             const origenParam = urlParams.get('origen');
+            
             if (origenParam) {
                 sessionStorage.setItem('origen_cliente', origenParam);
+                // Inyectarlo en el input oculto de la agenda
+                let inputOculto = document.getElementById('origen_cliente_input');
+                if(inputOculto) inputOculto.value = origenParam;
+            } else {
+                // Si recarga la página, mantiene el origen guardado y lo inyecta
+                const origenGuardado = sessionStorage.getItem('origen_cliente');
+                if (origenGuardado) {
+                    let inputOculto = document.getElementById('origen_cliente_input');
+                    if(inputOculto) inputOculto.value = origenGuardado;
+                }
             }
 
             const origenFinal = sessionStorage.getItem('origen_cliente');
