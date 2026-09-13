@@ -175,7 +175,7 @@
     <div id="toast-alerta">🔔 <span id="texto-toast">Nueva interacción detectada</span></div>
 
     <header class="header-app">
-        <!-- LOGOTIPO VECTORIAL INCRUSTADO (SIN DEPENDER DE ARCHIVOS EXTERNOS) -->
+        <!-- LOGOTIPO VECTORIAL INCRUSTADO -->
         <svg class="header-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
             <defs>
                 <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -312,7 +312,7 @@
 
                 <textarea id="inv-especificaciones" placeholder="Especificaciones únicas (Ej. Único dueño, servicios de agencia)..."></textarea>
 
-                <label style="display: block; font-size: 0.85rem; color: var(--color-texto-mute); margin-bottom: 5px;">Fotografía principal (Se sube sola):</label>
+                <label style="display: block; font-size: 0.85rem; color: var(--color-texto-mute); margin-bottom: 5px;">Fotografía principal (Se comprime y sube sola):</label>
                 <input type="file" id="inv-foto-file" accept="image/*" style="padding: 12px; background: rgba(255,255,255,0.05); border-radius: 16px; margin-bottom: 15px; width: 100%; box-sizing: border-box; color: white;">
 
                 <button id="btn-publicar-auto" class="btn-primario" style="background: linear-gradient(135deg, var(--color-exito) 0%, #059669 100%); box-shadow: var(--sombra-neon-verde);">🚀 Publicar al Catálogo</button>
@@ -377,7 +377,6 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
-        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-storage.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDMD5V1nEg_SmV7VdlZ1--HJfc3_zeb7sg",
@@ -390,18 +389,57 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const storage = getStorage(app);
 
         function normalizar(texto) {
             return (texto || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         }
 
-        // SISTEMA DE ALERTA SONORA (Sintetizador Web sin archivos externos)
+        // COMPRESIÓN DE IMAGEN A BASE64 (100% GRATIS SIN STORAGE)
+        function comprimirYConvertirImagen(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const img = new Image();
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        const MAX_WIDTH = 700;
+                        const MAX_HEIGHT = 700;
+                        let width = img.width;
+                        let height = img.height;
+
+                        if (width > height) {
+                            if (width > MAX_WIDTH) {
+                                height *= MAX_WIDTH / width;
+                                width = MAX_WIDTH;
+                            }
+                        } else {
+                            if (height > MAX_HEIGHT) {
+                                width *= MAX_HEIGHT / height;
+                                height = MAX_HEIGHT;
+                            }
+                        }
+
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+                        
+                        const dataUrl = canvas.toDataURL('image/jpeg', 0.65);
+                        resolve(dataUrl);
+                    };
+                    img.onerror = reject;
+                    img.src = event.target.result;
+                };
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // SISTEMA DE ALERTA SONORA
         function reproducirTimbreAlerta() {
             if (localStorage.getItem('notif_activas') === 'false') return;
             try {
                 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                
                 const osc1 = audioCtx.createOscillator();
                 const gain1 = audioCtx.createGain();
                 osc1.type = 'sine';
@@ -421,9 +459,7 @@
                     osc2.connect(gain2); gain2.connect(audioCtx.destination);
                     osc2.start(); osc2.stop(audioCtx.currentTime + 0.4);
                 }, 150);
-            } catch (e) {
-                console.log("Audio interactivo bloqueado hasta el primer clic.");
-            }
+            } catch (e) {}
         }
 
         function mostrarToastAlerta(mensaje) {
@@ -474,7 +510,7 @@
         window.mostrarDetalleMeta = () => alert(`Progreso: ${ventasMes} de ${META_MENSUAL} unidades para la meta mensual.`);
         window.filtrarAgendaTiempo = (f) => { filtroTiempoAgenda = f; actualizarInterfaz(); };
 
-        // 🚀 PUBLICAR AUTO NUEVO DESDE EL CELULAR CON FOTO A FIREBASE STORAGE
+        // 🚀 PUBLICAR AUTO NUEVO CON COMPRESIÓN DIRECTA A FIRESTORE
         document.getElementById('btn-publicar-auto').addEventListener('click', async () => {
             const modelo = document.getElementById('inv-modelo').value.trim();
             const categoria = document.getElementById('inv-categoria').value;
@@ -493,18 +529,14 @@
             }
 
             const btnPublicar = document.getElementById('btn-publicar-auto');
-            btnPublicar.textContent = '⏳ Subiendo foto y publicando...';
+            btnPublicar.textContent = '⏳ Comprimiendo y publicando...';
             btnPublicar.disabled = true;
 
             try {
                 let fotoUrl = '';
                 if (inputFile.files && inputFile.files[0]) {
                     const archivo = inputFile.files[0];
-                    const nombreRuta = `autos/${Date.now()}_${archivo.name}`;
-                    const storageRef = ref(storage, nombreRuta);
-                    
-                    await uploadBytes(storageRef, archivo);
-                    fotoUrl = await getDownloadURL(storageRef);
+                    fotoUrl = await comprimirYConvertirImagen(archivo);
                 }
 
                 await addDoc(collection(db, "autos"), {
@@ -512,7 +544,7 @@
                     fechaCreacion: Date.now()
                 });
 
-                alert('¡Auto publicado con éxito en tu catálogo web!');
+                alert('¡Auto publicado con éxito en tu catálogo!');
                 
                 document.getElementById('inv-modelo').value = '';
                 document.getElementById('inv-anio').value = '';
@@ -532,7 +564,7 @@
             }
         });
 
-        // 🔄 SINCRONIZACIÓN EN TIEMPO REAL CON DETECCIÓN DE NUEVOS CLIENTES Y CITAS
+        // 🔄 SINCRONIZACIÓN EN TIEMPO REAL
         let cargaInicialClientes = true;
         onSnapshot(collection(db, "clientes"), (snapshot) => {
             snapshot.docChanges().forEach((change) => {
@@ -540,12 +572,6 @@
                     const nuevo = change.doc.data();
                     reproducirTimbreAlerta();
                     mostrarToastAlerta(`¡Nueva Cita/Prospecto: ${nuevo.nombre} (${nuevo.interes})!`);
-                    
-                    if ('Notification' in window && Notification.permission === 'granted') {
-                        new Notification("🔥 Fame Seminuevos - Nueva Cita", {
-                            body: `${nuevo.nombre} agendó para hoy/pronto. Interés: ${nuevo.interes}`
-                        });
-                    }
                 }
             });
             cargaInicialClientes = false;
