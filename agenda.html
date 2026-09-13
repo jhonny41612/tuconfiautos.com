@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Agenda Élite & CRM Automotriz</title>
+    
+    <!-- FUENTES ÉLITE -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --color-fondo: #090E17;
+            --color-texto: #F8FAFC;
+            --color-texto-mute: #94A3B8;
+            --color-primario: #ffffff;
+            --color-secundario: #3B82F6;
+            --color-acento: #F43F5E;
+            --color-exito: #10B981;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-bg-hover: rgba(255, 255, 255, 0.08);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+            --glass-blur: blur(24px);
+            --sombra-neon-azul: 0 0 20px rgba(59, 130, 246, 0.4);
+            --sombra-neon-verde: 0 0 20px rgba(16, 185, 129, 0.3);
+            --sombra-fuerte: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--color-fondo);
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(59, 130, 246, 0.15), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(16, 185, 129, 0.12), transparent 25%);
+            background-attachment: fixed;
+            color: var(--color-texto);
+            margin: 0;
+            padding-bottom: 140px;
+            box-sizing: border-box;
+        }
+
+        h1, h2 { font-family: 'Playfair Display', serif; margin: 0; }
+        h3 { margin: 0; }
+
+        .header-app {
+            padding: 40px 25px 25px 25px;
+            position: relative;
+            z-index: 10;
+        }
+        #saludo-personalizado { font-size: 1.8rem; font-weight: 700; line-height: 1.2; margin-bottom: 8px; color: #ffffff; }
+        #subtitulo-fecha { font-size: 0.9rem; color: var(--color-secundario); font-weight: 600; text-transform: uppercase; letter-spacing: 2px; }
+
+        #contenedor-vistas { padding: 0 20px 20px 20px; pointer-events: auto; position: relative; z-index: 10; }
+        .vista { display: none; animation: aparecer 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .vista.activa { display: block; }
+
+        @keyframes aparecer {
+            from { opacity: 0; transform: translateY(15px); filter: blur(5px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+
+        .vista h2 { color: var(--color-primario); font-size: 1.8rem; font-weight: 700; margin-bottom: 15px; }
+        .descripcion-vista { font-size: 0.95rem; color: var(--color-texto-mute); margin-bottom: 25px; line-height: 1.6; font-weight: 300; }
+
+        /* TARJETAS Y CONTENEDORES GLASS */
+        .tarjetas-metricas { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .tarjeta-indicador, .seccion-dashboard, .tarjeta-cliente, .tablero-ganancias {
+            background: var(--glass-bg);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: var(--glass-border);
+            border-radius: 28px;
+            box-shadow: var(--sombra-fuerte);
+            padding: 22px 18px;
+            color: var(--color-texto);
+            transition: all 0.4s;
+        }
+        .tarjeta-indicador { text-align: center; cursor: pointer; }
+        .tarjeta-indicador:hover { background: var(--glass-bg-hover); transform: translateY(-4px); border-color: rgba(255,255,255,0.2); }
+        .tarjeta-indicador h3 { font-size: 0.75rem; color: var(--color-texto-mute); font-weight: 600; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px; }
+        .numero-grande { font-size: 2.8rem; font-weight: 800; color: #ffffff; line-height: 1; }
+
+        .tarjeta-indicador.fuego { 
+            grid-column: span 2; 
+            background: linear-gradient(135deg, rgba(244, 63, 94, 0.1) 0%, rgba(255, 255, 255, 0.02) 100%);
+            border: 1px solid rgba(244, 63, 94, 0.3);
+        }
+        .tarjeta-indicador.fuego .numero-grande { color: var(--color-acento); text-shadow: 0 0 15px rgba(244, 63, 94, 0.5); }
+
+        .seccion-dashboard { padding: 25px 22px; margin-top: 15px; }
+        .barra-progreso-fondo { background-color: rgba(255, 255, 255, 0.05); height: 10px; border-radius: 10px; overflow: hidden; width: 100%; margin-top: 15px; }
+        .barra-progreso-relleno { background: linear-gradient(90deg, var(--color-exito), #34D399); height: 100%; width: 0%; border-radius: 10px; transition: width 1s; box-shadow: var(--sombra-neon-verde); }
+
+        .tarea-item { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .tarea-item:last-child { border-bottom: none; padding-bottom: 0; }
+        .tarea-info { display: flex; flex-direction: column; gap: 6px; }
+        .tarea-hora { font-weight: 800; color: var(--color-secundario); font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase; }
+        .tarea-nombre { color: #ffffff; font-weight: 600; font-size: 1.15rem; font-family: 'Playfair Display', serif; }
+        .tarea-detalle { color: var(--color-texto-mute); font-size: 0.85rem; line-height: 1.5; font-weight: 300; }
+
+        /* BOTONES E INPUTS */
+        .btn-primario, .btn-secundario, .btn-whatsapp {
+            width: 100%; padding: 16px; border: none; border-radius: 20px; font-size: 0.9rem;
+            font-weight: 700; cursor: pointer; margin-bottom: 12px; transition: all 0.3s;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        .btn-primario { background: linear-gradient(135deg, var(--color-secundario) 0%, #2563EB 100%); color: #ffffff; box-shadow: var(--sombra-neon-azul); }
+        .btn-primario:active { transform: scale(0.97); }
+        .btn-secundario { background: rgba(255,255,255,0.05); color: #ffffff; border: 1px solid rgba(255,255,255,0.1); }
+        .btn-secundario:hover { background: rgba(255,255,255,0.1); }
+        .btn-whatsapp { background: linear-gradient(135deg, var(--color-exito) 0%, #059669 100%); color: #ffffff; box-shadow: var(--sombra-neon-verde); }
+
+        textarea, input[type="text"], input[type="number"], select {
+            width: 100%; padding: 16px 20px; border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px; font-family: 'Outfit', sans-serif; font-size: 1rem; box-sizing: border-box; margin-bottom: 15px;
+            background: rgba(0, 0, 0, 0.2); color: #ffffff; backdrop-filter: blur(10px);
+            transition: all 0.3s; font-weight: 300;
+        }
+        textarea { height: 100px; resize: none; }
+        select option { background: #0f172a; color: white; }
+        textarea:focus, input:focus, select:focus { outline: none; border-color: var(--color-secundario); background: rgba(0, 0, 0, 0.4); box-shadow: var(--sombra-neon-azul); }
+
+        .tarjeta-cliente { border-left: 4px solid var(--color-secundario); margin-bottom: 20px; }
+        .tarjeta-cliente h3 { margin-bottom: 10px; color: #ffffff; font-size: 1.3rem; font-family: 'Playfair Display', serif; }
+        .tarjeta-cliente p { margin: 6px 0; font-size: 0.95rem; color: #cbd5e1; font-weight: 300; }
+        .tarjeta-cliente.estado-fuego { border-left-color: var(--color-acento); background: linear-gradient(to right, rgba(244, 63, 94, 0.08), rgba(255, 255, 255, 0.02)); }
+
+        .tablero-ganancias { border: 1px solid rgba(16, 185, 129, 0.3); background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%); }
+        .gran-numero-verde { font-size: 3.8rem; font-weight: 800; color: var(--color-exito); margin: 0; line-height: 1; text-shadow: var(--sombra-neon-verde); }
+
+        /* ISLA FLOTANTE DE NAVEGACIÓN (6 BOTONES) */
+        #barra-navegacion {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            width: 94%; max-width: 480px;
+            background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(25px) saturate(180%);
+            display: flex; justify-content: space-around; padding: 10px 4px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 40px;
+            z-index: 99999;
+        }
+        .btn-nav {
+            background: transparent; border: none; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; color: #64748B; cursor: pointer; flex: 1; transition: all 0.4s;
+        }
+        .btn-nav .icono { font-size: 1.2rem; margin-bottom: 2px; filter: grayscale(100%) opacity(0.6); }
+        .btn-nav .texto-nav { font-size: 0.5rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0; max-height: 0; transition: all 0.4s; }
+        .btn-nav.activo { color: var(--color-secundario); }
+        .btn-nav.activo .icono { transform: translateY(-2px) scale(1.15); color: var(--color-secundario); filter: grayscale(0%) opacity(1); text-shadow: var(--sombra-neon-azul); }
+        .btn-nav.activo .texto-nav { opacity: 1; max-height: 20px; transform: translateY(2px); }
+    </style>
+</head>
+<body>
+
+    <header class="header-app">
+        <h1 id="saludo-personalizado">¡Excelente día, Johnny Alejandro!</h1>
+        <p id="subtitulo-fecha">Fame Seminuevos • CRM & Inventario</p>
+    </header>
+
+    <main id="contenedor-vistas">
+
+        <!-- VISTA 0: DASHBOARD -->
+        <section id="vista-resumen" class="vista activa">
+            <div class="tarjetas-metricas">
+                <button onclick="navegarA('vista-agenda')" class="tarjeta-indicador">
+                    <h3>Prospectos</h3>
+                    <p class="numero-grande" id="contador-prospectos">0</p>
+                </button>
+                <button onclick="navegarA('vista-agenda')" class="tarjeta-indicador">
+                    <h3>Atención Hoy</h3>
+                    <p class="numero-grande" id="contador-seguimientos-hoy">0</p>
+                </button>
+                <button onclick="navegarA('vista-calientes')" class="tarjeta-indicador fuego">
+                    <h3>🔥 Hotlist</h3>
+                    <p class="numero-grande" id="contador-calientes">0</p>
+                </button>
+            </div>
+
+            <div class="seccion-dashboard" onclick="mostrarDetalleMeta()">
+                <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                    <h3 style="color: #ffffff; font-size: 1.1rem; margin: 0; font-weight: 800;">🎯 Meta Mensual</h3>
+                    <span style="font-size: 1rem; color: var(--color-texto-mute); font-weight: 800;"><span id="contador-ventas-meta" style="color: var(--color-exito);">0</span> / 10</span>
+                </div>
+                <div class="barra-progreso-fondo">
+                    <div class="barra-progreso-relleno" id="relleno-meta"></div>
+                </div>
+            </div>
+
+            <div class="seccion-dashboard" style="cursor: default;">
+                <h3 style="color: #ffffff; font-size: 1.3rem; margin-bottom: 15px; font-weight: 700; font-family: 'Playfair Display', serif;">✅ Tareas de Hoy</h3>
+                <div id="lista-tareas-inmediatas"></div>
+            </div>
+        </section>
+
+        <!-- VISTA 1: AGENDA DE CLIENTES -->
+        <section id="vista-agenda" class="vista oculta">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
+                <h2>📅 Agenda</h2>
+                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.75rem; font-weight: 700; color: var(--color-secundario); background: rgba(59, 130, 246, 0.1); padding: 8px 12px; border-radius: 20px; border: 1px solid rgba(59, 130, 246, 0.2); text-transform: uppercase;">
+                    <span>🔔 Alertas</span>
+                    <input type="checkbox" id="toggle-notificaciones" checked style="width: 16px; height: 16px; accent-color: var(--color-secundario);" onchange="cambiarEstadoNotificaciones(this)">
+                </label>
+            </div>
+
+            <div class="panel-captura-rapida">
+                <button id="btn-dictado" class="btn-primario" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%); box-shadow: var(--sombra-neon-verde);">🎤 Dictado Inteligente</button>
+                <button id="btn-detener-voz" class="btn-secundario" style="background: rgba(244, 63, 94, 0.2); color: #F43F5E; display: none;">⏹️ Detener Escucha</button>
+                <textarea id="lector-magico" placeholder="Pega o dicta aquí la nota del cliente..."></textarea>
+                <button id="btn-guardar-cliente" class="btn-primario">💾 Guardar Prospecto</button>
+            </div>
+
+            <div style="margin: 20px 0 15px 0;">
+                <input type="text" id="input-busqueda-agenda" placeholder="🔍 Buscar por nombre o auto..." oninput="actualizarInterfaz()">
+            </div>
+            
+            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                <button onclick="filtrarAgendaTiempo('hoy')" id="filtro-hoy" class="btn-secundario" style="flex: 1; margin:0;">📅 Hoy</button>
+                <button onclick="filtrarAgendaTiempo('todos')" id="filtro-todos" class="btn-primario" style="flex: 1; margin:0;">📋 Todos</button>
+            </div>
+
+            <div id="lista-clientes-agenda"></div>
+        </section>
+
+        <!-- VISTA 2: GESTIÓN DE INVENTARIO MÓVIL -->
+        <section id="vista-inventario" class="vista oculta">
+            <h2>🚗 Inventario Móvil</h2>
+            <p class="descripcion-vista">Sube unidades al instante a tu catálogo <b>tuconfiautos.com</b> directamente desde tu galería o cámara.</p>
+
+            <div class="seccion-dashboard" style="margin-bottom: 25px;">
+                <h3 style="color: white; margin-bottom: 15px; font-family: 'Playfair Display', serif;">➕ Registrar Unidad Nueva</h3>
+                
+                <input type="text" id="inv-modelo" placeholder="Nombre y versión (Ej. Fiat Mobi Trekking 2024)">
+                
+                <select id="inv-categoria">
+                    <option value="sedan">🚗 Sedán</option>
+                    <option value="suv">🚙 SUV</option>
+                    <option value="crossover">🌆 Crossover</option>
+                    <option value="hatchback">🚘 Hatchback</option>
+                    <option value="pickup">🛻 Pick-up</option>
+                </select>
+
+                <select id="inv-estatus">
+                    <option value="disponible">🟢 Disponible en piso</option>
+                    <option value="toma">🟡 En Proceso de Toma</option>
+                    <option value="apartado">🟠 Apartado</option>
+                    <option value="vendido">🔴 Vendido</option>
+                </select>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <input type="number" id="inv-anio" placeholder="Año (Ej. 2024)">
+                    <input type="number" id="inv-km" placeholder="Kilometraje">
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <input type="number" id="inv-precio" placeholder="Precio Regular ($)">
+                    <input type="number" id="inv-precio-oferta" placeholder="Precio Oferta ($)">
+                </div>
+
+                <label style="display: flex; align-items: center; gap: 10px; margin: 10px 0 15px 0; font-size: 0.9rem; cursor: pointer;">
+                    <input type="checkbox" id="inv-aplica-oferta" style="width: 20px; height: 20px; accent-color: var(--color-secundario);">
+                    <span>¿Aplicar precio especial de oferta?</span>
+                </label>
+
+                <textarea id="inv-especificaciones" placeholder="Especificaciones únicas (Ej. Único dueño, servicios de agencia)..."></textarea>
+
+                <label style="display: block; font-size: 0.85rem; color: var(--color-texto-mute); margin-bottom: 5px;">Fotografía principal (Se sube sola):</label>
+                <input type="file" id="inv-foto-file" accept="image/*" style="padding: 12px; background: rgba(255,255,255,0.05); border-radius: 16px; margin-bottom: 15px; width: 100%; box-sizing: border-box; color: white;">
+
+                <button id="btn-publicar-auto" class="btn-primario" style="background: linear-gradient(135deg, var(--color-exito) 0%, #059669 100%); box-shadow: var(--sombra-neon-verde);">🚀 Publicar al Catálogo</button>
+            </div>
+
+            <h3 style="color: white; margin-bottom: 15px; font-family: 'Playfair Display', serif;">📋 Tus Unidades en Catálogo</h3>
+            <div id="lista-inventario-movil"></div>
+        </section>
+
+        <!-- VISTA 3: RADAR DE INVENTARIO -->
+        <section id="vista-radar" class="vista oculta">
+            <h2>📡 Radar de Inventario</h2>
+            <p class="descripcion-vista">Busca quién estaba esperando un auto similar.</p>
+            
+            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                <input type="text" id="input-busqueda-radar" placeholder="Ej. Versa, Territory..." style="margin:0; flex:2;">
+                <button onclick="buscarEnRadar()" class="btn-primario" style="flex:1; margin:0;">Rastrear</button>
+            </div>
+            <div id="resultados-radar">
+                <p style="text-align:center; color:var(--color-texto-mute); padding: 20px;">Inicia una búsqueda.</p>
+            </div>
+        </section>
+
+        <!-- VISTA 4: FINANZAS Y COMISIONES -->
+        <section id="vista-comisiones" class="vista oculta">
+            <h2>💰 Motor Financiero</h2>
+            <div class="tablero-ganancias">
+                <h3>Comisiones Acumuladas</h3>
+                <p class="gran-numero-verde" id="total-comisiones">$0.00</p>
+            </div>
+            <div style="display: flex; gap: 12px; margin-bottom: 25px;">
+                <button id="btn-venta" class="btn-primario" style="margin:0;">Registrar Venta</button>
+                <button id="btn-toma" class="btn-secundario" style="margin:0; background:rgba(255,255,255,0.1);">Registrar Toma</button>
+            </div>
+            <div class="seccion-dashboard">
+                <h3 style="color:#ffffff; font-family:'Playfair Display',serif; margin-bottom:15px;">📋 Historial Financiero</h3>
+                <div id="lista-transacciones-financieras">
+                    <p style="text-align:center; color:var(--color-texto-mute);">Sin registros este mes.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- VISTA 5: HOTLIST -->
+        <section id="vista-calientes" class="vista oculta">
+            <h2>🔥 Hotlist (Cierre)</h2>
+            <p class="descripcion-vista">Prospectos con alta intención de compra.</p>
+            <div id="lista-hotlist"></div>
+        </section>
+
+    </main>
+
+    <!-- MENÚ INFERIOR FLOTANTE DE 6 BOTONES -->
+    <nav id="barra-navegacion">
+        <button class="btn-nav activo" data-target="vista-resumen"><span class="icono">🏠</span><span class="texto-nav">Inicio</span></button>
+        <button class="btn-nav" data-target="vista-agenda"><span class="icono">📅</span><span class="texto-nav">Agenda</span></button>
+        <button class="btn-nav" data-target="vista-inventario"><span class="icono">🚗</span><span class="texto-nav">Inventario</span></button>
+        <button class="btn-nav" data-target="vista-radar"><span class="icono">📡</span><span class="texto-nav">Radar</span></button>
+        <button class="btn-nav" data-target="vista-comisiones"><span class="icono">💰</span><span class="texto-nav">Caja</span></button>
+        <button class="btn-nav" data-target="vista-calientes"><span class="icono">🔥</span><span class="texto-nav">Hotlist</span></button>
+    </nav>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, onSnapshot, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-storage.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDMD5V1nEg_SmV7VdlZ1--HJfc3_zeb7sg",
+            authDomain: "agenda-inteligente-b43d9.firebaseapp.com",
+            projectId: "agenda-inteligente-b43d9",
+            storageBucket: "agenda-inteligente-b43d9.firebasestorage.app",
+            messagingSenderId: "76660144842",
+            appId: "1:76660144842:web:cdc3b2a5122ea448f39233"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
+
+        function normalizar(texto) {
+            return (texto || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        }
+
+        window.cambiarEstadoNotificaciones = function(checkbox) {
+            localStorage.setItem('notif_activas', checkbox.checked ? 'true' : 'false');
+            if (checkbox.checked && 'Notification' in window && Notification.permission !== 'granted') {
+                Notification.requestPermission();
+            }
+        };
+
+        // NAVEGACIÓN ENTRE VISTAS
+        const botonesNav = document.querySelectorAll('.btn-nav');
+        const vistas = document.querySelectorAll('.vista');
+        window.navegarA = function(targetId) {
+            botonesNav.forEach(b => {
+                if(b.getAttribute('data-target') === targetId) b.classList.add('activo');
+                else b.classList.remove('activo');
+            });
+            vistas.forEach(v => { v.classList.remove('activa'); v.classList.add('oculta'); });
+            const vistaDestino = document.getElementById(targetId);
+            if(vistaDestino) {
+                vistaDestino.classList.remove('oculta');
+                vistaDestino.classList.add('activa');
+            }
+        }
+
+        botonesNav.forEach(boton => {
+            boton.addEventListener('click', function() {
+                navegarA(this.getAttribute('data-target'));
+            });
+        });
+
+        let clientes = [];
+        let ventasFinancieras = [];
+        let inventarioAutos = [];
+        let comisiones = 0;
+        let ventasMes = 0;
+        const META_MENSUAL = 10;
+        let filtroTiempoAgenda = 'todos';
+
+        window.verVistaAgendaCompleta = () => navegarA('vista-agenda');
+        window.mostrarDetalleMeta = () => alert(`Progreso: ${ventasMes} de ${META_MENSUAL} unidades para la meta mensual.`);
+        window.filtrarAgendaTiempo = (f) => { filtroTiempoAgenda = f; actualizarInterfaz(); };
+
+        // 🚀 PUBLICAR AUTO NUEVO DESDE EL CELULAR CON FOTO A FIREBASE STORAGE
+        document.getElementById('btn-publicar-auto').addEventListener('click', async () => {
+            const modelo = document.getElementById('inv-modelo').value.trim();
+            const categoria = document.getElementById('inv-categoria').value;
+            const estatus = document.getElementById('inv-estatus').value;
+            const anio = document.getElementById('inv-anio').value;
+            const kilometraje = document.getElementById('inv-km').value;
+            const precio = document.getElementById('inv-precio').value;
+            const precioOferta = document.getElementById('inv-precio-oferta').value;
+            const aplicaOferta = document.getElementById('inv-aplica-oferta').checked;
+            const especificaciones = document.getElementById('inv-especificaciones').value.trim();
+            const inputFile = document.getElementById('inv-foto-file');
+
+            if (!modelo || !precio) {
+                alert("Por favor ingresa al menos el Nombre/Modelo del auto y su Precio.");
+                return;
+            }
+
+            const btnPublicar = document.getElementById('btn-publicar-auto');
+            btnPublicar.textContent = '⏳ Subiendo foto y publicando...';
+            btnPublicar.disabled = true;
+
+            try {
+                let fotoUrl = '';
+                if (inputFile.files && inputFile.files[0]) {
+                    const archivo = inputFile.files[0];
+                    const nombreRuta = `autos/${Date.now()}_${archivo.name}`;
+                    const storageRef = ref(storage, nombreRuta);
+                    
+                    await uploadBytes(storageRef, archivo);
+                    fotoUrl = await getDownloadURL(storageRef);
+                }
+
+                await addDoc(collection(db, "autos"), {
+                    modelo, categoria, estatus, anio, kilometraje, precio, precioOferta, aplicaOferta, especificaciones, fotoUrl,
+                    fechaCreacion: Date.now()
+                });
+
+                alert('¡Auto publicado con éxito en tu catálogo web!');
+                
+                // Limpiar formulario
+                document.getElementById('inv-modelo').value = '';
+                document.getElementById('inv-anio').value = '';
+                document.getElementById('inv-km').value = '';
+                document.getElementById('inv-precio').value = '';
+                document.getElementById('inv-precio-oferta').value = '';
+                document.getElementById('inv-aplica-oferta').checked = false;
+                document.getElementById('inv-especificaciones').value = '';
+                document.getElementById('inv-foto-file').value = '';
+
+            } catch (e) {
+                console.error(e);
+                alert('Error al publicar. Verifica tu conexión.');
+            } finally {
+                btnPublicar.textContent = '🚀 Publicar al Catálogo';
+                btnPublicar.disabled = false;
+            }
+        });
+
+        // 🔄 SINCRONIZACIÓN EN TIEMPO REAL
+        onSnapshot(collection(db, "clientes"), (snapshot) => {
+            clientes = [];
+            snapshot.forEach(doc => clientes.push({ id: doc.id, ...doc.data() }));
+            actualizarInterfaz();
+        });
+
+        onSnapshot(collection(db, "ventas"), (snapshot) => {
+            ventasFinancieras = [];
+            snapshot.forEach(doc => ventasFinancieras.push({ id: doc.id, ...doc.data() }));
+            comisiones = ventasFinancieras.reduce((acc, curr) => acc + (parseFloat(curr.monto) || 0), 0);
+            ventasMes = ventasFinancieras.length;
+            
+            const contT = document.getElementById('lista-transacciones-financieras');
+            contT.innerHTML = ventasFinancieras.length === 0 ? '<p style="text-align:center; color:var(--color-texto-mute);">Sin registros este mes.</p>' : '';
+            ventasFinancieras.forEach(item => {
+                contT.innerHTML += `
+                    <div class="tarea-item">
+                        <div class="tarea-info">
+                            <span class="tarea-hora" style="color: ${item.tipo==='venta'?'var(--color-exito)':'var(--color-secundario)'}">🚗 ${item.tipo.toUpperCase()} - $${Number(item.monto).toLocaleString('es-MX')}</span>
+                            <span class="tarea-nombre">${item.descripcion}</span>
+                        </div>
+                        <button onclick="eliminarTransaccion('${item.id}')" class="btn-secundario" style="width:auto; padding:8px 12px; margin:0; color:var(--color-acento);">🗑️</button>
+                    </div>`;
+            });
+            actualizarInterfaz();
+        });
+
+        onSnapshot(collection(db, "autos"), (snapshot) => {
+            inventarioAutos = [];
+            snapshot.forEach(doc => inventarioAutos.push({ id: doc.id, ...doc.data() }));
+            
+            const contInv = document.getElementById('lista-inventario-movil');
+            contInv.innerHTML = inventarioAutos.length === 0 ? '<p style="text-align:center; color:var(--color-texto-mute);">No hay autos en inventario.</p>' : '';
+            inventarioAutos.forEach(auto => {
+                contInv.innerHTML += `
+                    <article class="tarjeta-cliente" style="border-left-color: var(--color-exito);">
+                        <div style="display:flex; gap:12px; align-items:center;">
+                            <img src="${auto.fotoUrl || 'https://via.placeholder.com/100'}" style="width:70px; height:70px; object-fit:cover; border-radius:12px;">
+                            <div style="flex:1;">
+                                <h3>${auto.modelo}</h3>
+                                <p><strong>Estatus:</strong> ${auto.estatus.toUpperCase()} | <strong>Precio:</strong> $${Number(auto.precio).toLocaleString('es-MX')}</p>
+                            </div>
+                        </div>
+                        <div style="display:flex; gap:8px; margin-top:12px;">
+                            <button onclick="cambiarEstatusAuto('${auto.id}', '${auto.estatus}')" class="btn-secundario" style="flex:1; margin:0; padding:10px;">🔄 Cambiar Estatus</button>
+                            <button onclick="eliminarAuto('${auto.id}')" class="btn-secundario" style="flex:1; margin:0; padding:10px; color:var(--color-acento);">🗑️ Borrar</button>
+                        </div>
+                    </article>`;
+            });
+        });
+
+        window.cambiarEstatusAuto = async function(id, estatusActual) {
+            const nuevo = prompt("Selecciona nuevo estatus:\n1. disponible\n2. toma\n3. apartado\n4. vendido", estatusActual);
+            if(nuevo && ['disponible','toma','apartado','vendido'].includes(nuevo.toLowerCase())) {
+                await updateDoc(doc(db, "autos", id), { estatus: nuevo.toLowerCase() });
+            }
+        }
+        window.eliminarAuto = async function(id) {
+            if(confirm("¿Eliminar este auto del catálogo web?")) await deleteDoc(doc(db, "autos", id));
+        }
+
+        function actualizarInterfaz() {
+            document.getElementById('contador-prospectos').textContent = clientes.length;
+            document.getElementById('contador-calientes').textContent = clientes.filter(c => c.caliente).length;
+            const hoyIso = new Date().toISOString().split('T')[0];
+            const clientesDeHoy = clientes.filter(c => c.fechaCita === hoyIso);
+            document.getElementById('contador-seguimientos-hoy').textContent = clientesDeHoy.length;
+            document.getElementById('total-comisiones').textContent = '$' + comisiones.toLocaleString('es-MX', {minimumFractionDigits: 2});
+            document.getElementById('contador-ventas-meta').textContent = ventasMes;
+            document.getElementById('relleno-meta').style.width = Math.min((ventasMes / META_MENSUAL) * 100, 100) + '%';
+
+            const contenedorTareas = document.getElementById('lista-tareas-inmediatas');
+            contenedorTareas.innerHTML = '';
+            if(clientesDeHoy.length === 0) {
+                contenedorTareas.innerHTML = '<p style="text-align: center; color: var(--color-texto-mute); font-size: 0.95rem;">Todo al día. ¡Sin citas pendientes hoy!</p>';
+            } else {
+                clientesDeHoy.forEach(c => {
+                    const wa = `https://wa.me/52${c.telefono}?text=${encodeURIComponent(`Hola ${c.nombre}, te escribo de Fame Seminuevos para confirmar nuestra cita hoy a las ${c.horaCita}.`)}`;
+                    contenedorTareas.innerHTML += `
+                        <div class="tarea-item">
+                            <div class="tarea-info">
+                                <span class="tarea-hora">⏰ ${c.horaCita || 'Pendiente'}</span>
+                                <span class="tarea-nombre">${c.nombre}</span>
+                                <span class="tarea-detalle">Interés: ${c.interes} | 📍 Origen: ${c.origen || 'Directo'}</span>
+                            </div>
+                            <a href="${wa}" target="_blank" class="btn-whatsapp" style="width:auto; padding:10px 14px; margin:0; font-size:0.8rem;">Avisar</a>
+                        </div>`;
+                });
+            }
+
+            const listaAgenda = document.getElementById('lista-clientes-agenda');
+            const listaHot = document.getElementById('lista-hotlist');
+            listaAgenda.innerHTML = ''; listaHot.innerHTML = '';
+
+            let mostrar = filtroTiempoAgenda === 'hoy' ? clientesDeHoy : clientes;
+            const busqueda = normalizar(document.getElementById('input-busqueda-agenda').value);
+            if(busqueda) mostrar = mostrar.filter(c => normalizar(c.nombre).includes(busqueda) || normalizar(c.interes).includes(busqueda));
+
+            if(mostrar.length === 0) {
+                listaAgenda.innerHTML = `<p style="text-align: center; color: var(--color-texto-mute); padding: 20px;">Sin registros para esta selección.</p>`;
+            }
+
+            mostrar.forEach(c => {
+                const wa = `https://wa.me/52${c.telefono}?text=${encodeURIComponent(`Hola ${c.nombre}, te escribo de Fame Seminuevos sobre tu interés en el ${c.interes}.`)}`;
+                listaAgenda.innerHTML += `
+                    <article class="tarjeta-cliente ${c.caliente?'estado-fuego':''}">
+                        <h3>${c.nombre} ${c.caliente?'🔥':''}</h3>
+                        <p><strong>Interés:</strong> ${c.interes}</p>
+                        <p style="color:var(--color-secundario);"><strong>📍 Origen:</strong> ${c.origen || 'Directo / Web'}</p>
+                        <p><strong>Teléfono:</strong> ${c.telefono}</p>
+                        <div style="display:flex; gap:10px; margin-top:15px;">
+                            <a href="${wa}" target="_blank" class="btn-whatsapp" style="flex:2; margin:0; text-align:center; text-decoration:none;">📲 WhatsApp</a>
+                            <button onclick="toggleFuego('${c.id}', ${c.caliente})" class="btn-secundario" style="flex:1; margin:0;">🔥</button>
+                            <button onclick="eliminarCliente('${c.id}')" class="btn-secundario" style="flex:1; margin:0; color:var(--color-acento);">🗑️</button>
+                        </div>
+                    </article>`;
+            });
+
+            const calientes = clientes.filter(c => c.caliente);
+            if(calientes.length === 0) {
+                listaHot.innerHTML = `<p style="text-align: center; color: var(--color-texto-mute); padding: 20px;">No hay clientes calientes marcados.</p>`;
+            } else {
+                calientes.forEach(c => {
+                    const wa = `https://wa.me/52${c.telefono}?text=${encodeURIComponent(`Hola ${c.nombre}, te escribo de Fame Seminuevos para dar seguimiento a tu compra.`)}`;
+                    listaHot.innerHTML += `
+                        <article class="tarjeta-cliente estado-fuego">
+                            <h3>${c.nombre} 🔥</h3>
+                            <p><strong>Interés:</strong> ${c.interes}</p>
+                            <p style="color:var(--color-secundario);"><strong>📍 Origen:</strong> ${c.origen || 'Directo / Web'}</p>
+                            <p><strong>Teléfono:</strong> ${c.telefono}</p>
+                            <div style="display:flex; gap:10px; margin-top:15px;">
+                                <a href="${wa}" target="_blank" class="btn-whatsapp" style="flex:2; margin:0; text-align:center; text-decoration:none;">📲 WhatsApp</a>
+                                <button onclick="toggleFuego('${c.id}', true)" class="btn-secundario" style="flex:1; margin:0;">🔥</button>
+                            </div>
+                        </article>`;
+                });
+            }
+        }
+
+        window.toggleFuego = async (id, est) => await updateDoc(doc(db, "clientes", id), { caliente: !est });
+        window.eliminarCliente = async (id) => { if(confirm("¿Eliminar prospecto?")) await deleteDoc(doc(db, "clientes", id)); };
+        window.eliminarTransaccion = async (id) => { if(confirm("¿Eliminar registro?")) await deleteDoc(doc(db, "ventas", id)); };
+
+        // GUARDAR CLIENTE MANUAL / DICTADO
+        document.getElementById('btn-guardar-cliente').addEventListener('click', async () => {
+            const texto = document.getElementById('lector-magico').value;
+            const nombre = prompt("Nombre y Apellidos del cliente:", "Prospecto Nuevo");
+            if (!nombre) return;
+            const telefono = prompt("WhatsApp (10 dígitos):", "");
+            if (!telefono) return;
+            const correo = prompt("Correo electrónico:", "correo@ejemplo.com");
+            const interes = prompt("¿Qué auto busca?", texto ? texto.substring(0, 40) : "Auto Seminuevo");
+            const fechaHoy = new Date().toISOString().split('T')[0];
+            const fechaCita = prompt("Fecha de cita (YYYY-MM-DD):", fechaHoy);
+            const horaCita = prompt("Hora (HH:MM):", "10:00");
+
+            try {
+                await addDoc(collection(db, "clientes"), {
+                    nombre, telefono: telefono.replace(/\D/g,''), correo: correo || '', interes,
+                    fechaCita: fechaCita || '', horaCita: horaCita || '', caliente: false, fechaCreacion: Date.now()
+                });
+                document.getElementById('lector-magico').value = '';
+                alert('¡Guardado!');
+            } catch (e) { alert('Error al guardar.'); }
+        });
+
+        // REGISTRAR VENTA / TOMA
+        async function regTrans(tipo) {
+            const desc = prompt(`Modelo del auto (${tipo}):`, "Chevrolet Onix");
+            if(!desc) return;
+            const monto = parseFloat(prompt("Comisión libre ($):", "3000"));
+            if(isNaN(monto)) return;
+            await addDoc(collection(db, "ventas"), { tipo, descripcion: desc, monto, fechaCreacion: Date.now() });
+            alert("¡Registrado con éxito!");
+        }
+        document.getElementById('btn-venta').addEventListener('click', () => regTrans('venta'));
+        document.getElementById('btn-toma').addEventListener('click', () => regTrans('toma'));
+
+        // RECONOCIMIENTO DE VOZ
+        const btnD = document.getElementById('btn-dictado');
+        const btnStop = document.getElementById('btn-detener-voz');
+        const txtMagico = document.getElementById('lector-magico');
+        const Rec = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if(Rec) {
+            const rec = new Rec(); rec.lang = 'es-MX'; rec.continuous = true;
+            btnD.addEventListener('click', () => { rec.start(); btnD.textContent = '🔴 Escuchando...'; btnStop.style.display='block'; });
+            btnStop.addEventListener('click', () => { rec.stop(); btnD.textContent = '🎤 Dictado Inteligente'; btnStop.style.display='none'; });
+            rec.onresult = (e) => txtMagico.value += ' ' + e.results[e.results.length - 1][0].transcript;
+        } else { btnD.style.display = 'none'; }
+    </script>
+</body>
+</html>
