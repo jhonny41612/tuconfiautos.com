@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grupo Fame Seminuevos - Uruapan</title>
+    <title>Johnny Enríquez - Asesor Automotriz Certificado</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
    
     <!-- Google official tracking tag (gtag.js) para Google Analytics -->
@@ -25,42 +25,19 @@
         }
 
         body {
-            background-color: #070b12;
-            background-image: 
-                radial-gradient(circle at 20% 30%, rgba(47, 128, 237, 0.12), transparent 30%),
-                radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.08), transparent 35%);
+            background-image: url('imagenes/logos/stelantis.jpeg');
+            background-size: cover;
+            background-position: center 25%;
+            background-repeat: no-repeat;
             background-attachment: fixed;
+            background-color: rgba(7, 11, 18, 0.65);
+            background-blend-mode: overlay;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             padding: 20px;
             overflow-x: hidden;
-            position: relative;
-        }
-
-        /* --- FONDO ANIMADO CON PARTÍCULAS AZUL FAME --- */
-        .background-particles {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-        }
-
-        .particle {
-            position: absolute;
-            background: linear-gradient(135deg, rgba(47, 128, 237, 0.25), rgba(212, 175, 55, 0.15));
-            border-radius: 50%;
-            box-shadow: 0 0 15px rgba(47, 128, 237, 0.2);
-            animation: floatParticle 12s infinite linear;
-        }
-
-        @keyframes floatParticle {
-            0% { transform: translateY(100vh) rotate(0deg) scale(0.8); opacity: 0; }
-            20% { opacity: 0.8; }
-            80% { opacity: 0.8; }
-            100% { transform: translateY(-10vh) rotate(360deg) scale(1.2); opacity: 0; }
         }
 
         /* --- PANTALLA DE CARGA (SPLASH SCREEN) --- */
@@ -93,8 +70,8 @@
             border-radius: 50%;
             object-fit: cover;
             object-position: center;
-            border: 4px solid #2f80ed;
-            box-shadow: 0 0 40px rgba(47, 128, 237, 0.7);
+            border: 4px solid #64b5f6;
+            box-shadow: 0 0 35px rgba(100, 181, 246, 0.5);
             animation: rotateZoom 1.8s ease-in-out infinite alternate;
         }
 
@@ -122,152 +99,99 @@
             visibility: hidden;
         }
 
-        /* Contenedor principal con borde azul Fame */
+        /* Contenedor principal */
         .smart-card {
             width: 100%;
-            max-width: 420px;
-            background: rgba(13, 27, 51, 0.9);
+            max-width: 380px;
+            background: rgba(13, 27, 51, 0.88);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            border: 2px solid rgba(47, 128, 237, 0.4);
+            border: 1px solid rgba(100, 181, 246, 0.4);
             border-radius: 35px;
             overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(47, 128, 237, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 25px rgba(47, 128, 237, 0.2);
             position: relative;
-            z-index: 10;
             transition: max-width 0.3s ease;
         }
 
         @media (min-width: 768px) {
             .smart-card {
-                max-width: 580px;
+                max-width: 550px;
             }
         }
 
-        /* Portada corporativa ajustada al tamaño del rectángulo superior */
+        /* Portada */
         .cover-photo {
-            height: 190px;
-            background: linear-gradient(135deg, #090e17, #15284a);
+            height: 210px;
+            background-image: url('imagenes/logos/stelantis.jpeg');
+            background-size: cover;
+            background-position: center 25%;
             position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            border-bottom: 2px solid rgba(47, 128, 237, 0.3);
-            padding: 15px;
+        }
+        .cover-photo::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(13, 27, 51, 0.05), rgba(13, 27, 51, 0.85));
         }
 
-        .cover-logo-principal {
-            width: 100%;
-            height: auto;100%
-            object-fit: contain; * llena todo el rectángulo por completo (recortando los extremos si la proporción en distinta)*/
-            border-radius: 0px;
-            background: transparent;
-        }
-
-        .cover-badge-corner {
+        .cover-logo-badge {
             position: absolute;
             top: 10px;
-            left: 12px;
-            font-size: 0.7rem;
-            color: #64b5f6;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 4px 8px;
-            border-radius: 8px;
-            border: 1px solid rgba(47, 128, 237, 0.2);
-        }
-
-        .cover-logo-badge-small {
-            position: absolute;
-            bottom: 10px;
             right: 12px;
-            width: 40px;
-            height: 40px;
+            width: 72px;
+            height: 72px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid rgba(212, 175, 55, 0.6);
+            border: 2px solid rgba(100, 181, 246, 0.6);
             background: #0d1b33;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+            z-index: 3;
         }
 
-        /* Sección de Sucursal */
-        .branch-header {
+        /* Perfil */
+        .profile-section {
             text-align: center;
-            padding: 15px 20px 5px 20px;
+            margin-top: -85px;
+            position: relative;
+            z-index: 2;
+            padding: 0 20px;
         }
 
-        .branch-header h2 {
-            font-size: 1.3rem;
-            color: #ffffff;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
-
-        .branch-header p {
-            font-size: 0.8rem;
-            color: #64b5f6;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-top: 4px;
-            font-weight: 600;
-        }
-
-        /* Contenedor de equipo */
-        .team-container {
-            display: flex;
-            justify-content: center;
-            padding: 15px 20px 20px 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .team-member.main-advisor {
-            background: rgba(47, 128, 237, 0.08);
-            border: 1px solid #2f80ed;
-            border-radius: 18px;
-            padding: 12px 20px;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-            box-shadow: 0 0 15px rgba(47, 128, 237, 0.2);
-            max-width: 220px;
-            width: 100%;
-        }
-
-        .team-img {
-            width: 65px;
-            height: 65px;
+        .profile-img {
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid #2f80ed;
+            object-position: center 0%;
+            border: 4px solid rgba(13, 27, 51, 1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
             background-color: #15284a;
         }
 
-        .team-name {
-            font-size: 0.85rem;
+        p.title {
+            font-size: 0.95rem;
+            color: #64b5f6;
+            font-weight: 600;
+            margin-top: 15px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            font-size: 1.6rem;
             color: #ffffff;
             font-weight: 700;
-            line-height: 1.1;
+            margin-top: 2px;
+            margin-bottom: 25px;
         }
 
-        .team-role {
-            font-size: 0.65rem;
-            color: #64b5f6;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            font-weight: 600;
-        }
-
-        /* Botones Circulares Principales */
+        /* Botones Circulares */
         .quick-actions {
             display: flex;
             justify-content: center;
             gap: 12px;
-            margin: 20px 0;
+            margin-bottom: 25px;
         }
 
         .circle-btn {
@@ -286,8 +210,8 @@
         }
 
         .circle-btn:hover {
-            background: #2f80ed;
-            color: #ffffff;
+            background: #64b5f6;
+            color: #0d1b33;
             transform: translateY(-3px);
         }
 
@@ -331,13 +255,11 @@
         .main-cta:hover { transform: scale(1.02); }
 
         .financing-btn {
-            background: linear-gradient(135deg, #2f80ed, #1d4ed8);
-            box-shadow: 0 8px 20px rgba(47, 128, 237, 0.3);
+            background: linear-gradient(135deg, #f57f17, #f57c00);
+            box-shadow: 0 8px 20px rgba(245, 124, 0, 0.3);
             font-size: 0.95rem;
-            color: #ffffff;
-            font-weight: 700;
         }
-        .financing-btn:hover { background: linear-gradient(135deg, #3b82f6, #1e40af); }
+        .financing-btn:hover { background: linear-gradient(135deg, #f57c00, #e65100); }
 
         /* Cuadrícula Inferior */
         .features-grid {
@@ -374,12 +296,12 @@
 
         .grid-item-promo {
             grid-column: span 2;
-            background: linear-gradient(135deg, #d4af37, #b8860b);
-            border-color: #ffd700;
-            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.2);
+            background: linear-gradient(135deg, #f57f17, #f57c00);
+            border-color: #ffb300;
+            box-shadow: 0 8px 20px rgba(245, 124, 0, 0.2);
         }
-        .grid-item-promo i { color: #070b12; }
-        .grid-item-promo span { color: #070b12; font-weight: 800; font-size: 0.95rem; }
+        .grid-item-promo i { color: #ffffff; }
+        .grid-item-promo span { color: #ffffff; font-weight: 700; font-size: 0.95rem; }
 
         .grid-item-busqueda-footer {
             grid-column: span 2;
@@ -395,7 +317,7 @@
         /* Barra de Confianza */
         .bottom-footer {
             background: rgba(9, 18, 36, 0.9);
-            border-top: 1px solid rgba(47, 128, 237, 0.2);
+            border-top: 1px solid rgba(100, 181, 246, 0.2);
             padding: 20px 15px;
             text-align: center;
         }
@@ -428,7 +350,7 @@
             padding-bottom: 12px;
         }
 
-        .modal-title-top { font-size: 0.7rem; letter-spacing: 1.5px; color: #64b5f6; font-weight: 700; }
+        .modal-title-top { font-size: 0.7rem; letter-spacing: 1.5px; color: #ffb300; font-weight: 700; }
 
         .back-btn {
             background: rgba(255, 255, 255, 0.1);
@@ -468,7 +390,7 @@
         }
         .modal-home-btn:hover { transform: scale(1.02); }
 
-        .modal-heading { font-size: 0.8rem; color: #64b5f6; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; font-weight: 600; }
+        .modal-heading { font-size: 0.8rem; color: #ffb300; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; font-weight: 600; }
         .modal-main-title { font-size: 1.25rem; font-weight: 700; color: #ffffff; margin-bottom: 12px; line-height: 1.2; }
         .modal-desc { font-size: 0.8rem; color: #b0bec5; line-height: 1.4; margin-bottom: 20px; }
 
@@ -604,7 +526,7 @@
             background: rgba(255, 255, 255, 0.03);
             padding: 15px;
             border-radius: 15px;
-            border: 1px solid rgba(47, 128, 237, 0.2);
+            border: 1px solid rgba(255, 179, 0, 0.2);
         }
 
         .financing-form input, .financing-form select {
@@ -654,7 +576,7 @@
 
         .success-box {
             background: rgba(13, 27, 51, 0.98);
-            border: 2px solid rgba(47, 128, 237, 0.6);
+            border: 2px solid rgba(100, 181, 246, 0.6);
             border-radius: 28px;
             padding: 35px 25px;
             text-align: center;
@@ -668,7 +590,7 @@
             font-size: 3.2rem;
             color: #64b5f6;
             margin-bottom: 15px;
-            text-shadow: 0 0 15px rgba(47, 128, 237, 0.5);
+            text-shadow: 0 0 15px rgba(100, 181, 246, 0.5);
         }
 
         .success-box h3 { font-size: 1.3rem; color: #ffffff; font-weight: 700; margin-bottom: 10px; }
@@ -703,14 +625,11 @@
 </head>
 <body>
 
-    <!-- Fondo dinámico con partículas -->
-    <div class="background-particles" id="particle-container"></div>
-
     <div id="splash-screen">
         <div class="splash-content">
             <img src="imagenes/logos/fame.jpeg" alt="Grupo Fame" class="rotating-logo">
-            <h2>Grupo Fame</h2>
-            <p>Seminuevos Certificados</p>
+            <h2>Johnny Enríquez</h2>
+            <p>Asesor Automotriz</p>
         </div>
     </div>
 
@@ -718,26 +637,26 @@
         <div class="success-box">
             <div class="success-icon"><i class="fa-solid fa-handshake"></i></div>
             <h3>¡Trato Cerrado!</h3>
-            <p>Grupo Fame Seminuevos te agradece tu confianza. ¡Nos vemos pronto en piso!</p>
+            <p>Johnny Enríquez te agradece tu confianza. ¡Nos vemos pronto en piso para atenderte como te mereces!</p>
             <button class="success-btn" onclick="closeSuccessModal()">Aceptar</button>
         </div>
     </div>
 
     <div id="exitModal" class="modal">
         <div class="modal-header">
-            <span class="modal-title-top">GRUPO FAME SEMINUEVOS • URUAPAN</span>
+            <span class="modal-title-top">JOHNNY ENRÍQUEZ • ATENCIÓN PERSONALIZADA</span>
             <button class="back-btn" onclick="stayOnPage()"><i class="fa-solid fa-xmark"></i> Cerrar</button>
         </div>
         <div class="modal-heading" style="color:#ff5252;">🛑 ¡UN MOMENTO!</div>
         <div class="modal-main-title">¿Aún no encuentras tu auto ideal?</div>
-        <div class="modal-desc">Antes de irte, dinos qué auto buscas o contáctanos directamente para enviarte fotos y promociones actualizadas.</div>
+        <div class="modal-desc">Antes de irte, dinos qué auto buscas o contáctanos directamente para enviarte fotos, promociones y el inventario actualizado al instante.</div>
        
-        <a id="btn-wa-exit" href="https://wa.me/5214525003073?text=Hola,%20estuve%20en%20su%20p%C3%A1gina%20y%20me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa." class="modal-whatsapp-btn" target="_blank">
+        <a id="btn-wa-exit" href="https://wa.me/5214525003073?text=Hola%20Johnny,%20estuve%20en%20tu%20p%C3%A1gina%20y%20me%20gustar%C3%ADa%20recibir%20asesor%C3%ADa%20con%20las%20unidades%20disponibles." class="modal-whatsapp-btn" target="_blank">
             <i class="fa-brands fa-whatsapp"></i> Contactar por WhatsApp ahora
         </a>
        
         <button type="button" class="modal-home-btn" onclick="stayOnPage()" style="margin-top: 10px;">
-            <i class="fa-solid fa-house"></i> Regresar al Inicio
+            <i class="fa-solid fa-house"></i> Regresar al Inicio / Quedarme aquí
         </button>
        
         <button type="button" onclick="realExit()" style="background: transparent; border: none; color: #94a3b8; font-size: 0.8rem; width: 100%; text-decoration: underline; cursor: pointer; margin-top: 5px;">
@@ -747,12 +666,12 @@
 
     <div id="agendarModal" class="modal">
         <div class="modal-header">
-            <span class="modal-title-top" id="modal-subtitulo-agendar">GRUPO FAME • AGENDA</span>
+            <span class="modal-title-top" id="modal-subtitulo-agendar">JOHNNY ENRÍQUEZ • AGENDA</span>
             <button class="back-btn" onclick="closeAgendarModal()"><i class="fa-solid fa-arrow-left"></i> Regresar</button>
         </div>
         <div class="modal-heading" id="modal-heading-label">RESERVA TU VISITA</div>
         <div class="modal-main-title" id="modal-titulo-auto">Agendar Cita</div>
-        <div class="modal-desc" id="modal-desc-texto">Selecciona el día y horario disponible para tu atención en sucursal.</div>
+        <div class="modal-desc" id="modal-desc-texto">Selecciona el día y horario disponible para tu atención en piso.</div>
        
         <div class="financing-form">
             <input type="text" id="ag-nombre" placeholder="Tu Nombre Completo" required>
@@ -774,30 +693,19 @@
     </div>
 
     <div class="smart-card">
-        <!-- Portada con Logo Rectangular adaptado al ancho del rectángulo superior -->
         <div class="cover-photo">
-            <span class="cover-badge-corner">Sucursal Uruapan</span>
-            <img src="imagenes/logos/3e89d201-57eb-43cf-8ab9-d2d900a55591.jpg" alt="Grupo Fame Seminuevos" class="cover-logo-principal" onerror="this.style.display='none'">
-            <img src="imagenes/logos/fame60anos.jpeg" alt="60 Años" class="cover-logo-badge-small" onerror="this.style.display='none'">
+            <img src="imagenes/logos/fame60anos.jpeg" alt="Fame 60 Años" class="cover-logo-badge">
         </div>
        
-        <div class="branch-header">
-            <h2>Grupo Fame Seminuevos</h2>
-            <p>Atención Profesional Autorizada</p>
-        </div>
-
-        <!-- SECCIÓN DE EQUIPO (Solo Johnny Enríquez) -->
-        <div class="team-container">
-            <div class="team-member main-advisor">
-                <img src="imagenes/perfil/johnny.jpeg" alt="Johnny Enríquez" class="team-img" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150'">
-                <div class="team-name">Johnny Enríquez</div>
-                <div class="team-role">Asesor de Ventas</div>
-            </div>
+        <div class="profile-section">
+            <img src="imagenes/perfil/johnny.jpeg" alt="Johnny Enríquez" class="profile-img">
+            <p class="title">Asesor de Ventas</p>
+            <h1>Johnny Enríquez</h1>
         </div>
        
         <div class="quick-actions">
             <a href="tel:+524525003073" class="circle-btn" title="Llamar"><i class="fa-solid fa-phone"></i></a>
-            <a id="btn-wa-principal" href="https://wa.me/5214525003073?text=Hola,%20estoy%20interesado%20en%20ver%20el%20inventario%20de%20Grupo%20Fame" class="circle-btn whatsapp" target="_blank" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+            <a id="btn-wa-principal" href="https://wa.me/5214525003073?text=Hola,%20Johnny,%20estoy%20interesado%20en%20ver%20el%20inventario" class="circle-btn whatsapp" target="_blank" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
             <a href="mailto:johnnyenriquez@famemedina.com" class="circle-btn" title="Correo"><i class="fa-solid fa-envelope"></i></a>
             <a href="https://maps.google.com/?q=Fame+Seminuevos+Uruapan+La+Pineda" class="circle-btn" target="_blank" title="Ubicación"><i class="fa-solid fa-location-dot"></i></a>
         </div>
@@ -837,12 +745,12 @@
         </div>
 
         <div class="bottom-footer">
-            <p class="footer-title">Grupo Fame Seminuevos • Sucursal Uruapan</p>
+            <p class="footer-title">Asesor Automotriz Autorizado • Fame Seminuevos</p>
         </div>
 
         <div id="codigoModal" class="modal">
             <div class="modal-header">
-                <span class="modal-title-top">GRUPO FAME • ALIANZAS</span>
+                <span class="modal-title-top">JOHNNY ENRÍQUEZ • ALIANZAS</span>
                 <button class="back-btn" onclick="closeCodigoModal()"><i class="fa-solid fa-arrow-left"></i> Regresar</button>
             </div>
             <div class="modal-heading">RECOMPENSA EXCLUSIVA</div>
@@ -859,7 +767,7 @@
         <!-- MODAL CATÁLOGO (CARGA HÍBRIDA: JSON + NUBE FIREBASE) -->
         <div id="catalogoModal" class="modal">
             <div class="modal-header">
-                <span class="modal-title-top">GRUPO FAME • INVENTARIO</span>
+                <span class="modal-title-top">JOHNNY ENRÍQUEZ • INVENTARIO</span>
                 <button class="back-btn" onclick="closeCatalogoModal()"><i class="fa-solid fa-arrow-left"></i> Regresar</button>
             </div>
 
@@ -870,7 +778,7 @@
             <div class="banner-no-ideal-foto" onclick="openBusquedaPersonalizadaFormFromCatalog()">
                 <i class="fa-solid fa-car-side"></i>
                 <h4>¿No ves tu auto ideal?</h4>
-                <p>Toca aquí, déjanos tus datos y te avisaremos cuando llegue.</p>
+                <p>Toca aquí, déjanos tus datos y nosotros te avisaremos cuando llegue.</p>
             </div>
 
             <div class="filtros-scroll">
@@ -892,45 +800,45 @@
 
         <div id="tomaCuentaModal" class="modal">
             <div class="modal-header">
-                <span class="modal-title-top">GRUPO FAME • SEMINUEVOS CERTIFICADOS</span>
+                <span class="modal-title-top">JOHNNY ENRÍQUEZ • SEMINUEVOS CERTIFICADOS</span>
                 <button class="back-btn" onclick="closeModal()"><i class="fa-solid fa-arrow-left"></i> Regresar</button>
             </div>
             <div class="modal-heading">¿Planeas cambiar o vender tu auto actual?</div>
             <div class="modal-main-title">Nosotros lo compramos con total seguridad bancaria</div>
-            <div class="modal-desc">Evita los peligros de negociar con particulares. Te ofrecemos un proceso transparente, valuación justa y una transacción blindada. Iniciamos tu análisis con 4 datos básicos:</div>
+            <div class="modal-desc">Evita los peligros de negociar con particulares y los fraudes digitales. Te ofrezco un proceso transparente, valuación justa en piso de venta y una transacción blindada de cuenta a cuenta. Iniciamos tu análisis preliminar con solo 4 datos básicos:</div>
            
             <div class="requisito-card">
                 <h4>Ficha Técnica</h4>
-                <p>Marca, línea, año y versión exacta de tu unidad actual.</p>
+                <p>Marca, línea, año y la versión exacta de tu unidad actual.</p>
                 <div class="requisito-numero">01</div>
             </div>
 
             <div class="requisito-card">
                 <h4>Antigüedad</h4>
-                <p>Recibimos unidades preferentemente de modelos 2020 en adelante.</p>
+                <p>Recibimos unidades en stock preferentemente de modelos 2020 en adelante.</p>
                 <div class="requisito-numero">02</div>
             </div>
 
             <div class="requisito-card">
                 <h4>Kilometraje</h4>
-                <p>Lectura real reflejada en tu odómetro para validación mecánica.</p>
+                <p>Lectura real reflejada en tu odómetro para validación mecánica preliminar.</p>
                 <div class="requisito-numero">03</div>
             </div>
 
             <div class="requisito-card">
                 <h4>Evidencia Visual</h4>
-                <p>Captura el exterior, interior y kilometraje actual para agilizar tu oferta.</p>
+                <p>Captura el exterior, interior y kilometraje actual. Con esto agilizamos tu oferta inicial.</p>
                 <div class="requisito-numero">04</div>
             </div>
 
-            <a href="https://wa.me/5214525003073?text=Hola,%20quiero%20vender%20o%20dejar%20a%20cuenta%20mi%20auto.%20Tengo%20listos%20mis%20requisitos." class="modal-whatsapp-btn" target="_blank">Enviar Datos por WhatsApp</a>
+            <a href="https://wa.me/5214525003073?text=Hola,%20Johnny,%20quiero%20vender%20o%20dejar%20a%20cuenta%20mi%20auto.%20Tengo%20listos%20mis%20requisitos." class="modal-whatsapp-btn" target="_blank">Enviar Datos por WhatsApp</a>
 
             <button type="button" class="modal-home-btn" onclick="closeAllModals()"><i class="fa-solid fa-house"></i> Regresar a página principal</button>
         </div>
 
         <div id="financiamientoModal" class="modal">
             <div class="modal-header">
-                <span class="modal-title-top">GRUPO FAME • FINANCIAMIENTO</span>
+                <span class="modal-title-top">JOHNNY ENRÍQUEZ • FINANCIAMIENTO</span>
                 <button class="back-btn" onclick="closeFinancingModal()"><i class="fa-solid fa-arrow-left"></i> Regresar</button>
             </div>
             <div class="modal-heading">ÁGIL Y FLEXIBLE</div>
@@ -957,25 +865,7 @@
 
     </div>
 
-    <!-- SCRIPTS DE PARTÍCULAS Y FIREBASE HÍBRIDO -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const container = document.getElementById("particle-container");
-            const count = 18;
-            for (let i = 0; i < count; i++) {
-                const p = document.createElement("div");
-                p.className = "particle";
-                const size = Math.random() * 14 + 6;
-                p.style.width = `${size}px`;
-                p.style.height = `${size}px`;
-                p.style.left = `${Math.random() * 100}vw`;
-                p.style.animationDuration = `${Math.random() * 8 + 8}s`;
-                p.style.animationDelay = `${Math.random() * 5}s`;
-                container.appendChild(p);
-            }
-        });
-    </script>
-
+    <!-- SCRIPTS DE FIREBASE Y CARGA HÍBRIDA -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
@@ -1001,6 +891,7 @@
             poblarSelectFinanciamiento(inventarioAutos);
         }
 
+        // 🔄 SINCRONIZACIÓN EN TIEMPO REAL CON FIREBASE
         onSnapshot(collection(db, "autos"), (snapshot) => {
             autosFirebase = [];
             snapshot.forEach((docSnap) => {
@@ -1010,6 +901,7 @@
             actualizarCatalogoHibrido();
         });
 
+        // CARGAR AUTOS.JSON ORIGINAL
         fetch('autos.json')
             .then(res => res.json())
             .then(data => {
@@ -1017,7 +909,7 @@
                 actualizarCatalogoHibrido();
             })
             .catch(e => {
-                console.log("Inventario sincronizado con la nube", e);
+                console.log("Usando inventario exclusivo de la nube", e);
                 actualizarCatalogoHibrido();
             });
 
@@ -1026,7 +918,7 @@
             let telefono = document.getElementById('ag-telefono').value.trim();
            
             if(!nombre || !telefono) {
-                alert('Por favor, ingresa tu número de WhatsApp.');
+                alert('Por favor, ingresa tu nombre y número de WhatsApp.');
                 return;
             }
 
@@ -1072,7 +964,7 @@
 
             } catch (e) {
                 console.error("Error al registrar en Firebase", e);
-                alert('Hubo un error al registrar la cita.');
+                alert('Hubo un error al registrar la cita. Verifica tu conexión.');
             }
         };
     </script>
@@ -1087,6 +979,27 @@
                 sessionStorage.setItem('origen_cliente', origenParam);
             }
 
+            const origenFinal = sessionStorage.getItem('origen_cliente');
+            if (origenFinal) {
+                const btnWaP = document.getElementById('btn-wa-principal');
+                if (btnWaP) {
+                    const msj = `Hola Johnny, vi tu tarjeta en ${origenFinal} y me interesa ver el inventario.`;
+                    btnWaP.href = `https://wa.me/5214525003073?text=${encodeURIComponent(msj)}`;
+                }
+
+                const btnWaExit = document.getElementById('btn-wa-exit');
+                if (btnWaExit) {
+                    const msjExit = `Hola Johnny, estuve en tu página (vía ${origenFinal}) y me gustaría recibir información.`;
+                    btnWaExit.href = `https://wa.me/5214525003073?text=${encodeURIComponent(msjExit)}`;
+                }
+
+                const btnTomaCuenta = document.querySelector('#tomaCuentaModal .modal-whatsapp-btn');
+                if (btnTomaCuenta) {
+                    const msjToma = `Hola Johnny, quiero vender o dejar a cuenta mi auto (vía ${origenFinal}). Tengo listos mis requisitos.`;
+                    btnTomaCuenta.href = `https://wa.me/5214525003073?text=${encodeURIComponent(msjToma)}`;
+                }
+            }
+
             setTimeout(function() {
                 const splashScreen = document.getElementById('splash-screen');
                 if (splashScreen) {
@@ -1096,6 +1009,15 @@
             }, 2500);
 
             generarFechasDisponibles();
+
+            history.pushState({ page: 1 }, "", "");
+            window.onpopstate = function(event) {
+                let exitModal = document.getElementById('exitModal');
+                if (exitModal && exitModal.style.display !== 'block') {
+                    history.pushState({ page: 1 }, "", "");
+                    exitModal.style.display = 'block';
+                }
+            };
         });
 
         function renderizarCatalogo(lista) {
@@ -1108,10 +1030,16 @@
                 return;
             }
 
+            let origenActual = sessionStorage.getItem('origen_cliente');
+            let etiquetaOrigen = origenActual ? ` (vía ${origenActual})` : '';
+
             lista.forEach(auto => {
                 const card = document.createElement('div');
                 card.className = 'tarjeta-auto-modal';
                 
+                let categoriaNormalizada = (auto.categoria || 'sedan').toLowerCase();
+                card.setAttribute('data-categoria', categoriaNormalizada);
+
                 let tituloAuto = auto.modelo || `${auto.nombre || ''} ${auto.modelo || ''}`.trim() || 'Auto Seminuevo';
                 let fotoAuto = auto.fotoUrl || auto.foto || 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=500';
                 let kmTexto = auto.kilometraje ? `${Number(auto.kilometraje).toLocaleString('es-MX')} km` : (auto.km || 'N/D');
@@ -1126,6 +1054,11 @@
                     else if (auto.estatus === 'apartado') { estadoTexto = 'Apartado'; badgeStyle = 'color:#ea580c; border-color: rgba(234, 88, 12, 0.4);'; }
                     else if (auto.estatus === 'vendido') { estadoTexto = 'Vendido'; badgeStyle = 'color:#ef4444; border-color: rgba(239, 68, 68, 0.4);'; }
                     else { estadoTexto = 'Disponible en piso'; }
+                } else if (auto.estado) {
+                    estadoTexto = auto.estado;
+                    if(auto.estado.includes('Promoción') || auto.estado.includes('Precio')) {
+                        badgeStyle = 'color:#ff5252; border-color: rgba(255, 82, 82, 0.4);';
+                    }
                 }
 
                 let seccionPrecio = '';
@@ -1138,11 +1071,18 @@
                     `;
                 } else if (auto.precio) {
                     let precioNum = isNaN(auto.precio) ? auto.precio : `$${Number(auto.precio).toLocaleString('es-MX')}`;
-                    seccionPrecio = `<div class="precio-modal">${precioNum}</div>`;
+                    seccionPrecio = `<div class="precio-modal" style="${String(auto.precio).includes('Aparta') ? 'color:#64b5f6;' : ''}">${precioNum}</div>`;
                 }
 
-                let textWa = encodeURIComponent(`Hola, me interesa recibir más información de ${tituloAuto}`);
-                let textVideoWa = encodeURIComponent(`Hola, me gustaría recibir el video de ${tituloAuto}`);
+                let btnGaleria = '';
+                if(auto.galeria && auto.galeria.trim() !== '') {
+                    btnGaleria = `<a href="${auto.galeria}" target="_blank" class="btn-card-modal btn-galeria">Galería</a>`;
+                } else {
+                    let textWa = encodeURIComponent(`Hola Johnny, me interesa recibir más fotos de ${tituloAuto}${etiquetaOrigen}.`);
+                    btnGaleria = `<a href="https://wa.me/5214525003073?text=${textWa}" target="_blank" class="btn-card-modal btn-galeria">Pedir Fotos</a>`;
+                }
+
+                let textVideoWa = encodeURIComponent(`Hola Johnny, me gustaría recibir el video de ${tituloAuto}${etiquetaOrigen}.`);
 
                 card.innerHTML = `
                     <span class="badge-estado" style="${badgeStyle}">${estadoTexto}</span>
@@ -1155,8 +1095,8 @@
                         </ul>
                         ${seccionPrecio}
                         <div class="botones-auto-modal">
-                            <a href="https://wa.me/5214525003073?text=${textWa}" target="_blank" class="btn-card-modal btn-galeria">Pedir Info</a>
-                            <a href="https://wa.me/5214525003073?text=${textVideoWa}" target="_blank" class="btn-card-modal btn-video-wa"><i class="fa-solid fa-video"></i> Video</a>
+                            ${btnGaleria}
+                            <a href="https://wa.me/5214525003073?text=${textVideoWa}" target="_blank" class="btn-card-modal btn-video-wa"><i class="fa-solid fa-video"></i> Pedir Video</a>
                             <button onclick="openFinancingModalWithCar('${tituloAuto}')" class="btn-card-modal btn-cotizar-auto">Cotizar</button>
                             <button onclick="openAgendarAutoModal('${tituloAuto}')" class="btn-card-modal btn-agendar-auto">Agendar</button>
                         </div>
@@ -1326,8 +1266,8 @@
             if(tipo === 'general') {
                 document.getElementById('modal-heading-label').textContent = 'RESERVA TU VISITA';
                 document.getElementById('modal-titulo-auto').textContent = 'Agendar Cita General';
-                document.getElementById('modal-subtitulo-agendar').textContent = 'GRUPO FAME • AGENDA';
-                document.getElementById('modal-desc-texto').textContent = 'Selecciona el día y horario disponible para tu atención.';
+                document.getElementById('modal-subtitulo-agendar').textContent = 'JOHNNY ENRÍQUEZ • AGENDA';
+                document.getElementById('modal-desc-texto').textContent = 'Selecciona el día y horario disponible para tu atención en piso.';
                 bloqueFechaHora.style.display = 'block';
                 document.getElementById('btn-confirmar-texto').textContent = 'Confirmar Cita';
                 contenedorExtra.innerHTML = `
@@ -1344,14 +1284,14 @@
             } else if(tipo === 'auto') {
                 document.getElementById('modal-heading-label').textContent = 'RESERVA TU VISITA';
                 document.getElementById('modal-titulo-auto').textContent = autoNombre;
-                document.getElementById('modal-subtitulo-agendar').textContent = 'GRUPO FAME • APARTADO';
-                document.getElementById('modal-desc-texto').textContent = 'Selecciona el día y horario disponible para tu atención.';
+                document.getElementById('modal-subtitulo-agendar').textContent = 'JOHNNY ENRÍQUEZ • APARTADO';
+                document.getElementById('modal-desc-texto').textContent = 'Selecciona el día y horario disponible para tu atención en piso.';
                 bloqueFechaHora.style.display = 'block';
                 document.getElementById('btn-confirmar-texto').textContent = 'Confirmar Cita';
             } else if(tipo === 'busqueda') {
                 document.getElementById('modal-heading-label').textContent = 'LISTA DE ESPERA';
                 document.getElementById('modal-titulo-auto').textContent = 'Búsqueda Personalizada';
-                document.getElementById('modal-subtitulo-agendar').textContent = 'GRUPO FAME • RASTREO';
+                document.getElementById('modal-subtitulo-agendar').textContent = 'JOHNNY ENRÍQUEZ • RASTREO';
                 document.getElementById('modal-desc-texto').textContent = 'Déjanos tus datos y qué auto buscas para avisarte en cuanto llegue.';
                 bloqueFechaHora.style.display = 'none';
                 document.getElementById('btn-confirmar-texto').textContent = 'Guardar en Lista de Espera';
@@ -1390,7 +1330,8 @@
                 alert('Por favor, completa los campos requeridos.');
                 return;
             }
-            let mensaje = `Hola, quiero solicitar mi cotización para el ${car} a un plazo de ${months}. Mi cel: ${phone}`;
+            let origen = sessionStorage.getItem('origen_cliente') ? ` (vía ${sessionStorage.getItem('origen_cliente')})` : '';
+            let mensaje = `Hola Johnny, quiero solicitar mi cotización para el ${car}${origen} a un plazo de ${months}. Mi cel: ${phone}`;
             window.open(`https://wa.me/5214525003073?text=${encodeURIComponent(mensaje)}`, '_blank');
         }
        
@@ -1398,12 +1339,13 @@
             let nombre = document.getElementById('promo-nombre').value;
             let codigo = document.getElementById('promo-codigo').value;
             if(!nombre || !codigo) return alert('Ingresa nombre y código.');
-            window.open(`https://wa.me/5214525003073?text=Mi%20nombre%20es%20${encodeURIComponent(nombre)}%20y%20mi%20código%20es%20${encodeURIComponent(codigo)}`, '_blank');
+            let origen = sessionStorage.getItem('origen_cliente') ? ` (vía ${sessionStorage.getItem('origen_cliente')})` : '';
+            window.open(`https://wa.me/5214525003073?text=Mi%20nombre%20es%20${encodeURIComponent(nombre)}%20y%20mi%20código%20es%20${encodeURIComponent(codigo)}${encodeURIComponent(origen)}`, '_blank');
         }
 
         function shareCard() {
             if (navigator.share) {
-                navigator.share({ title: 'Grupo Fame Seminuevos - Uruapan', url: 'https://tuconfiautos.com' });
+                navigator.share({ title: 'Johnny Enríquez - Asesor de Ventas', url: 'https://tuconfiautos.com' });
             } else {
                 alert('Enlace copiado: https://tuconfiautos.com');
             }
