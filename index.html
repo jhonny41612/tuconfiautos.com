@@ -1074,12 +1074,15 @@
                     seccionPrecio = `<div class="precio-modal" style="${String(auto.precio).includes('Aparta') ? 'color:#64b5f6;' : ''}">${precioNum}</div>`;
                 }
 
+                // 📸 VALIDACIÓN INTELIGENTE: LEE LINK DE DRIVE, SI NO HAY LEE GALERÍA, SI NO PIDE FOTOS POR WHATSAPP
                 let btnGaleria = '';
-                if(auto.galeria && auto.galeria.trim() !== '') {
+                if(auto.linkFotos && auto.linkFotos.trim() !== '') {
+                    btnGaleria = `<a href="${auto.linkFotos}" target="_blank" class="btn-card-modal btn-galeria" style="background: rgba(59,130,246,0.25); border: 1px solid #3B82F6;">📸 Ver Galería</a>`;
+                } else if(auto.galeria && auto.galeria.trim() !== '') {
                     btnGaleria = `<a href="${auto.galeria}" target="_blank" class="btn-card-modal btn-galeria">Galería</a>`;
                 } else {
                     let textWa = encodeURIComponent(`Hola Johnny, me interesa recibir más fotos de ${tituloAuto}${etiquetaOrigen}.`);
-                    btnGaleria = `<a href="https://wa.me/5214525003073?text=${textWa}" target="_blank" class="btn-card-modal btn-galeria">Pedir Fotos</a>`;
+                    btnGaleria = `<a href="https://wa.me/5214525003073?text=${textWa}" target="_blank" class="btn-card-modal btn-galeria" style="background: #10B981;">📲 Pedir Fotos</a>`;
                 }
 
                 let textVideoWa = encodeURIComponent(`Hola Johnny, me gustaría recibir el video de ${tituloAuto}${etiquetaOrigen}.`);
