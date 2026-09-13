@@ -312,8 +312,10 @@
 
                 <textarea id="inv-especificaciones" placeholder="Especificaciones únicas (Ej. Único dueño, servicios de agencia)..."></textarea>
 
-                <label style="display: block; font-size: 0.85rem; color: var(--color-texto-mute); margin-bottom: 5px;">Fotografía principal (Se comprime y sube sola):</label>
+                <label style="display: block; font-size: 0.85rem; color: var(--color-texto-mute); margin-bottom: 5px;">Fotografía principal (Portada):</label>
                 <input type="file" id="inv-foto-file" accept="image/*" style="padding: 12px; background: rgba(255,255,255,0.05); border-radius: 16px; margin-bottom: 15px; width: 100%; box-sizing: border-box; color: white;">
+
+                <input type="text" id="inv-link-fotos" placeholder="Link de Google Drive con las 15+ fotos (Opcional)">
 
                 <button id="btn-publicar-auto" class="btn-primario" style="background: linear-gradient(135deg, var(--color-exito) 0%, #059669 100%); box-shadow: var(--sombra-neon-verde);">🚀 Publicar al Catálogo</button>
             </div>
@@ -394,7 +396,7 @@
             return (texto || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         }
 
-        // COMPRESIÓN DE IMAGEN A BASE64 (100% GRATIS SIN STORAGE)
+        // COMPRESIÓN DE IMAGEN A BASE64
         function comprimirYConvertirImagen(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -510,7 +512,7 @@
         window.mostrarDetalleMeta = () => alert(`Progreso: ${ventasMes} de ${META_MENSUAL} unidades para la meta mensual.`);
         window.filtrarAgendaTiempo = (f) => { filtroTiempoAgenda = f; actualizarInterfaz(); };
 
-        // 🚀 PUBLICAR AUTO NUEVO CON COMPRESIÓN DIRECTA A FIRESTORE
+        // 🚀 PUBLICAR AUTO NUEVO
         document.getElementById('btn-publicar-auto').addEventListener('click', async () => {
             const modelo = document.getElementById('inv-modelo').value.trim();
             const categoria = document.getElementById('inv-categoria').value;
@@ -521,6 +523,7 @@
             const precioOferta = document.getElementById('inv-precio-oferta').value;
             const aplicaOferta = document.getElementById('inv-aplica-oferta').checked;
             const especificaciones = document.getElementById('inv-especificaciones').value.trim();
+            const linkFotos = document.getElementById('inv-link-fotos').value.trim();
             const inputFile = document.getElementById('inv-foto-file');
 
             if (!modelo || !precio) {
@@ -529,7 +532,7 @@
             }
 
             const btnPublicar = document.getElementById('btn-publicar-auto');
-            btnPublicar.textContent = '⏳ Comprimiendo y publicando...';
+            btnPublicar.textContent = '⏳ Procesando...';
             btnPublicar.disabled = true;
 
             try {
@@ -540,7 +543,7 @@
                 }
 
                 await addDoc(collection(db, "autos"), {
-                    modelo, categoria, estatus, anio, kilometraje, precio, precioOferta, aplicaOferta, especificaciones, fotoUrl,
+                    modelo, categoria, estatus, anio, kilometraje, precio, precioOferta, aplicaOferta, especificaciones, fotoUrl, linkFotos,
                     fechaCreacion: Date.now()
                 });
 
@@ -553,6 +556,7 @@
                 document.getElementById('inv-precio-oferta').value = '';
                 document.getElementById('inv-aplica-oferta').checked = false;
                 document.getElementById('inv-especificaciones').value = '';
+                document.getElementById('inv-link-fotos').value = '';
                 document.getElementById('inv-foto-file').value = '';
 
             } catch (e) {
@@ -609,6 +613,10 @@
             const contInv = document.getElementById('lista-inventario-movil');
             contInv.innerHTML = inventarioAutos.length === 0 ? '<p style="text-align:center; color:var(--color-texto-mute);">No hay autos en inventario.</p>' : '';
             inventarioAutos.forEach(auto => {
+                const botonFotos = auto.linkFotos 
+                    ? `<a href="${auto.linkFotos}" target="_blank" class="btn-secundario" style="flex:1; margin:0; padding:10px; text-align:center; text-decoration:none; background:rgba(59,130,246,0.15); border-color:var(--color-secundario);">📸 Ver Galería</a>`
+                    : `<a href="https://wa.me/52?text=${encodeURIComponent(`Hola, me interesa ver más fotos del ${auto.modelo}`)}" target="_blank" class="btn-whatsapp" style="flex:1; margin:0; padding:10px; text-align:center; text-decoration:none;">📲 Pedir Fotos</a>`;
+
                 contInv.innerHTML += `
                     <article class="tarjeta-cliente" style="border-left-color: var(--color-exito);">
                         <div style="display:flex; gap:12px; align-items:center;">
@@ -619,12 +627,36 @@
                             </div>
                         </div>
                         <div style="display:flex; gap:8px; margin-top:12px;">
-                            <button onclick="cambiarEstatusAuto('${auto.id}', '${auto.estatus}')" class="btn-secundario" style="flex:1; margin:0; padding:10px;">🔄 Cambiar Estatus</button>
-                            <button onclick="eliminarAuto('${auto.id}')" class="btn-secundario" style="flex:1; margin:0; padding:10px; color:var(--color-acento);">🗑️ Borrar</button>
+                            ${botonFotos}
+                            <button onclick="editarAuto('${auto.id}', '${auto.modelo || ''}', '${auto.linkFotos || ''}', '${auto.precio || ''}')" class="btn-secundario" style="width:auto; margin:0; padding:10px;" title="Editar Link o Datos">✏️</button>
+                            <button onclick="cambiarEstatusAuto('${auto.id}', '${auto.estatus}')" class="btn-secundario" style="width:auto; margin:0; padding:10px;" title="Cambiar Estatus">🔄</button>
+                            <button onclick="eliminarAuto('${auto.id}')" class="btn-secundario" style="width:auto; margin:0; padding:10px; color:var(--color-acento);" title="Eliminar">🗑️</button>
                         </div>
                     </article>`;
             });
         });
+
+        // ✏️ FUNCIÓN PARA EDITAR AUTO EXISTENTE
+        window.editarAuto = async function(id, modeloActual, linkActual, precioActual) {
+            const nuevoModelo = prompt("Editar Modelo y Versión:", modeloActual);
+            if (nuevoModelo === null) return;
+            const nuevoPrecio = prompt("Editar Precio Regular ($):", precioActual);
+            if (nuevoPrecio === null) return;
+            const nuevoLink = prompt("Editar Link de Google Drive (15+ fotos):", linkActual);
+            if (nuevoLink === null) return;
+
+            try {
+                await updateDoc(doc(db, "autos", id), {
+                    modelo: nuevoModelo,
+                    precio: nuevoPrecio,
+                    linkFotos: nuevoLink
+                });
+                alert("¡Auto actualizado con éxito!");
+            } catch (e) {
+                console.error(e);
+                alert("Error al actualizar el auto.");
+            }
+        };
 
         window.cambiarEstatusAuto = async function(id, estatusActual) {
             const nuevo = prompt("Selecciona nuevo estatus:\n1. disponible\n2. toma\n3. apartado\n4. vendido", estatusActual);
