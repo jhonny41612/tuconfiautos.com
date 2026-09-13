@@ -186,11 +186,12 @@
             padding: 20px 20px 10px 20px;
         }
 
-        .branch-header h2 {
-            font-size: 1.4rem;
-            color: #ffffff;
-            font-weight: 700;
-            letter-spacing: 0.5px;
+        .branch-header img.logo-empresa {
+            max-width: 220px;
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            margin-bottom: 4px;
         }
 
         .branch-header p {
@@ -202,7 +203,7 @@
             font-weight: 600;
         }
 
-        /* Carrusel / Cuadrícula de Equipo (Gerencia y Asesores) */
+        /* Cuadrícula de Equipo (Gerencia y Asesores) */
         .team-container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -779,7 +780,7 @@
         </div>
        
         <div class="branch-header">
-            <h2>Grupo Fame Seminuevos</h2>
+            <img src="imagenes/logos/3e89d201-57eb-43cf-8ab9-d2d900a55591.jpg" alt="Grupo Fame Seminuevos" class="logo-empresa" onerror="this.style.display='none'">
             <p>Atención Profesional Autorizada</p>
         </div>
 
@@ -966,7 +967,6 @@
 
     <!-- SCRIPTS DE PARTÍCULAS Y FIREBASE HÍBRIDO -->
     <script>
-        // Generador dinámico de partículas flotantes en el fondo
         document.addEventListener("DOMContentLoaded", function() {
             const container = document.getElementById("particle-container");
             const count = 18;
