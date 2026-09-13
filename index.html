@@ -764,7 +764,7 @@
             </div>
         </div>
 
-        <!-- MODAL CATÁLOGO (CONECTADO EN TIEMPO REAL A FIREBASE) -->
+        <!-- MODAL CATÁLOGO (CARGA HÍBRIDA: JSON + NUBE FIREBASE) -->
         <div id="catalogoModal" class="modal">
             <div class="modal-header">
                 <span class="modal-title-top">JOHNNY ENRÍQUEZ • INVENTARIO</span>
@@ -792,7 +792,7 @@
             </div>
 
             <div id="lista-autos-inventario">
-                <p style="text-align: center; color: #94a3b8; padding: 25px;">Cargando inventario en tiempo real...</p>
+                <p style="text-align: center; color: #94a3b8; padding: 25px;">Cargando inventario...</p>
             </div>
 
             <button type="button" class="modal-home-btn" onclick="closeAllModals()"><i class="fa-solid fa-house"></i> Regresar a página principal</button>
@@ -865,7 +865,7 @@
 
     </div>
 
-    <!-- SCRIPTS DE FIREBASE Y TIEMPO REAL -->
+    <!-- SCRIPTS DE FIREBASE Y CARGA HÍBRIDA -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
         import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
@@ -882,16 +882,36 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // 🔄 SINCRONIZACIÓN EN TIEMPO REAL CON FIREBASE FIRESTORE (COLECCIÓN AUTOS)
-        onSnapshot(collection(db, "autos"), (snapshot) => {
-            inventarioAutos = [];
-            snapshot.forEach((docSnap) => {
-                const data = docSnap.data();
-                inventarioAutos.push({ id: docSnap.id, ...data });
-            });
+        let autosFirebase = [];
+        let autosJson = [];
+
+        function actualizarCatalogoHibrido() {
+            inventarioAutos = [...autosFirebase, ...autosJson];
             renderizarCatalogo(inventarioAutos);
             poblarSelectFinanciamiento(inventarioAutos);
+        }
+
+        // 🔄 SINCRONIZACIÓN EN TIEMPO REAL CON FIREBASE
+        onSnapshot(collection(db, "autos"), (snapshot) => {
+            autosFirebase = [];
+            snapshot.forEach((docSnap) => {
+                const data = docSnap.data();
+                autosFirebase.push({ id: docSnap.id, ...data });
+            });
+            actualizarCatalogoHibrido();
         });
+
+        // CARGAR AUTOS.JSON ORIGINAL
+        fetch('autos.json')
+            .then(res => res.json())
+            .then(data => {
+                autosJson = data;
+                actualizarCatalogoHibrido();
+            })
+            .catch(e => {
+                console.log("Usando inventario exclusivo de la nube", e);
+                actualizarCatalogoHibrido();
+            });
 
         window.enviarFormularioAgendarFirebase = async function() {
             let nombre = document.getElementById('ag-nombre').value.trim();
@@ -953,7 +973,6 @@
         let inventarioAutos = [];
 
         document.addEventListener('DOMContentLoaded', function() {
-            // DETECTAR PARÁMETRO DE ORIGEN EN LA URL (EJ. ?origen=Restaurante%20El%20Encanto)
             const urlParams = new URLSearchParams(window.location.search);
             const origenParam = urlParams.get('origen');
             if (origenParam) {
@@ -962,21 +981,18 @@
 
             const origenFinal = sessionStorage.getItem('origen_cliente');
             if (origenFinal) {
-                // 1. WhatsApp Principal
                 const btnWaP = document.getElementById('btn-wa-principal');
                 if (btnWaP) {
                     const msj = `Hola Johnny, vi tu tarjeta en ${origenFinal} y me interesa ver el inventario.`;
                     btnWaP.href = `https://wa.me/5214525003073?text=${encodeURIComponent(msj)}`;
                 }
 
-                // 2. WhatsApp Modal de Salida
                 const btnWaExit = document.getElementById('btn-wa-exit');
                 if (btnWaExit) {
                     const msjExit = `Hola Johnny, estuve en tu página (vía ${origenFinal}) y me gustaría recibir información.`;
                     btnWaExit.href = `https://wa.me/5214525003073?text=${encodeURIComponent(msjExit)}`;
                 }
 
-                // 3. WhatsApp "Compramos tu auto"
                 const btnTomaCuenta = document.querySelector('#tomaCuentaModal .modal-whatsapp-btn');
                 if (btnTomaCuenta) {
                     const msjToma = `Hola Johnny, quiero vender o dejar a cuenta mi auto (vía ${origenFinal}). Tengo listos mis requisitos.`;
@@ -1030,7 +1046,6 @@
                 let anioTexto = auto.anio ? `Año: ${auto.anio}` : '';
                 let especificacionesTexto = auto.especificaciones || auto.detalle || '';
 
-                // Estatus y Badges
                 let estadoTexto = 'Disponible';
                 let badgeStyle = 'color:#10b981; border-color: rgba(16, 185, 129, 0.4);';
                 
@@ -1046,7 +1061,6 @@
                     }
                 }
 
-                // Manejo de Precio y Oferta
                 let seccionPrecio = '';
                 if (auto.aplicaOferta && auto.precioOferta) {
                     seccionPrecio = `
