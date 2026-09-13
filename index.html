@@ -144,18 +144,20 @@
             }
         }
 
-        /* Portada corporativa */
+        /* Portada corporativa con el nuevo logo principal y el de 60 años chico en esquina */
         .cover-photo {
-            height: 200px;
+            height: 210px;
             background: linear-gradient(135deg, #090e17, #15284a);
             position: relative;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+            padding: 15px;
         }
 
-        .cover-logo-centro {
+        .cover-logo-principal {
             width: 110px;
             height: 110px;
             border-radius: 50%;
@@ -163,39 +165,52 @@
             border: 3px solid #d4af37;
             box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
             background: #0d1b33;
+            margin-bottom: 5px;
         }
 
         .cover-badge-corner {
             position: absolute;
             top: 12px;
-            right: 15px;
+            left: 15px;
             font-size: 0.75rem;
             color: #d4af37;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
             background: rgba(0, 0, 0, 0.4);
-            padding: 6px 12px;
-            border-radius: 12px;
+            padding: 5px 10px;
+            border-radius: 10px;
             border: 1px solid rgba(212, 175, 55, 0.2);
         }
 
-        /* Sección de Sucursal y Equipo */
-        .branch-header {
-            text-align: center;
-            padding: 20px 20px 10px 20px;
+        .cover-logo-badge-small {
+            position: absolute;
+            bottom: 12px;
+            right: 15px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(212, 175, 55, 0.6);
+            background: #0d1b33;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
         }
 
-        .branch-header img.logo-empresa {
-            max-width: 220px;
-            width: 100%;
-            height: auto;
-            object-fit: contain;
-            margin-bottom: 4px;
+        /* Sección de Sucursal */
+        .branch-header {
+            text-align: center;
+            padding: 15px 20px 5px 20px;
+        }
+
+        .branch-header h2 {
+            font-size: 1.3rem;
+            color: #ffffff;
+            font-weight: 700;
+            letter-spacing: 0.5px;
         }
 
         .branch-header p {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #d4af37;
             text-transform: uppercase;
             letter-spacing: 1.5px;
@@ -203,63 +218,51 @@
             font-weight: 600;
         }
 
-        /* Cuadrícula de Equipo (Gerencia y Asesores) */
+        /* Contenedor de equipo (Solo Johnny Enríquez por ahora) */
         .team-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            padding: 15px 20px 25px 20px;
+            display: flex;
+            justify-content: center;
+            padding: 15px 20px 20px 20px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
 
-        .team-member {
-            background: rgba(21, 40, 74, 0.6);
-            border: 1px solid rgba(100, 181, 246, 0.2);
-            border-radius: 16px;
-            padding: 12px 8px;
+        .team-member.main-advisor {
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px solid #d4af37;
+            border-radius: 18px;
+            padding: 12px 20px;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 6px;
-        }
-
-        .team-member.main-advisor {
-            border-color: #d4af37;
-            background: rgba(212, 175, 55, 0.08);
             box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+            max-width: 220px;
+            width: 100%;
         }
 
         .team-img {
-            width: 55px;
-            height: 55px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid #64b5f6;
+            border: 2px solid #d4af37;
             background-color: #15284a;
         }
 
-        .team-member.main-advisor .team-img {
-            border-color: #d4af37;
-        }
-
         .team-name {
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             color: #ffffff;
             font-weight: 700;
             line-height: 1.1;
         }
 
         .team-role {
-            font-size: 0.6rem;
-            color: #90caf9;
+            font-size: 0.65rem;
+            color: #ffb300;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             font-weight: 600;
-        }
-
-        .team-member.main-advisor .team-role {
-            color: #ffb300;
         }
 
         /* Botones Circulares Principales */
@@ -774,32 +777,24 @@
     </div>
 
     <div class="smart-card">
+        <!-- Portada con Logo Principal y Logo 60 Años Chico en esquina -->
         <div class="cover-photo">
             <span class="cover-badge-corner">Sucursal Uruapan</span>
-            <img src="imagenes/logos/fame60anos.jpeg" alt="Grupo Fame" class="cover-logo-centro">
+            <img src="imagenes/logos/3e89d201-57eb-43cf-8ab9-d2d900a55591.jpg" alt="Grupo Fame Seminuevos" class="cover-logo-principal" onerror="this.style.display='none'">
+            <img src="imagenes/logos/fame60anos.jpeg" alt="60 Años" class="cover-logo-badge-small" onerror="this.style.display='none'">
         </div>
        
         <div class="branch-header">
-            <img src="imagenes/logos/3e89d201-57eb-43cf-8ab9-d2d900a55591.jpg" alt="Grupo Fame Seminuevos" class="logo-empresa" onerror="this.style.display='none'">
+            <h2>Grupo Fame Seminuevos</h2>
             <p>Atención Profesional Autorizada</p>
         </div>
 
-        <!-- SECCIÓN DE EQUIPO Y GERENCIA (FOTOS Y NOMBRES) -->
+        <!-- SECCIÓN DE EQUIPO (Únicamente Johnny Enríquez) -->
         <div class="team-container">
-            <div class="team-member">
-                <img src="imagenes/perfil/gerente.jpeg" alt="Gerencia" class="team-img" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150'">
-                <div class="team-name">Gerencia</div>
-                <div class="team-role">Dirección</div>
-            </div>
             <div class="team-member main-advisor">
                 <img src="imagenes/perfil/johnny.jpeg" alt="Johnny Enríquez" class="team-img" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150'">
                 <div class="team-name">Johnny Enríquez</div>
                 <div class="team-role">Asesor de Ventas</div>
-            </div>
-            <div class="team-member">
-                <img src="imagenes/perfil/companero.jpeg" alt="Compañero" class="team-img" onerror="this.src='https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150'">
-                <div class="team-name">Equipo Ventas</div>
-                <div class="team-role">Asesoría</div>
             </div>
         </div>
        
