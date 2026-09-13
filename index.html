@@ -27,8 +27,8 @@
         body {
             background-color: #070b12;
             background-image: 
-                radial-gradient(circle at 20% 30%, rgba(212, 175, 55, 0.08), transparent 30%),
-                radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.1), transparent 35%);
+                radial-gradient(circle at 20% 30%, rgba(47, 128, 237, 0.1), transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.08), transparent 35%);
             background-attachment: fixed;
             display: flex;
             justify-content: center;
@@ -39,7 +39,7 @@
             position: relative;
         }
 
-        /* --- FONDO ANIMADO CON PARTÍCULAS DORADAS/METÁLICAS --- */
+        /* --- FONDO ANIMADO CON PARTÍCULAS --- */
         .background-particles {
             position: fixed;
             inset: 0;
@@ -50,9 +50,9 @@
 
         .particle {
             position: absolute;
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.25), rgba(100, 181, 246, 0.15));
+            background: linear-gradient(135deg, rgba(47, 128, 237, 0.25), rgba(212, 175, 55, 0.15));
             border-radius: 50%;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+            box-shadow: 0 0 15px rgba(47, 128, 237, 0.2);
             animation: floatParticle 12s infinite linear;
         }
 
@@ -63,7 +63,7 @@
             100% { transform: translateY(-10vh) rotate(360deg) scale(1.2); opacity: 0; }
         }
 
-        /* --- PANTALLA DE CARGA (SPLASH SCREEN) --- */
+        /* --- PANTALLA DE CARGA (SPLASH SCREEN) CON AZUL FAME --- */
         #splash-screen {
             position: fixed;
             inset: 0;
@@ -93,8 +93,8 @@
             border-radius: 50%;
             object-fit: cover;
             object-position: center;
-            border: 4px solid #d4af37;
-            box-shadow: 0 0 35px rgba(212, 175, 55, 0.5);
+            border: 4px solid #2f80ed;
+            box-shadow: 0 0 40px rgba(47, 128, 237, 0.7);
             animation: rotateZoom 1.8s ease-in-out infinite alternate;
         }
 
@@ -112,7 +112,7 @@
 
         .splash-content p {
             font-size: 0.95rem;
-            color: #d4af37;
+            color: #64b5f6;
             text-transform: uppercase;
             letter-spacing: 2px;
         }
@@ -129,10 +129,10 @@
             background: rgba(13, 27, 51, 0.9);
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(212, 175, 55, 0.3);
+            border: 1px solid rgba(47, 128, 237, 0.3);
             border-radius: 35px;
             overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 25px rgba(212, 175, 55, 0.15);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 25px rgba(47, 128, 237, 0.2);
             position: relative;
             z-index: 10;
             transition: max-width 0.3s ease;
@@ -144,7 +144,7 @@
             }
         }
 
-        /* Portada corporativa con el nuevo logo principal y el de 60 años chico en esquina */
+        /* Portada corporativa */
         .cover-photo {
             height: 210px;
             background: linear-gradient(135deg, #090e17, #15284a);
@@ -153,7 +153,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            border-bottom: 2px solid rgba(212, 175, 55, 0.3);
+            border-bottom: 2px solid rgba(47, 128, 237, 0.3);
             padding: 15px;
         }
 
@@ -162,8 +162,8 @@
             height: 110px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid #d4af37;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+            border: 3px solid #2f80ed;
+            box-shadow: 0 0 20px rgba(47, 128, 237, 0.5);
             background: #0d1b33;
             margin-bottom: 5px;
         }
@@ -173,14 +173,14 @@
             top: 12px;
             left: 15px;
             font-size: 0.75rem;
-            color: #d4af37;
+            color: #64b5f6;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1px;
             background: rgba(0, 0, 0, 0.4);
             padding: 5px 10px;
             border-radius: 10px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            border: 1px solid rgba(47, 128, 237, 0.2);
         }
 
         .cover-logo-badge-small {
@@ -211,14 +211,14 @@
 
         .branch-header p {
             font-size: 0.8rem;
-            color: #d4af37;
+            color: #64b5f6;
             text-transform: uppercase;
             letter-spacing: 1.5px;
             margin-top: 4px;
             font-weight: 600;
         }
 
-        /* Contenedor de equipo (Solo Johnny Enríquez por ahora) */
+        /* Contenedor de equipo */
         .team-container {
             display: flex;
             justify-content: center;
@@ -227,8 +227,8 @@
         }
 
         .team-member.main-advisor {
-            background: rgba(212, 175, 55, 0.08);
-            border: 1px solid #d4af37;
+            background: rgba(47, 128, 237, 0.08);
+            border: 1px solid #2f80ed;
             border-radius: 18px;
             padding: 12px 20px;
             text-align: center;
@@ -236,7 +236,7 @@
             flex-direction: column;
             align-items: center;
             gap: 6px;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+            box-shadow: 0 0 15px rgba(47, 128, 237, 0.2);
             max-width: 220px;
             width: 100%;
         }
@@ -246,7 +246,7 @@
             height: 65px;
             border-radius: 50%;
             object-fit: cover;
-            border: 2px solid #d4af37;
+            border: 2px solid #2f80ed;
             background-color: #15284a;
         }
 
@@ -259,7 +259,7 @@
 
         .team-role {
             font-size: 0.65rem;
-            color: #ffb300;
+            color: #64b5f6;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             font-weight: 600;
@@ -289,8 +289,8 @@
         }
 
         .circle-btn:hover {
-            background: #d4af37;
-            color: #0d1b33;
+            background: #2f80ed;
+            color: #ffffff;
             transform: translateY(-3px);
         }
 
@@ -334,13 +334,13 @@
         .main-cta:hover { transform: scale(1.02); }
 
         .financing-btn {
-            background: linear-gradient(135deg, #d4af37, #b8860b);
-            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
+            background: linear-gradient(135deg, #2f80ed, #1d4ed8);
+            box-shadow: 0 8px 20px rgba(47, 128, 237, 0.3);
             font-size: 0.95rem;
-            color: #070b12;
+            color: #ffffff;
             font-weight: 700;
         }
-        .financing-btn:hover { background: linear-gradient(135deg, #e5c158, #d4af37); }
+        .financing-btn:hover { background: linear-gradient(135deg, #3b82f6, #1e40af); }
 
         /* Cuadrícula Inferior */
         .features-grid {
@@ -398,12 +398,12 @@
         /* Barra de Confianza */
         .bottom-footer {
             background: rgba(9, 18, 36, 0.9);
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            border-top: 1px solid rgba(47, 128, 237, 0.2);
             padding: 20px 15px;
             text-align: center;
         }
 
-        .footer-title { color: #d4af37; font-size: 0.85rem; font-weight: 600; }
+        .footer-title { color: #64b5f6; font-size: 0.85rem; font-weight: 600; }
 
         /* --- VENTANAS MODALES --- */
         .modal {
@@ -431,7 +431,7 @@
             padding-bottom: 12px;
         }
 
-        .modal-title-top { font-size: 0.7rem; letter-spacing: 1.5px; color: #d4af37; font-weight: 700; }
+        .modal-title-top { font-size: 0.7rem; letter-spacing: 1.5px; color: #64b5f6; font-weight: 700; }
 
         .back-btn {
             background: rgba(255, 255, 255, 0.1);
@@ -471,7 +471,7 @@
         }
         .modal-home-btn:hover { transform: scale(1.02); }
 
-        .modal-heading { font-size: 0.8rem; color: #d4af37; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; font-weight: 600; }
+        .modal-heading { font-size: 0.8rem; color: #64b5f6; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; font-weight: 600; }
         .modal-main-title { font-size: 1.25rem; font-weight: 700; color: #ffffff; margin-bottom: 12px; line-height: 1.2; }
         .modal-desc { font-size: 0.8rem; color: #b0bec5; line-height: 1.4; margin-bottom: 20px; }
 
@@ -532,7 +532,7 @@
         .info-auto-modal { padding: 15px; }
         .info-auto-modal h3 { font-size: 1rem; color: white; margin-bottom: 8px; }
         .info-auto-modal ul { list-style: none; font-size: 0.75rem; color: #b0bec5; margin-bottom: 10px; display: flex; flex-direction: column; gap: 4px; }
-        .precio-modal { font-size: 1.1rem; font-weight: 700; color: #d4af37; margin-bottom: 12px; }
+        .precio-modal { font-size: 1.1rem; font-weight: 700; color: #ffb300; margin-bottom: 12px; }
        
         .botones-auto-modal {
             display: flex;
@@ -607,7 +607,7 @@
             background: rgba(255, 255, 255, 0.03);
             padding: 15px;
             border-radius: 15px;
-            border: 1px solid rgba(212, 175, 55, 0.2);
+            border: 1px solid rgba(47, 128, 237, 0.2);
         }
 
         .financing-form input, .financing-form select {
@@ -657,21 +657,21 @@
 
         .success-box {
             background: rgba(13, 27, 51, 0.98);
-            border: 2px solid rgba(212, 175, 55, 0.6);
+            border: 2px solid rgba(47, 128, 237, 0.6);
             border-radius: 28px;
             padding: 35px 25px;
             text-align: center;
             max-width: 320px;
             width: 100%;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9), 0 0 25px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.9), 0 0 25px rgba(47, 128, 237, 0.4);
             animation: fadeIn 0.3s ease;
         }
 
         .success-icon {
             font-size: 3.2rem;
-            color: #d4af37;
+            color: #64b5f6;
             margin-bottom: 15px;
-            text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+            text-shadow: 0 0 15px rgba(47, 128, 237, 0.5);
         }
 
         .success-box h3 { font-size: 1.3rem; color: #ffffff; font-weight: 700; margin-bottom: 10px; }
@@ -706,7 +706,7 @@
 </head>
 <body>
 
-    <!-- Fondo dinámico con partículas y destellos elegantes -->
+    <!-- Fondo dinámico con partículas -->
     <div class="background-particles" id="particle-container"></div>
 
     <div id="splash-screen">
@@ -764,10 +764,10 @@
             <div id="campo-extra-container"></div>
 
             <div id="bloque-fecha-hora">
-                <label style="font-size: 0.75rem; color: #d4af37; font-weight: 600;">Selecciona el día:</label>
+                <label style="font-size: 0.75rem; color: #64b5f6; font-weight: 600;">Selecciona el día:</label>
                 <select id="ag-fecha" onchange="actualizarHorariosDisponibles()" required></select>
 
-                <label style="font-size: 0.75rem; color: #d4af37; font-weight: 600; margin-top: 10px; display:block;">Selecciona el horario:</label>
+                <label style="font-size: 0.75rem; color: #64b5f6; font-weight: 600; margin-top: 10px; display:block;">Selecciona el horario:</label>
                 <select id="ag-hora" required></select>
             </div>
 
@@ -777,7 +777,7 @@
     </div>
 
     <div class="smart-card">
-        <!-- Portada con Logo Principal y Logo 60 Años Chico en esquina -->
+        <!-- Portada con Logo Principal, Badge 60 años chico en esquina y sucursal -->
         <div class="cover-photo">
             <span class="cover-badge-corner">Sucursal Uruapan</span>
             <img src="imagenes/logos/3e89d201-57eb-43cf-8ab9-d2d900a55591.jpg" alt="Grupo Fame Seminuevos" class="cover-logo-principal" onerror="this.style.display='none'">
@@ -789,7 +789,7 @@
             <p>Atención Profesional Autorizada</p>
         </div>
 
-        <!-- SECCIÓN DE EQUIPO (Únicamente Johnny Enríquez) -->
+        <!-- SECCIÓN DE EQUIPO (Solo Johnny Enríquez) -->
         <div class="team-container">
             <div class="team-member main-advisor">
                 <img src="imagenes/perfil/johnny.jpeg" alt="Johnny Enríquez" class="team-img" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150'">
@@ -1334,7 +1334,7 @@
                 bloqueFechaHora.style.display = 'block';
                 document.getElementById('btn-confirmar-texto').textContent = 'Confirmar Cita';
                 contenedorExtra.innerHTML = `
-                    <label style="font-size: 0.75rem; color: #d4af37; font-weight: 600;">Categoría o Interés:</label>
+                    <label style="font-size: 0.75rem; color: #64b5f6; font-weight: 600;">Categoría o Interés:</label>
                     <select id="ag-extra-val">
                         <option value="SUV">SUV</option>
                         <option value="Sedán">Sedán</option>
@@ -1359,7 +1359,7 @@
                 bloqueFechaHora.style.display = 'none';
                 document.getElementById('btn-confirmar-texto').textContent = 'Guardar en Lista de Espera';
                 contenedorExtra.innerHTML = `
-                    <label style="font-size: 0.75rem; color: #d4af37; font-weight: 600;">¿Qué auto o características buscas?</label>
+                    <label style="font-size: 0.75rem; color: #64b5f6; font-weight: 600;">¿Qué auto o características buscas?</label>
                     <input type="text" id="ag-extra-val" placeholder="Ej. Ford Territory Titanium, color blanco..." required>
                 `;
             }
