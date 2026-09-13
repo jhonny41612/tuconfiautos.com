@@ -5,10 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Agenda Élite & CRM Automotriz | Fame Seminuevos</title>
     
-    <!-- LOGOTIPO / ICONOS -->
-    <link rel="icon" type="image/svg+xml" href="imagenes/logo.svg">
-    <link rel="apple-touch-icon" href="imagenes/logo.svg">
-
     <!-- FUENTES ÉLITE -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
     
@@ -55,10 +51,11 @@
             gap: 15px;
         }
         .header-logo {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
             box-shadow: var(--sombra-neon-azul);
+            flex-shrink: 0;
         }
         #saludo-personalizado { font-size: 1.7rem; font-weight: 700; line-height: 1.2; margin-bottom: 4px; color: #ffffff; }
         #subtitulo-fecha { font-size: 0.85rem; color: var(--color-secundario); font-weight: 600; text-transform: uppercase; letter-spacing: 2px; }
@@ -178,7 +175,31 @@
     <div id="toast-alerta">🔔 <span id="texto-toast">Nueva interacción detectada</span></div>
 
     <header class="header-app">
-        <img src="imagenes/logo.svg" alt="Logo Fame" class="header-logo">
+        <!-- LOGOTIPO VECTORIAL INCRUSTADO (SIN DEPENDER DE ARCHIVOS EXTERNOS) -->
+        <svg class="header-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <defs>
+                <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#090E17" />
+                    <stop offset="100%" stop-color="#1E293B" />
+                </linearGradient>
+                <linearGradient id="neonBlue" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#3B82F6" />
+                    <stop offset="100%" stop-color="#60A5FA" />
+                </linearGradient>
+                <linearGradient id="neonGreen" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#10B981" />
+                    <stop offset="100%" stop-color="#34D399" />
+                </linearGradient>
+            </defs>
+            <rect width="512" height="512" rx="110" fill="url(#bgGrad)" />
+            <path d="M160 140 H352 C374 140 392 158 392 180 V352 C392 374 374 392 352 392 H160 C138 392 120 374 120 352 V180 C120 158 138 140 160 140 Z" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.1)" stroke-width="6"/>
+            <path d="M120 200 H392 V220 H120 Z" fill="url(#neonBlue)" />
+            <path d="M160 275 L190 240 H320 L350 275 C370 275 380 285 380 300 V330 H130 V300 C130 285 140 275 160 275 Z" fill="url(#neonBlue)" opacity="0.9"/>
+            <circle cx="185" cy="330" r="24" fill="#090E17" stroke="#3B82F6" stroke-width="6"/>
+            <circle cx="325" cy="330" r="24" fill="#090E17" stroke="#3B82F6" stroke-width="6"/>
+            <path d="M220 210 L250 240 L310 170" fill="none" stroke="url(#neonGreen)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M375 105 L382 125 L402 132 L382 139 L375 159 L368 139 L348 132 L368 125 Z" fill="#F43F5E" />
+        </svg>
         <div>
             <h1 id="saludo-personalizado">¡Excelente día, Johnny Alejandro!</h1>
             <p id="subtitulo-fecha">Fame Seminuevos • CRM & Inventario</p>
@@ -381,29 +402,27 @@
             try {
                 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 
-                // Tono 1
                 const osc1 = audioCtx.createOscillator();
                 const gain1 = audioCtx.createGain();
                 osc1.type = 'sine';
-                osc1.frequency.setValueAtTime(587.33, audioCtx.currentTime); // Nota D5
+                osc1.frequency.setValueAtTime(587.33, audioCtx.currentTime);
                 gain1.gain.setValueAtTime(0.3, audioCtx.currentTime);
                 gain1.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
                 osc1.connect(gain1); gain1.connect(audioCtx.destination);
                 osc1.start(); osc1.stop(audioCtx.currentTime + 0.3);
 
-                // Tono 2 (Efecto timbre doble)
                 setTimeout(() => {
                     const osc2 = audioCtx.createOscillator();
                     const gain2 = audioCtx.createGain();
                     osc2.type = 'sine';
-                    osc2.frequency.setValueAtTime(880, audioCtx.currentTime); // Nota A5
+                    osc2.frequency.setValueAtTime(880, audioCtx.currentTime);
                     gain2.gain.setValueAtTime(0.3, audioCtx.currentTime);
                     gain2.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
                     osc2.connect(gain2); gain2.connect(audioCtx.destination);
                     osc2.start(); osc2.stop(audioCtx.currentTime + 0.4);
                 }, 150);
             } catch (e) {
-                console.log("Audio interactivo bloqueado por el navegador hasta el primer clic.");
+                console.log("Audio interactivo bloqueado hasta el primer clic.");
             }
         }
 
@@ -524,8 +543,7 @@
                     
                     if ('Notification' in window && Notification.permission === 'granted') {
                         new Notification("🔥 Fame Seminuevos - Nueva Cita", {
-                            body: `${nuevo.nombre} agendó para hoy/pronto. Interés: ${nuevo.interes}`,
-                            icon: "imagenes/logo.svg"
+                            body: `${nuevo.nombre} agendó para hoy/pronto. Interés: ${nuevo.interes}`
                         });
                     }
                 }
