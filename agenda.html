@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Agenda Élite & CRM Automotriz</title>
+    <title>Agenda Élite & CRM Automotriz | Fame Seminuevos</title>
     
+    <!-- LOGOTIPO / ICONOS -->
+    <link rel="icon" type="image/svg+xml" href="imagenes/logo.svg">
+    <link rel="apple-touch-icon" href="imagenes/logo.svg">
+
     <!-- FUENTES ÉLITE -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
     
@@ -46,11 +50,20 @@
             padding: 40px 25px 25px 25px;
             position: relative;
             z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
-        #saludo-personalizado { font-size: 1.8rem; font-weight: 700; line-height: 1.2; margin-bottom: 8px; color: #ffffff; }
-        #subtitulo-fecha { font-size: 0.9rem; color: var(--color-secundario); font-weight: 600; text-transform: uppercase; letter-spacing: 2px; }
+        .header-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            box-shadow: var(--sombra-neon-azul);
+        }
+        #saludo-personalizado { font-size: 1.7rem; font-weight: 700; line-height: 1.2; margin-bottom: 4px; color: #ffffff; }
+        #subtitulo-fecha { font-size: 0.85rem; color: var(--color-secundario); font-weight: 600; text-transform: uppercase; letter-spacing: 2px; }
 
-        #contenedor-vistas { padding: 0 20px 20px 20px; pointer-events: auto; position: relative; z-index: 10; }
+        #contenedor-vistas { padding: 0 20px 20px 20px; position: relative; z-index: 10; }
         .vista { display: none; animation: aparecer 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
         .vista.activa { display: block; }
 
@@ -61,6 +74,16 @@
 
         .vista h2 { color: var(--color-primario); font-size: 1.8rem; font-weight: 700; margin-bottom: 15px; }
         .descripcion-vista { font-size: 0.95rem; color: var(--color-texto-mute); margin-bottom: 25px; line-height: 1.6; font-weight: 300; }
+
+        /* TOAST DE ALERTA VISUAL */
+        #toast-alerta {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px);
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white; padding: 14px 24px; border-radius: 30px; font-weight: 700; font-size: 0.95rem;
+            box-shadow: var(--sombra-neon-verde); z-index: 999999; transition: transform 0.4s ease;
+            display: flex; align-items: center; gap: 10px;
+        }
+        #toast-alerta.mostrar { transform: translateX(-50%) translateY(0); }
 
         /* TARJETAS Y CONTENEDORES GLASS */
         .tarjetas-metricas { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
@@ -151,9 +174,15 @@
 </head>
 <body>
 
+    <!-- TOAST DE NOTIFICACIÓN DE INTERACCIÓN -->
+    <div id="toast-alerta">🔔 <span id="texto-toast">Nueva interacción detectada</span></div>
+
     <header class="header-app">
-        <h1 id="saludo-personalizado">¡Excelente día, Johnny Alejandro!</h1>
-        <p id="subtitulo-fecha">Fame Seminuevos • CRM & Inventario</p>
+        <img src="imagenes/logo.svg" alt="Logo Fame" class="header-logo">
+        <div>
+            <h1 id="saludo-personalizado">¡Excelente día, Johnny Alejandro!</h1>
+            <p id="subtitulo-fecha">Fame Seminuevos • CRM & Inventario</p>
+        </div>
     </header>
 
     <main id="contenedor-vistas">
@@ -196,7 +225,7 @@
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;">
                 <h2>📅 Agenda</h2>
                 <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 0.75rem; font-weight: 700; color: var(--color-secundario); background: rgba(59, 130, 246, 0.1); padding: 8px 12px; border-radius: 20px; border: 1px solid rgba(59, 130, 246, 0.2); text-transform: uppercase;">
-                    <span>🔔 Alertas</span>
+                    <span>🔔 Alertas Sonoras</span>
                     <input type="checkbox" id="toggle-notificaciones" checked style="width: 16px; height: 16px; accent-color: var(--color-secundario);" onchange="cambiarEstadoNotificaciones(this)">
                 </label>
             </div>
@@ -346,6 +375,45 @@
             return (texto || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         }
 
+        // SISTEMA DE ALERTA SONORA (Sintetizador Web sin archivos externos)
+        function reproducirTimbreAlerta() {
+            if (localStorage.getItem('notif_activas') === 'false') return;
+            try {
+                const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // Tono 1
+                const osc1 = audioCtx.createOscillator();
+                const gain1 = audioCtx.createGain();
+                osc1.type = 'sine';
+                osc1.frequency.setValueAtTime(587.33, audioCtx.currentTime); // Nota D5
+                gain1.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                gain1.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+                osc1.connect(gain1); gain1.connect(audioCtx.destination);
+                osc1.start(); osc1.stop(audioCtx.currentTime + 0.3);
+
+                // Tono 2 (Efecto timbre doble)
+                setTimeout(() => {
+                    const osc2 = audioCtx.createOscillator();
+                    const gain2 = audioCtx.createGain();
+                    osc2.type = 'sine';
+                    osc2.frequency.setValueAtTime(880, audioCtx.currentTime); // Nota A5
+                    gain2.gain.setValueAtTime(0.3, audioCtx.currentTime);
+                    gain2.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
+                    osc2.connect(gain2); gain2.connect(audioCtx.destination);
+                    osc2.start(); osc2.stop(audioCtx.currentTime + 0.4);
+                }, 150);
+            } catch (e) {
+                console.log("Audio interactivo bloqueado por el navegador hasta el primer clic.");
+            }
+        }
+
+        function mostrarToastAlerta(mensaje) {
+            const toast = document.getElementById('toast-alerta');
+            document.getElementById('texto-toast').textContent = mensaje;
+            toast.classList.add('mostrar');
+            setTimeout(() => toast.classList.remove('mostrar'), 5000);
+        }
+
         window.cambiarEstadoNotificaciones = function(checkbox) {
             localStorage.setItem('notif_activas', checkbox.checked ? 'true' : 'false');
             if (checkbox.checked && 'Notification' in window && Notification.permission !== 'granted') {
@@ -427,7 +495,6 @@
 
                 alert('¡Auto publicado con éxito en tu catálogo web!');
                 
-                // Limpiar formulario
                 document.getElementById('inv-modelo').value = '';
                 document.getElementById('inv-anio').value = '';
                 document.getElementById('inv-km').value = '';
@@ -446,8 +513,25 @@
             }
         });
 
-        // 🔄 SINCRONIZACIÓN EN TIEMPO REAL
+        // 🔄 SINCRONIZACIÓN EN TIEMPO REAL CON DETECCIÓN DE NUEVOS CLIENTES Y CITAS
+        let cargaInicialClientes = true;
         onSnapshot(collection(db, "clientes"), (snapshot) => {
+            snapshot.docChanges().forEach((change) => {
+                if (change.type === "added" && !cargaInicialClientes) {
+                    const nuevo = change.doc.data();
+                    reproducirTimbreAlerta();
+                    mostrarToastAlerta(`¡Nueva Cita/Prospecto: ${nuevo.nombre} (${nuevo.interes})!`);
+                    
+                    if ('Notification' in window && Notification.permission === 'granted') {
+                        new Notification("🔥 Fame Seminuevos - Nueva Cita", {
+                            body: `${nuevo.nombre} agendó para hoy/pronto. Interés: ${nuevo.interes}`,
+                            icon: "imagenes/logo.svg"
+                        });
+                    }
+                }
+            });
+            cargaInicialClientes = false;
+
             clientes = [];
             snapshot.forEach(doc => clientes.push({ id: doc.id, ...doc.data() }));
             actualizarInterfaz();
