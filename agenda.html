@@ -156,6 +156,9 @@
         .tarjeta-cliente h3 { margin-bottom: 10px; color: #ffffff; font-size: 1.3rem; font-family: 'Playfair Display', serif; }
         .tarjeta-cliente p { margin: 6px 0; font-size: 0.95rem; color: #cbd5e1; font-weight: 300; }
         .tarjeta-cliente.estado-fuego { border-left-color: var(--color-acento); background: linear-gradient(to right, rgba(244, 63, 94, 0.08), rgba(255, 255, 255, 0.02)); }
+        
+        /* Estilo para los que buscan unidad */
+        .tarjeta-cliente.buscando { border-left-color: #9333ea; background: linear-gradient(to right, rgba(147, 51, 234, 0.08), rgba(255, 255, 255, 0.02)); }
 
         .tablero-ganancias { border: 1px solid rgba(16, 185, 129, 0.3); background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%); }
         .gran-numero-verde { font-size: 3.8rem; font-weight: 800; color: var(--color-exito); margin: 0; line-height: 1; text-shadow: var(--sombra-neon-verde); }
@@ -187,7 +190,6 @@
     <div id="toast-alerta">🔔 <span id="texto-toast">Nueva interacción detectada</span></div>
 
     <header class="header-app">
-        <!-- LOGOTIPO VECTORIAL INCRUSTADO -->
         <svg class="header-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
             <defs>
                 <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -268,13 +270,18 @@
                 <button id="btn-detener-voz" class="btn-secundario" style="background: rgba(244, 63, 94, 0.2); color: #F43F5E; display: none;">⏹️ Detener Escucha</button>
                 <textarea id="lector-magico" placeholder="Pega o dicta aquí la nota del cliente..."></textarea>
                 
-                <!-- NUEVO: Selector de origen al guardar -->
                 <select id="origen-nuevo-cliente" style="margin-bottom: 15px; padding: 12px;">
                     <option value="piso">🏢 Llegó a Piso</option>
                     <option value="prospeccion">🤝 Prospección externa</option>
                     <option value="web">📱 Web / Escaneó QR</option>
                     <option value="directo">👤 Directo</option>
                 </select>
+
+                <!-- NUEVO: Casilla para enviarlos directo a "Buscan Unidad" -->
+                <label style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px; font-size: 0.9rem; cursor: pointer;">
+                    <input type="checkbox" id="check-buscando-unidad" style="width: 20px; height: 20px; accent-color: var(--color-secundario);">
+                    <span>🔎 Solo busca unidad (Añadir a lista de espera)</span>
+                </label>
                 
                 <button id="btn-guardar-cliente" class="btn-primario">💾 Guardar Prospecto</button>
             </div>
@@ -283,7 +290,6 @@
                 <input type="text" id="input-busqueda-agenda" placeholder="🔍 Buscar por nombre o auto..." oninput="actualizarInterfaz()">
             </div>
             
-            <!-- NUEVO: Selector de Ordenamiento -->
             <div style="margin-bottom: 15px;">
                 <select id="orden-agenda" onchange="cambiarOrden()" style="padding: 12px;">
                     <option value="fecha_desc">📅 Más recientes primero</option>
@@ -293,12 +299,14 @@
                 </select>
             </div>
 
-            <!-- NUEVO: Botones de filtro con contadores -->
-            <div style="display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 5px;">
-                <button onclick="filtrarOrigen('todos')" id="btn-origen-todos" class="btn-primario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">Todos (<span id="cont-todos">0</span>)</button>
-                <button onclick="filtrarOrigen('piso')" id="btn-origen-piso" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">🏢 Piso (<span id="cont-piso">0</span>)</button>
-                <button onclick="filtrarOrigen('prospeccion')" id="btn-origen-prospeccion" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">🤝 Prospec. (<span id="cont-prospeccion">0</span>)</button>
-                <button onclick="filtrarOrigen('web')" id="btn-origen-web" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">📱 Web/QR (<span id="cont-web">0</span>)</button>
+            <!-- SÚPER BARRA DE FILTROS DESLIZABLE -->
+            <div style="display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 10px; white-space: nowrap;">
+                <button onclick="aplicarFiltro('todos')" id="btn-filtro-todos" class="btn-primario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">Todos (<span id="cont-todos">0</span>)</button>
+                <button onclick="aplicarFiltro('piso')" id="btn-filtro-piso" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">🏢 Piso</button>
+                <button onclick="aplicarFiltro('prospeccion')" id="btn-filtro-prospeccion" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">🤝 Prospección</button>
+                <button onclick="aplicarFiltro('hot')" id="btn-filtro-hot" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">🔥 Los más Hot</button>
+                <button onclick="aplicarFiltro('buscando')" id="btn-filtro-buscando" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">🔎 Buscan Unidad</button>
+                <button onclick="aplicarFiltro('recientes')" id="btn-filtro-recientes" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">🕒 Recientes (Hoy)</button>
             </div>
 
             <div id="lista-clientes-agenda"></div>
@@ -541,21 +549,21 @@
         let ventasMes = 0;
         const META_MENSUAL = 10;
         
-        // NUEVAS VARIABLES PARA FILTROS
-        let filtroOrigenActual = 'todos';
+        // SÚPER FILTROS VARIABLES
+        let filtroActual = 'todos';
         let ordenActual = 'fecha_desc';
 
         window.verVistaAgendaCompleta = () => navegarA('vista-agenda');
         window.mostrarDetalleMeta = () => alert(`Progreso: ${ventasMes} de ${META_MENSUAL} unidades para la meta mensual.`);
         
-        // NUEVAS FUNCIONES PARA FILTROS Y ORDENAMIENTO
-        window.filtrarOrigen = (origen) => {
-            filtroOrigenActual = origen;
-            document.querySelectorAll('[id^="btn-origen-"]').forEach(btn => {
+        // FUNCIÓN MAESTRA DE FILTRADO
+        window.aplicarFiltro = (filtro) => {
+            filtroActual = filtro;
+            document.querySelectorAll('[id^="btn-filtro-"]').forEach(btn => {
                 btn.classList.remove('btn-primario');
                 btn.classList.add('btn-secundario');
             });
-            const btnActivo = document.getElementById(`btn-origen-${origen}`);
+            const btnActivo = document.getElementById(`btn-filtro-${filtro}`);
             btnActivo.classList.remove('btn-secundario');
             btnActivo.classList.add('btn-primario');
             actualizarInterfaz();
@@ -721,6 +729,9 @@
         window.eliminarAuto = async function(id) {
             if(confirm("¿Eliminar este auto del catálogo web?")) await deleteDoc(doc(db, "autos", id));
         }
+        
+        // FUNCIÓN PARA CAMBIAR ESTADO "BUSCANDO"
+        window.toggleBuscando = async (id, est) => await updateDoc(doc(db, "clientes", id), { buscandoUnidad: !est });
 
         function actualizarInterfaz() {
             document.getElementById('contador-prospectos').textContent = clientes.length;
@@ -757,18 +768,26 @@
             const listaHot = document.getElementById('lista-hotlist');
             listaAgenda.innerHTML = ''; listaHot.innerHTML = '';
 
-            // ACTUALIZAR CONTADORES DE LOS BOTONES
+            // ACTUALIZAR CONTADOR GENERAL
             if(document.getElementById('cont-todos')) {
                 document.getElementById('cont-todos').textContent = clientes.length;
-                document.getElementById('cont-piso').textContent = clientes.filter(c => c.origen === 'piso').length;
-                document.getElementById('cont-prospeccion').textContent = clientes.filter(c => c.origen === 'prospeccion').length;
-                document.getElementById('cont-web').textContent = clientes.filter(c => c.origen === 'web').length;
             }
 
-            // APLICAR FILTRO DE ORIGEN
+            // APLICAR LOS NUEVOS SÚPER FILTROS
             let mostrar = clientes;
-            if(filtroOrigenActual !== 'todos') {
-                mostrar = mostrar.filter(c => c.origen === filtroOrigenActual);
+            
+            if(filtroActual === 'piso') {
+                mostrar = mostrar.filter(c => c.origen === 'piso');
+            } else if(filtroActual === 'prospeccion') {
+                mostrar = mostrar.filter(c => c.origen === 'prospeccion');
+            } else if(filtroActual === 'hot') {
+                mostrar = mostrar.filter(c => c.caliente === true);
+            } else if(filtroActual === 'buscando') {
+                mostrar = mostrar.filter(c => c.buscandoUnidad === true);
+            } else if(filtroActual === 'recientes') {
+                // Filtra solo los creados en las últimas 24 horas
+                const unDia = Date.now() - (24 * 60 * 60 * 1000);
+                mostrar = mostrar.filter(c => c.fechaCreacion >= unDia);
             }
 
             // APLICAR BUSQUEDA DE TEXTO
@@ -796,16 +815,22 @@
                                   c.origen === 'prospeccion' ? '🤝 Prospección' : 
                                   c.origen === 'web' ? '📱 Web / QR' : 'Directo';
 
+                // Añadir clase visual si está buscando unidad o está hot
+                let clasesExtra = "";
+                if(c.caliente) clasesExtra += " estado-fuego";
+                if(c.buscandoUnidad) clasesExtra += " buscando";
+
                 listaAgenda.innerHTML += `
-                    <article class="tarjeta-cliente ${c.caliente?'estado-fuego':''}">
-                        <h3>${c.nombre} ${c.caliente?'🔥':''}</h3>
+                    <article class="tarjeta-cliente ${clasesExtra}">
+                        <h3>${c.nombre} ${c.caliente?'🔥':''} ${c.buscandoUnidad?'🔎':''}</h3>
                         <p><strong>Interés:</strong> ${c.interes}</p>
                         <p style="color:var(--color-secundario);"><strong>📍 Origen:</strong> ${origenTexto}</p>
                         <p><strong>Teléfono:</strong> ${c.telefono}</p>
-                        <div style="display:flex; gap:10px; margin-top:15px;">
-                            <a href="${wa}" target="_blank" class="btn-whatsapp" style="flex:2; margin:0; text-align:center; text-decoration:none;">📲 WhatsApp</a>
-                            <button onclick="toggleFuego('${c.id}', ${c.caliente})" class="btn-secundario" style="flex:1; margin:0;">🔥</button>
-                            <button onclick="eliminarCliente('${c.id}')" class="btn-secundario" style="flex:1; margin:0; color:var(--color-acento);">🗑️</button>
+                        <div style="display:flex; gap:10px; margin-top:15px; flex-wrap: wrap;">
+                            <a href="${wa}" target="_blank" class="btn-whatsapp" style="flex:1; min-width: 120px; margin:0; text-align:center; text-decoration:none;">📲 WhatsApp</a>
+                            <button onclick="toggleFuego('${c.id}', ${c.caliente})" class="btn-secundario" style="flex:1; margin:0;" title="Marcar/Desmarcar Hot">🔥</button>
+                            <button onclick="toggleBuscando('${c.id}', ${c.buscandoUnidad})" class="btn-secundario" style="flex:1; margin:0;" title="Marcar/Desmarcar Buscando Unidad">🔎</button>
+                            <button onclick="eliminarCliente('${c.id}')" class="btn-secundario" style="flex:1; margin:0; color:var(--color-acento);" title="Eliminar">🗑️</button>
                         </div>
                     </article>`;
             });
@@ -852,16 +877,18 @@
             const fechaCita = prompt("Fecha de cita (YYYY-MM-DD):", fechaHoy);
             const horaCita = prompt("Hora (HH:MM):", "10:00");
             
-            // CAPTURAMOS EL ORIGEN DESDE EL MENÚ DESPLEGABLE
             const origenSeleccionado = document.getElementById('origen-nuevo-cliente').value;
+            const estaBuscando = document.getElementById('check-buscando-unidad').checked;
 
             try {
                 await addDoc(collection(db, "clientes"), {
                     nombre, telefono: telefono.replace(/\D/g,''), correo: correo || '', interes,
                     origen: origenSeleccionado,
+                    buscandoUnidad: estaBuscando, // Guarda si busca unidad
                     fechaCita: fechaCita || '', horaCita: horaCita || '', caliente: false, fechaCreacion: Date.now()
                 });
                 document.getElementById('lector-magico').value = '';
+                document.getElementById('check-buscando-unidad').checked = false;
                 alert('¡Guardado!');
             } catch (e) { alert('Error al guardar.'); }
         });
