@@ -6,7 +6,7 @@
     <title>Agenda Élite & CRM Automotriz | Fame Seminuevos</title>
     
     <!-- CONFIGURACIÓN PWA PARA MODO APLICACIÓN NATIVA -->
-    <link rel="manifest" href='data:application/manifest+json,{"name":"Agenda Élite Fame","short_name":"Fame CRM","start_url":"agenda.html","display":"standalone","background_color":"%23090E17","theme_color":"%233B82F6"}'>
+    <link rel="manifest" href="manifest.json">
 
     <!-- FUENTES ÉLITE -->
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
@@ -267,6 +267,15 @@
                 <button id="btn-dictado" class="btn-primario" style="background: linear-gradient(135deg, #10B981 0%, #059669 100%); box-shadow: var(--sombra-neon-verde);">🎤 Dictado Inteligente</button>
                 <button id="btn-detener-voz" class="btn-secundario" style="background: rgba(244, 63, 94, 0.2); color: #F43F5E; display: none;">⏹️ Detener Escucha</button>
                 <textarea id="lector-magico" placeholder="Pega o dicta aquí la nota del cliente..."></textarea>
+                
+                <!-- NUEVO: Selector de origen al guardar -->
+                <select id="origen-nuevo-cliente" style="margin-bottom: 15px; padding: 12px;">
+                    <option value="piso">🏢 Llegó a Piso</option>
+                    <option value="prospeccion">🤝 Prospección externa</option>
+                    <option value="web">📱 Web / Escaneó QR</option>
+                    <option value="directo">👤 Directo</option>
+                </select>
+                
                 <button id="btn-guardar-cliente" class="btn-primario">💾 Guardar Prospecto</button>
             </div>
 
@@ -274,9 +283,22 @@
                 <input type="text" id="input-busqueda-agenda" placeholder="🔍 Buscar por nombre o auto..." oninput="actualizarInterfaz()">
             </div>
             
-            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
-                <button onclick="filtrarAgendaTiempo('hoy')" id="filtro-hoy" class="btn-secundario" style="flex: 1; margin:0;">📅 Hoy</button>
-                <button onclick="filtrarAgendaTiempo('todos')" id="filtro-todos" class="btn-primario" style="flex: 1; margin:0;">📋 Todos</button>
+            <!-- NUEVO: Selector de Ordenamiento -->
+            <div style="margin-bottom: 15px;">
+                <select id="orden-agenda" onchange="cambiarOrden()" style="padding: 12px;">
+                    <option value="fecha_desc">📅 Más recientes primero</option>
+                    <option value="fecha_asc">📅 Más antiguos primero</option>
+                    <option value="az">🔤 Alfabético (A-Z)</option>
+                    <option value="za">🔤 Alfabético (Z-A)</option>
+                </select>
+            </div>
+
+            <!-- NUEVO: Botones de filtro con contadores -->
+            <div style="display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 5px;">
+                <button onclick="filtrarOrigen('todos')" id="btn-origen-todos" class="btn-primario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">Todos (<span id="cont-todos">0</span>)</button>
+                <button onclick="filtrarOrigen('piso')" id="btn-origen-piso" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">🏢 Piso (<span id="cont-piso">0</span>)</button>
+                <button onclick="filtrarOrigen('prospeccion')" id="btn-origen-prospeccion" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">🤝 Prospec. (<span id="cont-prospeccion">0</span>)</button>
+                <button onclick="filtrarOrigen('web')" id="btn-origen-web" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">📱 Web/QR (<span id="cont-web">0</span>)</button>
             </div>
 
             <div id="lista-clientes-agenda"></div>
@@ -518,11 +540,31 @@
         let comisiones = 0;
         let ventasMes = 0;
         const META_MENSUAL = 10;
-        let filtroTiempoAgenda = 'todos';
+        
+        // NUEVAS VARIABLES PARA FILTROS
+        let filtroOrigenActual = 'todos';
+        let ordenActual = 'fecha_desc';
 
         window.verVistaAgendaCompleta = () => navegarA('vista-agenda');
         window.mostrarDetalleMeta = () => alert(`Progreso: ${ventasMes} de ${META_MENSUAL} unidades para la meta mensual.`);
-        window.filtrarAgendaTiempo = (f) => { filtroTiempoAgenda = f; actualizarInterfaz(); };
+        
+        // NUEVAS FUNCIONES PARA FILTROS Y ORDENAMIENTO
+        window.filtrarOrigen = (origen) => {
+            filtroOrigenActual = origen;
+            document.querySelectorAll('[id^="btn-origen-"]').forEach(btn => {
+                btn.classList.remove('btn-primario');
+                btn.classList.add('btn-secundario');
+            });
+            const btnActivo = document.getElementById(`btn-origen-${origen}`);
+            btnActivo.classList.remove('btn-secundario');
+            btnActivo.classList.add('btn-primario');
+            actualizarInterfaz();
+        };
+
+        window.cambiarOrden = () => {
+            ordenActual = document.getElementById('orden-agenda').value;
+            actualizarInterfaz();
+        };
 
         // 🚀 PUBLICAR AUTO NUEVO
         document.getElementById('btn-publicar-auto').addEventListener('click', async () => {
@@ -696,13 +738,15 @@
                 contenedorTareas.innerHTML = '<p style="text-align: center; color: var(--color-texto-mute); font-size: 0.95rem;">Todo al día. ¡Sin citas pendientes hoy!</p>';
             } else {
                 clientesDeHoy.forEach(c => {
-                    const wa = `https://wa.me/52${c.telefono}?text=${encodeURIComponent(`Hola ${c.nombre}, te escribo de Fame Seminuevos para confirmar nuestra cita hoy a las ${c.horaCita}.`)}`;
+                    const wa = `https://wa.me/52${c.telefono}?text=${encodeURIComponent(`Hola ${c.nombre}, te escribo de Fame Seminuevos para confirmar nuestra cita hoy a las${c.horaCita}.`)}`;
+                    let origenTextoCorto = c.origen === 'piso' ? 'Piso' : c.origen === 'prospeccion' ? 'Prospección' : c.origen === 'web' ? 'Web/QR' : c.origen || 'Directo';
+                    
                     contenedorTareas.innerHTML += `
                         <div class="tarea-item">
                             <div class="tarea-info">
                                 <span class="tarea-hora">⏰ ${c.horaCita || 'Pendiente'}</span>
                                 <span class="tarea-nombre">${c.nombre}</span>
-                                <span class="tarea-detalle">Interés: ${c.interes} | 📍 Origen: ${c.origen || 'Directo'}</span>
+                                <span class="tarea-detalle">Interés: ${c.interes} | 📍 Origen: ${origenTextoCorto}</span>
                             </div>
                             <a href="${wa}" target="_blank" class="btn-whatsapp" style="width:auto; padding:10px 14px; margin:0; font-size:0.8rem;">Avisar</a>
                         </div>`;
@@ -713,9 +757,33 @@
             const listaHot = document.getElementById('lista-hotlist');
             listaAgenda.innerHTML = ''; listaHot.innerHTML = '';
 
-            let mostrar = filtroTiempoAgenda === 'hoy' ? clientesDeHoy : clientes;
+            // ACTUALIZAR CONTADORES DE LOS BOTONES
+            if(document.getElementById('cont-todos')) {
+                document.getElementById('cont-todos').textContent = clientes.length;
+                document.getElementById('cont-piso').textContent = clientes.filter(c => c.origen === 'piso').length;
+                document.getElementById('cont-prospeccion').textContent = clientes.filter(c => c.origen === 'prospeccion').length;
+                document.getElementById('cont-web').textContent = clientes.filter(c => c.origen === 'web').length;
+            }
+
+            // APLICAR FILTRO DE ORIGEN
+            let mostrar = clientes;
+            if(filtroOrigenActual !== 'todos') {
+                mostrar = mostrar.filter(c => c.origen === filtroOrigenActual);
+            }
+
+            // APLICAR BUSQUEDA DE TEXTO
             const busqueda = normalizar(document.getElementById('input-busqueda-agenda').value);
-            if(busqueda) mostrar = mostrar.filter(c => normalizar(c.nombre).includes(busqueda) || normalizar(c.interes).includes(busqueda));
+            if(busqueda) {
+                mostrar = mostrar.filter(c => normalizar(c.nombre).includes(busqueda) || normalizar(c.interes).includes(busqueda));
+            }
+
+            // APLICAR ORDENAMIENTO
+            mostrar.sort((a, b) => {
+                if (ordenActual === 'az') return a.nombre.localeCompare(b.nombre);
+                if (ordenActual === 'za') return b.nombre.localeCompare(a.nombre);
+                if (ordenActual === 'fecha_asc') return a.fechaCreacion - b.fechaCreacion;
+                return b.fechaCreacion - a.fechaCreacion; // fecha_desc
+            });
 
             if(mostrar.length === 0) {
                 listaAgenda.innerHTML = `<p style="text-align: center; color: var(--color-texto-mute); padding: 20px;">Sin registros para esta selección.</p>`;
@@ -723,11 +791,16 @@
 
             mostrar.forEach(c => {
                 const wa = `https://wa.me/52${c.telefono}?text=${encodeURIComponent(`Hola ${c.nombre}, te escribo de Fame Seminuevos sobre tu interés en el ${c.interes}.`)}`;
+                
+                let origenTexto = c.origen === 'piso' ? '🏢 Llegó a Piso' : 
+                                  c.origen === 'prospeccion' ? '🤝 Prospección' : 
+                                  c.origen === 'web' ? '📱 Web / QR' : 'Directo';
+
                 listaAgenda.innerHTML += `
                     <article class="tarjeta-cliente ${c.caliente?'estado-fuego':''}">
                         <h3>${c.nombre} ${c.caliente?'🔥':''}</h3>
                         <p><strong>Interés:</strong> ${c.interes}</p>
-                        <p style="color:var(--color-secundario);"><strong>📍 Origen:</strong> ${c.origen || 'Directo / Web'}</p>
+                        <p style="color:var(--color-secundario);"><strong>📍 Origen:</strong> ${origenTexto}</p>
                         <p><strong>Teléfono:</strong> ${c.telefono}</p>
                         <div style="display:flex; gap:10px; margin-top:15px;">
                             <a href="${wa}" target="_blank" class="btn-whatsapp" style="flex:2; margin:0; text-align:center; text-decoration:none;">📲 WhatsApp</a>
@@ -743,11 +816,15 @@
             } else {
                 calientes.forEach(c => {
                     const wa = `https://wa.me/52${c.telefono}?text=${encodeURIComponent(`Hola ${c.nombre}, te escribo de Fame Seminuevos para dar seguimiento a tu compra.`)}`;
+                    let origenTexto = c.origen === 'piso' ? '🏢 Llegó a Piso' : 
+                                      c.origen === 'prospeccion' ? '🤝 Prospección' : 
+                                      c.origen === 'web' ? '📱 Web / QR' : 'Directo';
+
                     listaHot.innerHTML += `
                         <article class="tarjeta-cliente estado-fuego">
                             <h3>${c.nombre} 🔥</h3>
                             <p><strong>Interés:</strong> ${c.interes}</p>
-                            <p style="color:var(--color-secundario);"><strong>📍 Origen:</strong> ${c.origen || 'Directo / Web'}</p>
+                            <p style="color:var(--color-secundario);"><strong>📍 Origen:</strong> ${origenTexto}</p>
                             <p><strong>Teléfono:</strong> ${c.telefono}</p>
                             <div style="display:flex; gap:10px; margin-top:15px;">
                                 <a href="${wa}" target="_blank" class="btn-whatsapp" style="flex:2; margin:0; text-align:center; text-decoration:none;">📲 WhatsApp</a>
@@ -774,10 +851,14 @@
             const fechaHoy = new Date().toISOString().split('T')[0];
             const fechaCita = prompt("Fecha de cita (YYYY-MM-DD):", fechaHoy);
             const horaCita = prompt("Hora (HH:MM):", "10:00");
+            
+            // CAPTURAMOS EL ORIGEN DESDE EL MENÚ DESPLEGABLE
+            const origenSeleccionado = document.getElementById('origen-nuevo-cliente').value;
 
             try {
                 await addDoc(collection(db, "clientes"), {
                     nombre, telefono: telefono.replace(/\D/g,''), correo: correo || '', interes,
+                    origen: origenSeleccionado,
                     fechaCita: fechaCita || '', horaCita: horaCita || '', caliente: false, fechaCreacion: Date.now()
                 });
                 document.getElementById('lector-magico').value = '';
@@ -808,6 +889,17 @@
             btnStop.addEventListener('click', () => { rec.stop(); btnD.textContent = '🎤 Dictado Inteligente'; btnStop.style.display='none'; });
             rec.onresult = (e) => txtMagico.value += ' ' + e.results[e.results.length - 1][0].transcript;
         } else { btnD.style.display = 'none'; }
+    </script>
+
+    <!-- SCRIPT DE REGISTRO DEL SERVICE WORKER (PWA) -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js').then(reg => {
+                    console.log('Service Worker registrado', reg);
+                }).catch(err => console.log('Error en Service Worker', err));
+            });
+        }
     </script>
 </body>
 </html>
