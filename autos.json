@@ -120,18 +120,6 @@
     "galeria": ""
   },
   {
-    "id": "terrain-2022",
-    "nombre": "GMC Terrain SLT",
-    "modelo": "2022",
-    "km": "50,285",
-    "detalle": "Color negro brillante | Transmisión automática, elegancia y presencia imponente",
-    "precio": "$360,000 MXN",
-    "categoria": "suv",
-    "estado": "APARTADA",
-    "foto": "imagenes/autos/terraint.jpg",
-    "galeria": "https://drive.google.com/drive/folders/1DUtRRMUPKDoXb4KV5weDmrmLd2Asv4LL"
-  },
-  {
     "id": "acadia-2023",
     "nombre": "GMC Acadia Denali",
     "modelo": "2023",
