@@ -157,7 +157,6 @@
         .tarjeta-cliente p { margin: 6px 0; font-size: 0.95rem; color: #cbd5e1; font-weight: 300; }
         .tarjeta-cliente.estado-fuego { border-left-color: var(--color-acento); background: linear-gradient(to right, rgba(244, 63, 94, 0.08), rgba(255, 255, 255, 0.02)); }
         
-        /* Estilo para los que buscan unidad */
         .tarjeta-cliente.buscando { border-left-color: #9333ea; background: linear-gradient(to right, rgba(147, 51, 234, 0.08), rgba(255, 255, 255, 0.02)); }
 
         .tablero-ganancias { border: 1px solid rgba(16, 185, 129, 0.3); background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%); }
@@ -277,7 +276,6 @@
                     <option value="directo">👤 Directo</option>
                 </select>
 
-                <!-- NUEVO: Casilla para enviarlos directo a "Buscan Unidad" -->
                 <label style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px; font-size: 0.9rem; cursor: pointer;">
                     <input type="checkbox" id="check-buscando-unidad" style="width: 20px; height: 20px; accent-color: var(--color-secundario);">
                     <span>🔎 Solo busca unidad (Añadir a lista de espera)</span>
@@ -299,14 +297,17 @@
                 </select>
             </div>
 
-            <!-- SÚPER BARRA DE FILTROS DESLIZABLE -->
+            <!-- NUEVO: BARRA DE FILTROS EXPANDIDA CON FECHAS -->
             <div style="display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 10px; white-space: nowrap;">
                 <button onclick="aplicarFiltro('todos')" id="btn-filtro-todos" class="btn-primario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">Todos (<span id="cont-todos">0</span>)</button>
+                <button onclick="aplicarFiltro('dia')" id="btn-filtro-dia" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">📅 Hoy</button>
+                <button onclick="aplicarFiltro('semana')" id="btn-filtro-semana" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">📅 Esta Semana</button>
+                <button onclick="aplicarFiltro('mes')" id="btn-filtro-mes" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">📅 Este Mes</button>
+                <button onclick="aplicarFiltro('ano')" id="btn-filtro-ano" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">📅 Este Año</button>
                 <button onclick="aplicarFiltro('piso')" id="btn-filtro-piso" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">🏢 Piso</button>
                 <button onclick="aplicarFiltro('prospeccion')" id="btn-filtro-prospeccion" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">🤝 Prospección</button>
                 <button onclick="aplicarFiltro('hot')" id="btn-filtro-hot" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">🔥 Los más Hot</button>
                 <button onclick="aplicarFiltro('buscando')" id="btn-filtro-buscando" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">🔎 Buscan Unidad</button>
-                <button onclick="aplicarFiltro('recientes')" id="btn-filtro-recientes" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">🕒 Recientes (Hoy)</button>
             </div>
 
             <div id="lista-clientes-agenda"></div>
@@ -380,17 +381,40 @@
             </div>
         </section>
 
-        <!-- VISTA 4: FINANZAS Y COMISIONES -->
+        <!-- VISTA 4: FINANZAS Y COMISIONES (ACTUALIZADA) -->
         <section id="vista-comisiones" class="vista oculta">
             <h2>💰 Motor Financiero</h2>
-            <div class="tablero-ganancias">
-                <h3>Comisiones Acumuladas</h3>
-                <p class="gran-numero-verde" id="total-comisiones">$0.00</p>
+            
+            <!-- NUEVA CALCULADORA EXACTA DE COMISIONES E ISR -->
+            <div class="tablero-ganancias" style="margin-bottom: 20px;">
+                <h3 style="margin-bottom: 20px; font-size: 1.1rem; color: #ffffff;">Desglose de Comisiones</h3>
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                    <span style="color: var(--color-texto-mute); font-size: 1rem;">Comisión Bruta:</span>
+                    <span id="total-bruto" style="font-weight: 700; color: #ffffff; font-size: 1.2rem;">$0.00</span>
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <span style="color: var(--color-texto-mute); font-size: 1rem; display: flex; align-items: center; gap: 8px;">
+                        Retención ISR: 
+                        <input type="number" id="input-isr" value="10" min="0" max="35" step="0.1" style="width: 65px; padding: 6px; margin: 0; background: rgba(244, 63, 94, 0.1); border: 1px solid rgba(244, 63, 94, 0.3); color: var(--color-acento); border-radius: 8px; text-align: center; font-weight: bold; font-family: 'Outfit', sans-serif;"> %
+                    </span>
+                    <span id="total-retencion" style="font-weight: 700; color: var(--color-acento); font-size: 1.2rem;">-$0.00</span>
+                </div>
+                
+                <hr style="border-color: rgba(255, 255, 255, 0.1); margin: 15px 0;">
+                
+                <div style="display: flex; flex-direction: column; align-items: flex-start;">
+                    <span style="color: #ffffff; font-weight: 700; font-size: 1rem; margin-bottom: 5px;">Ganancia Neta (A depositar):</span>
+                    <p class="gran-numero-verde" id="total-neto" style="font-size: 3.2rem;">$0.00</p>
+                </div>
             </div>
+
             <div style="display: flex; gap: 12px; margin-bottom: 25px;">
                 <button id="btn-venta" class="btn-primario" style="margin:0;">Registrar Venta</button>
                 <button id="btn-toma" class="btn-secundario" style="margin:0; background:rgba(255,255,255,0.1);">Registrar Toma</button>
             </div>
+            
             <div class="seccion-dashboard">
                 <h3 style="color:#ffffff; font-family:'Playfair Display',serif; margin-bottom:15px;">📋 Historial Financiero</h3>
                 <div id="lista-transacciones-financieras">
@@ -438,7 +462,6 @@
             return (texto || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
         }
 
-        // COMPRESIÓN DE IMAGEN A BASE64
         function comprimirYConvertirImagen(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -479,7 +502,6 @@
             });
         }
 
-        // SISTEMA DE ALERTA SONORA
         function reproducirTimbreAlerta() {
             if (localStorage.getItem('notif_activas') === 'false') return;
             try {
@@ -520,7 +542,6 @@
             }
         };
 
-        // NAVEGACIÓN ENTRE VISTAS
         const botonesNav = document.querySelectorAll('.btn-nav');
         const vistas = document.querySelectorAll('.vista');
         window.navegarA = function(targetId) {
@@ -549,14 +570,12 @@
         let ventasMes = 0;
         const META_MENSUAL = 10;
         
-        // SÚPER FILTROS VARIABLES
         let filtroActual = 'todos';
         let ordenActual = 'fecha_desc';
 
         window.verVistaAgendaCompleta = () => navegarA('vista-agenda');
         window.mostrarDetalleMeta = () => alert(`Progreso: ${ventasMes} de ${META_MENSUAL} unidades para la meta mensual.`);
         
-        // FUNCIÓN MAESTRA DE FILTRADO
         window.aplicarFiltro = (filtro) => {
             filtroActual = filtro;
             document.querySelectorAll('[id^="btn-filtro-"]').forEach(btn => {
@@ -574,7 +593,20 @@
             actualizarInterfaz();
         };
 
-        // 🚀 PUBLICAR AUTO NUEVO
+        // ACTUALIZADOR DE FINANZAS E ISR
+        window.actualizarFinanzas = function() {
+            const porcentajeISR = parseFloat(document.getElementById('input-isr').value) || 0;
+            const retencion = comisiones * (porcentajeISR / 100);
+            const neto = comisiones - retencion;
+
+            document.getElementById('total-bruto').textContent = '$' + comisiones.toLocaleString('es-MX', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            document.getElementById('total-retencion').textContent = '-$' + retencion.toLocaleString('es-MX', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            document.getElementById('total-neto').textContent = '$' + neto.toLocaleString('es-MX', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        };
+
+        // Escucha cambios en el input del ISR para recalcular automáticamente
+        document.getElementById('input-isr').addEventListener('input', window.actualizarFinanzas);
+
         document.getElementById('btn-publicar-auto').addEventListener('click', async () => {
             const modelo = document.getElementById('inv-modelo').value.trim();
             const categoria = document.getElementById('inv-categoria').value;
@@ -630,7 +662,6 @@
             }
         });
 
-        // 🔄 SINCRONIZACIÓN EN TIEMPO REAL
         let cargaInicialClientes = true;
         onSnapshot(collection(db, "clientes"), (snapshot) => {
             snapshot.docChanges().forEach((change) => {
@@ -650,8 +681,12 @@
         onSnapshot(collection(db, "ventas"), (snapshot) => {
             ventasFinancieras = [];
             snapshot.forEach(doc => ventasFinancieras.push({ id: doc.id, ...doc.data() }));
+            
+            // Suma de comisiones brutas
             comisiones = ventasFinancieras.reduce((acc, curr) => acc + (parseFloat(curr.monto) || 0), 0);
             ventasMes = ventasFinancieras.length;
+            
+            window.actualizarFinanzas(); // Actualiza la calculadora visual de ISR
             
             const contT = document.getElementById('lista-transacciones-financieras');
             contT.innerHTML = ventasFinancieras.length === 0 ? '<p style="text-align:center; color:var(--color-texto-mute);">Sin registros este mes.</p>' : '';
@@ -665,7 +700,7 @@
                         <button onclick="eliminarTransaccion('${item.id}')" class="btn-secundario" style="width:auto; padding:8px 12px; margin:0; color:var(--color-acento);">🗑️</button>
                     </div>`;
             });
-            actualizarInterfaz();
+            actualizarInterfaz(); // Para actualizar el dashboard
         });
 
         onSnapshot(collection(db, "autos"), (snapshot) => {
@@ -698,7 +733,6 @@
             });
         });
 
-        // ✏️ FUNCIÓN PARA EDITAR AUTO EXISTENTE
         window.editarAuto = async function(id, modeloActual, linkActual, precioActual) {
             const nuevoModelo = prompt("Editar Modelo y Versión:", modeloActual);
             if (nuevoModelo === null) return;
@@ -730,7 +764,6 @@
             if(confirm("¿Eliminar este auto del catálogo web?")) await deleteDoc(doc(db, "autos", id));
         }
         
-        // FUNCIÓN PARA CAMBIAR ESTADO "BUSCANDO"
         window.toggleBuscando = async (id, est) => await updateDoc(doc(db, "clientes", id), { buscandoUnidad: !est });
 
         function actualizarInterfaz() {
@@ -739,7 +772,6 @@
             const hoyIso = new Date().toISOString().split('T')[0];
             const clientesDeHoy = clientes.filter(c => c.fechaCita === hoyIso);
             document.getElementById('contador-seguimientos-hoy').textContent = clientesDeHoy.length;
-            document.getElementById('total-comisiones').textContent = '$' + comisiones.toLocaleString('es-MX', {minimumFractionDigits: 2});
             document.getElementById('contador-ventas-meta').textContent = ventasMes;
             document.getElementById('relleno-meta').style.width = Math.min((ventasMes / META_MENSUAL) * 100, 100) + '%';
 
@@ -768,13 +800,17 @@
             const listaHot = document.getElementById('lista-hotlist');
             listaAgenda.innerHTML = ''; listaHot.innerHTML = '';
 
-            // ACTUALIZAR CONTADOR GENERAL
             if(document.getElementById('cont-todos')) {
                 document.getElementById('cont-todos').textContent = clientes.length;
             }
 
-            // APLICAR LOS NUEVOS SÚPER FILTROS
+            // LÓGICA DE FILTROS DE TIEMPO
             let mostrar = clientes;
+            const ahora = new Date();
+            const inicioHoy = new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate()).getTime();
+            const inicioSemana = ahora.getTime() - (7 * 24 * 60 * 60 * 1000); // Últimos 7 días exactos
+            const inicioMes = new Date(ahora.getFullYear(), ahora.getMonth(), 1).getTime();
+            const inicioAno = new Date(ahora.getFullYear(), 0, 1).getTime();
             
             if(filtroActual === 'piso') {
                 mostrar = mostrar.filter(c => c.origen === 'piso');
@@ -784,24 +820,28 @@
                 mostrar = mostrar.filter(c => c.caliente === true);
             } else if(filtroActual === 'buscando') {
                 mostrar = mostrar.filter(c => c.buscandoUnidad === true);
-            } else if(filtroActual === 'recientes') {
-                // Filtra solo los creados en las últimas 24 horas
-                const unDia = Date.now() - (24 * 60 * 60 * 1000);
-                mostrar = mostrar.filter(c => c.fechaCreacion >= unDia);
+            } else if(filtroActual === 'dia') {
+                mostrar = mostrar.filter(c => c.fechaCreacion >= inicioHoy);
+            } else if(filtroActual === 'semana') {
+                mostrar = mostrar.filter(c => c.fechaCreacion >= inicioSemana);
+            } else if(filtroActual === 'mes') {
+                mostrar = mostrar.filter(c => c.fechaCreacion >= inicioMes);
+            } else if(filtroActual === 'ano') {
+                mostrar = mostrar.filter(c => c.fechaCreacion >= inicioAno);
             }
 
-            // APLICAR BUSQUEDA DE TEXTO
+            // BUSQUEDA DE TEXTO
             const busqueda = normalizar(document.getElementById('input-busqueda-agenda').value);
             if(busqueda) {
                 mostrar = mostrar.filter(c => normalizar(c.nombre).includes(busqueda) || normalizar(c.interes).includes(busqueda));
             }
 
-            // APLICAR ORDENAMIENTO
+            // ORDENAMIENTO
             mostrar.sort((a, b) => {
                 if (ordenActual === 'az') return a.nombre.localeCompare(b.nombre);
                 if (ordenActual === 'za') return b.nombre.localeCompare(a.nombre);
                 if (ordenActual === 'fecha_asc') return a.fechaCreacion - b.fechaCreacion;
-                return b.fechaCreacion - a.fechaCreacion; // fecha_desc
+                return b.fechaCreacion - a.fechaCreacion;
             });
 
             if(mostrar.length === 0) {
@@ -815,7 +855,6 @@
                                   c.origen === 'prospeccion' ? '🤝 Prospección' : 
                                   c.origen === 'web' ? '📱 Web / QR' : 'Directo';
 
-                // Añadir clase visual si está buscando unidad o está hot
                 let clasesExtra = "";
                 if(c.caliente) clasesExtra += " estado-fuego";
                 if(c.buscandoUnidad) clasesExtra += " buscando";
@@ -864,7 +903,6 @@
         window.eliminarCliente = async (id) => { if(confirm("¿Eliminar prospecto?")) await deleteDoc(doc(db, "clientes", id)); };
         window.eliminarTransaccion = async (id) => { if(confirm("¿Eliminar registro?")) await deleteDoc(doc(db, "ventas", id)); };
 
-        // GUARDAR CLIENTE MANUAL / DICTADO
         document.getElementById('btn-guardar-cliente').addEventListener('click', async () => {
             const texto = document.getElementById('lector-magico').value;
             const nombre = prompt("Nombre y Apellidos del cliente:", "Prospecto Nuevo");
@@ -884,7 +922,7 @@
                 await addDoc(collection(db, "clientes"), {
                     nombre, telefono: telefono.replace(/\D/g,''), correo: correo || '', interes,
                     origen: origenSeleccionado,
-                    buscandoUnidad: estaBuscando, // Guarda si busca unidad
+                    buscandoUnidad: estaBuscando,
                     fechaCita: fechaCita || '', horaCita: horaCita || '', caliente: false, fechaCreacion: Date.now()
                 });
                 document.getElementById('lector-magico').value = '';
@@ -893,11 +931,10 @@
             } catch (e) { alert('Error al guardar.'); }
         });
 
-        // REGISTRAR VENTA / TOMA
         async function regTrans(tipo) {
             const desc = prompt(`Modelo del auto (${tipo}):`, "Chevrolet Onix");
             if(!desc) return;
-            const monto = parseFloat(prompt("Comisión libre ($):", "3000"));
+            const monto = parseFloat(prompt("Comisión bruta ($):", "3000"));
             if(isNaN(monto)) return;
             await addDoc(collection(db, "ventas"), { tipo, descripcion: desc, monto, fechaCreacion: Date.now() });
             alert("¡Registrado con éxito!");
@@ -905,7 +942,6 @@
         document.getElementById('btn-venta').addEventListener('click', () => regTrans('venta'));
         document.getElementById('btn-toma').addEventListener('click', () => regTrans('toma'));
 
-        // RECONOCIMIENTO DE VOZ
         const btnD = document.getElementById('btn-dictado');
         const btnStop = document.getElementById('btn-detener-voz');
         const txtMagico = document.getElementById('lector-magico');
