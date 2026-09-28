@@ -297,7 +297,6 @@
                 </select>
             </div>
 
-            <!-- NUEVO: BARRA DE FILTROS EXPANDIDA CON FECHAS -->
             <div style="display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 10px; white-space: nowrap;">
                 <button onclick="aplicarFiltro('todos')" id="btn-filtro-todos" class="btn-primario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">Todos (<span id="cont-todos">0</span>)</button>
                 <button onclick="aplicarFiltro('dia')" id="btn-filtro-dia" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">📅 Hoy</button>
@@ -381,23 +380,22 @@
             </div>
         </section>
 
-        <!-- VISTA 4: FINANZAS Y COMISIONES (ACTUALIZADA) -->
+        <!-- VISTA 4: FINANZAS Y COMISIONES (AUTOMATIZADO CON SAT) -->
         <section id="vista-comisiones" class="vista oculta">
             <h2>💰 Motor Financiero</h2>
             
-            <!-- NUEVA CALCULADORA EXACTA DE COMISIONES E ISR -->
             <div class="tablero-ganancias" style="margin-bottom: 20px;">
-                <h3 style="margin-bottom: 20px; font-size: 1.1rem; color: #ffffff;">Desglose de Comisiones</h3>
+                <h3 style="margin-bottom: 20px; font-size: 1.1rem; color: #ffffff;">Desglose de Comisiones Mensuales</h3>
                 
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                    <span style="color: var(--color-texto-mute); font-size: 1rem;">Comisión Bruta:</span>
+                    <span style="color: var(--color-texto-mute); font-size: 1rem;">Comisión Bruta (Sin Base):</span>
                     <span id="total-bruto" style="font-weight: 700; color: #ffffff; font-size: 1.2rem;">$0.00</span>
                 </div>
                 
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                     <span style="color: var(--color-texto-mute); font-size: 1rem; display: flex; align-items: center; gap: 8px;">
-                        Retención ISR: 
-                        <input type="number" id="input-isr" value="10" min="0" max="35" step="0.1" style="width: 65px; padding: 6px; margin: 0; background: rgba(244, 63, 94, 0.1); border: 1px solid rgba(244, 63, 94, 0.3); color: var(--color-acento); border-radius: 8px; text-align: center; font-weight: bold; font-family: 'Outfit', sans-serif;"> %
+                        Retención ISR SAT: 
+                        <span id="porcentaje-efectivo-isr" style="background: rgba(244, 63, 94, 0.1); border: 1px solid rgba(244, 63, 94, 0.3); color: var(--color-acento); border-radius: 8px; padding: 4px 8px; font-weight: bold; font-size: 0.85rem;">0%</span>
                     </span>
                     <span id="total-retencion" style="font-weight: 700; color: var(--color-acento); font-size: 1.2rem;">-$0.00</span>
                 </div>
@@ -593,19 +591,55 @@
             actualizarInterfaz();
         };
 
-        // ACTUALIZADOR DE FINANZAS E ISR
+        // LÓGICA PROGRESIVA PARA CALCULAR EL ISR DE FORMA AUTOMÁTICA
+        function calcularISRMensual(ingreso) {
+            if (ingreso <= 0) return 0;
+            
+            // Tabla Mensual ISR (Estructura oficial del SAT)
+            const tablaISR = [
+                { limiteInf: 0.01, cuotaFija: 0.00, porcentaje: 1.92 },
+                { limiteInf: 746.05, cuotaFija: 14.32, porcentaje: 6.40 },
+                { limiteInf: 6332.06, cuotaFija: 371.83, porcentaje: 10.88 },
+                { limiteInf: 11128.02, cuotaFija: 893.63, porcentaje: 16.00 },
+                { limiteInf: 12935.83, cuotaFija: 1182.88, porcentaje: 17.92 },
+                { limiteInf: 15487.72, cuotaFija: 1640.18, porcentaje: 21.36 },
+                { limiteInf: 31236.50, cuotaFija: 5004.12, porcentaje: 23.52 },
+                { limiteInf: 49233.01, cuotaFija: 9236.89, porcentaje: 30.00 },
+                { limiteInf: 97707.84, cuotaFija: 23779.35, porcentaje: 32.00 },
+                { limiteInf: 130274.23, cuotaFija: 34200.59, porcentaje: 34.00 },
+                { limiteInf: 390822.68, cuotaFija: 122787.06, porcentaje: 35.00 }
+            ];
+
+            let rangoAplicable = tablaISR[0];
+            // Encuentra en qué escalón de ingresos se encuentra la comisión
+            for (let i = 0; i < tablaISR.length; i++) {
+                if (ingreso >= tablaISR[i].limiteInf) {
+                    rangoAplicable = tablaISR[i];
+                } else {
+                    break;
+                }
+            }
+
+            const excedente = ingreso - rangoAplicable.limiteInf;
+            const impuestoMarginal = excedente * (rangoAplicable.porcentaje / 100);
+            const retencionTotal = impuestoMarginal + rangoAplicable.cuotaFija;
+            
+            return retencionTotal;
+        }
+
+        // ACTUALIZADOR DE FINANZAS E ISR AUTOMATIZADO
         window.actualizarFinanzas = function() {
-            const porcentajeISR = parseFloat(document.getElementById('input-isr').value) || 0;
-            const retencion = comisiones * (porcentajeISR / 100);
-            const neto = comisiones - retencion;
+            const retencionCalculada = calcularISRMensual(comisiones);
+            const neto = comisiones - retencionCalculada;
+            
+            // Calcula el porcentaje real para mostrarlo en la interfaz de forma informativa
+            const porcentajeEfectivo = comisiones > 0 ? ((retencionCalculada / comisiones) * 100).toFixed(1) : 0;
 
             document.getElementById('total-bruto').textContent = '$' + comisiones.toLocaleString('es-MX', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-            document.getElementById('total-retencion').textContent = '-$' + retencion.toLocaleString('es-MX', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            document.getElementById('porcentaje-efectivo-isr').textContent = porcentajeEfectivo + '%';
+            document.getElementById('total-retencion').textContent = '-$' + retencionCalculada.toLocaleString('es-MX', {minimumFractionDigits: 2, maximumFractionDigits: 2});
             document.getElementById('total-neto').textContent = '$' + neto.toLocaleString('es-MX', {minimumFractionDigits: 2, maximumFractionDigits: 2});
         };
-
-        // Escucha cambios en el input del ISR para recalcular automáticamente
-        document.getElementById('input-isr').addEventListener('input', window.actualizarFinanzas);
 
         document.getElementById('btn-publicar-auto').addEventListener('click', async () => {
             const modelo = document.getElementById('inv-modelo').value.trim();
@@ -682,11 +716,11 @@
             ventasFinancieras = [];
             snapshot.forEach(doc => ventasFinancieras.push({ id: doc.id, ...doc.data() }));
             
-            // Suma de comisiones brutas
+            // Suma de comisiones brutas mensuales
             comisiones = ventasFinancieras.reduce((acc, curr) => acc + (parseFloat(curr.monto) || 0), 0);
             ventasMes = ventasFinancieras.length;
             
-            window.actualizarFinanzas(); // Actualiza la calculadora visual de ISR
+            window.actualizarFinanzas(); // Ahora aplica la tabla del SAT automáticamente
             
             const contT = document.getElementById('lista-transacciones-financieras');
             contT.innerHTML = ventasFinancieras.length === 0 ? '<p style="text-align:center; color:var(--color-texto-mute);">Sin registros este mes.</p>' : '';
@@ -700,7 +734,7 @@
                         <button onclick="eliminarTransaccion('${item.id}')" class="btn-secundario" style="width:auto; padding:8px 12px; margin:0; color:var(--color-acento);">🗑️</button>
                     </div>`;
             });
-            actualizarInterfaz(); // Para actualizar el dashboard
+            actualizarInterfaz(); 
         });
 
         onSnapshot(collection(db, "autos"), (snapshot) => {
