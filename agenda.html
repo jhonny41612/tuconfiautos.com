@@ -122,14 +122,11 @@
         .barra-progreso-fondo { background-color: rgba(255, 255, 255, 0.05); height: 10px; border-radius: 10px; overflow: hidden; width: 100%; margin-top: 15px; }
         .barra-progreso-relleno { background: linear-gradient(90deg, var(--color-exito), #34D399); height: 100%; width: 0%; border-radius: 10px; transition: width 1s; box-shadow: var(--sombra-neon-verde); }
 
-        /* TERMÓMETRO DE CANALES */
         .termometro-canales { display: flex; gap: 8px; margin-top: 15px; }
-        .canal-stat { flex: 1; text-align: center; background: rgba(0,0,0,0.2); padding: 12px 5px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); transition: transform 0.3s; }
-        .canal-stat:hover { transform: translateY(-3px); }
+        .canal-stat { flex: 1; text-align: center; background: rgba(0,0,0,0.2); padding: 12px 5px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
         .canal-stat span { display: block; font-size: 1.4rem; font-weight: 800; color: #fff; line-height: 1.1; }
         .canal-stat small { font-size: 0.65rem; color: var(--color-texto-mute); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
 
-        /* BADGES (ETIQUETAS VISUALES) */
         .badge-origen { padding: 4px 10px; border-radius: 8px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; display: inline-block; margin-bottom: 8px; }
         .badge-piso { background: rgba(59, 130, 246, 0.15); color: #60A5FA; border: 1px solid rgba(59, 130, 246, 0.3); }
         .badge-web { background: rgba(16, 185, 129, 0.15); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.3); }
@@ -168,13 +165,11 @@
         .tarjeta-cliente h3 { margin-bottom: 10px; color: #ffffff; font-size: 1.3rem; font-family: 'Playfair Display', serif; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
         .tarjeta-cliente p { margin: 6px 0; font-size: 0.95rem; color: #cbd5e1; font-weight: 300; }
         .tarjeta-cliente.estado-fuego { border-left-color: var(--color-acento); background: linear-gradient(to right, rgba(244, 63, 94, 0.08), rgba(255, 255, 255, 0.02)); }
-        
         .tarjeta-cliente.buscando { border-left-color: #9333ea; background: linear-gradient(to right, rgba(147, 51, 234, 0.08), rgba(255, 255, 255, 0.02)); }
 
         .tablero-ganancias { border: 1px solid rgba(16, 185, 129, 0.3); background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%); }
         .gran-numero-verde { font-size: 3.8rem; font-weight: 800; color: var(--color-exito); margin: 0; line-height: 1; text-shadow: var(--sombra-neon-verde); }
 
-        /* ISLA FLOTANTE DE NAVEGACIÓN */
         #barra-navegacion {
             position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
             width: 94%; max-width: 480px;
@@ -259,7 +254,6 @@
                 </div>
             </div>
 
-            <!-- NUEVO TERMÓMETRO DE ORIGEN EN DASHBOARD -->
             <div class="seccion-dashboard">
                 <h3 style="color: #ffffff; font-size: 1.1rem; margin: 0; font-weight: 800; font-family: 'Playfair Display', serif;">📊 Termómetro de Origen</h3>
                 <div class="termometro-canales">
@@ -309,25 +303,29 @@
                 <input type="text" id="input-busqueda-agenda" placeholder="🔍 Buscar por nombre o auto..." oninput="actualizarInterfaz()">
             </div>
             
-            <div style="margin-bottom: 15px;">
-                <select id="orden-agenda" onchange="cambiarOrden()" style="padding: 12px;">
-                    <option value="fecha_desc">📅 Más recientes primero</option>
-                    <option value="fecha_asc">📅 Más antiguos primero</option>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px;">
+                <select id="orden-agenda" onchange="cambiarOrden()" style="padding: 12px; margin:0;">
+                    <option value="fecha_desc">📅 Más recientes</option>
+                    <option value="fecha_asc">📅 Más antiguos</option>
                     <option value="az">🔤 Alfabético (A-Z)</option>
                     <option value="za">🔤 Alfabético (Z-A)</option>
+                </select>
+                <!-- SELECTOR HISTÓRICO DE MESES -->
+                <select id="selector-mes-agenda" onchange="cambiarFiltroMes(this.value)" style="padding: 12px; margin:0; border-color:var(--color-secundario);">
+                    <option value="actual">📆 Mes Actual</option>
                 </select>
             </div>
 
             <div style="display: flex; gap: 10px; margin-bottom: 20px; overflow-x: auto; padding-bottom: 10px; white-space: nowrap;">
                 <button onclick="aplicarFiltro('todos')" id="btn-filtro-todos" class="btn-primario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">Todos (<span id="cont-todos">0</span>)</button>
-                <button onclick="aplicarFiltro('dia')" id="btn-filtro-dia" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">📅 Hoy</button>
-                <button onclick="aplicarFiltro('semana')" id="btn-filtro-semana" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">📅 Esta Semana</button>
-                <button onclick="aplicarFiltro('mes')" id="btn-filtro-mes" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">📅 Este Mes</button>
-                <button onclick="aplicarFiltro('ano')" id="btn-filtro-ano" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">📅 Este Año</button>
-                <button onclick="aplicarFiltro('piso')" id="btn-filtro-piso" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">🏢 Piso</button>
-                <button onclick="aplicarFiltro('prospeccion')" id="btn-filtro-prospeccion" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">🤝 Prospección</button>
-                <button onclick="aplicarFiltro('hot')" id="btn-filtro-hot" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">🔥 Los más Hot</button>
-                <button onclick="aplicarFiltro('buscando')" id="btn-filtro-buscando" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">🔎 Buscan Unidad</button>
+                <button onclick="aplicarFiltro('dia')" id="btn-filtro-dia" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">📅 Hoy (<span id="cont-dia">0</span>)</button>
+                <button onclick="aplicarFiltro('semana')" id="btn-filtro-semana" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">📅 Esta Semana (<span id="cont-semana">0</span>)</button>
+                <button onclick="aplicarFiltro('mes')" id="btn-filtro-mes" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">📅 Este Mes (<span id="cont-mes">0</span>)</button>
+                <button onclick="aplicarFiltro('ano')" id="btn-filtro-ano" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">📅 Este Año (<span id="cont-ano">0</span>)</button>
+                <button onclick="aplicarFiltro('piso')" id="btn-filtro-piso" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">🏢 Piso (<span id="cont-piso">0</span>)</button>
+                <button onclick="aplicarFiltro('prospeccion')" id="btn-filtro-prospeccion" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">🤝 Prosp. (<span id="cont-prospeccion">0</span>)</button>
+                <button onclick="aplicarFiltro('hot')" id="btn-filtro-hot" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">🔥 Hot (<span id="cont-hot">0</span>)</button>
+                <button onclick="aplicarFiltro('buscando')" id="btn-filtro-buscando" class="btn-secundario" style="flex-shrink: 0; margin: 0; padding: 10px 15px;">🔎 Buscan Unidad (<span id="cont-buscando">0</span>)</button>
             </div>
 
             <div id="lista-clientes-agenda"></div>
@@ -401,12 +399,12 @@
             </div>
         </section>
 
-        <!-- VISTA 4: FINANZAS Y COMISIONES -->
+        <!-- VISTA 4: FINANZAS Y COMISIONES (CON CIERRE Y ARCHIVO MENSUAL) -->
         <section id="vista-comisiones" class="vista oculta">
             <h2>💰 Motor Financiero</h2>
             
             <div class="tablero-ganancias" style="margin-bottom: 20px;">
-                <h3 style="margin-bottom: 20px; font-size: 1.1rem; color: #ffffff;">Desglose de Comisiones Mensuales</h3>
+                <h3 style="margin-bottom: 20px; font-size: 1.1rem; color: #ffffff;">Desglose de Comisiones del Mes Activo</h3>
                 
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
                     <span style="color: var(--color-texto-mute); font-size: 1rem;">Comisión Bruta (Sin Base):</span>
@@ -427,6 +425,9 @@
                     <span style="color: #ffffff; font-weight: 700; font-size: 1rem; margin-bottom: 5px;">Ganancia Neta (A depositar):</span>
                     <p class="gran-numero-verde" id="total-neto" style="font-size: 3.2rem;">$0.00</p>
                 </div>
+
+                <!-- BOTÓN PARA CERRAR Y GUARDAR MES -->
+                <button onclick="cerrarYGuardarMesActual()" class="btn-primario" style="margin-top:20px; background: linear-gradient(135deg, #10B981 0%, #059669 100%); box-shadow: var(--sombra-neon-verde);">🔒 Cerrar y Guardar Comisiones del Mes</button>
             </div>
 
             <div style="display: flex; gap: 12px; margin-bottom: 25px;">
@@ -434,10 +435,18 @@
                 <button id="btn-toma" class="btn-secundario" style="margin:0; background:rgba(255,255,255,0.1);">Registrar Toma</button>
             </div>
             
-            <div class="seccion-dashboard">
-                <h3 style="color:#ffffff; font-family:'Playfair Display',serif; margin-bottom:15px;">📋 Historial Financiero</h3>
+            <div class="seccion-dashboard" style="margin-bottom:20px;">
+                <h3 style="color:#ffffff; font-family:'Playfair Display',serif; margin-bottom:15px;">📋 Transacciones del Mes Activo</h3>
                 <div id="lista-transacciones-financieras">
                     <p style="text-align:center; color:var(--color-texto-mute);">Sin registros este mes.</p>
+                </div>
+            </div>
+
+            <!-- HISTORIAL DE MESES CERRADOS ANTERIORES -->
+            <div class="seccion-dashboard">
+                <h3 style="color:#ffffff; font-family:'Playfair Display',serif; margin-bottom:15px;">📂 Historial de Meses Archivados</h3>
+                <div id="lista-meses-archivados">
+                    <p style="text-align:center; color:var(--color-texto-mute);">No hay meses cerrados aún.</p>
                 </div>
             </div>
         </section>
@@ -494,24 +503,15 @@
                         let height = img.height;
 
                         if (width > height) {
-                            if (width > MAX_WIDTH) {
-                                height *= MAX_WIDTH / width;
-                                width = MAX_WIDTH;
-                            }
+                            if (width > MAX_WIDTH) { height *= MAX_WIDTH / width; width = MAX_WIDTH; }
                         } else {
-                            if (height > MAX_HEIGHT) {
-                                width *= MAX_HEIGHT / height;
-                                height = MAX_HEIGHT;
-                            }
+                            if (height > MAX_HEIGHT) { width *= MAX_HEIGHT / height; height = MAX_HEIGHT; }
                         }
 
-                        canvas.width = width;
-                        canvas.height = height;
+                        canvas.width = width; canvas.height = height;
                         const ctx = canvas.getContext('2d');
                         ctx.drawImage(img, 0, 0, width, height);
-                        
-                        const dataUrl = canvas.toDataURL('image/jpeg', 0.65);
-                        resolve(dataUrl);
+                        resolve(canvas.toDataURL('image/jpeg', 0.65));
                     };
                     img.onerror = reject;
                     img.src = event.target.result;
@@ -527,8 +527,7 @@
                 const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                 const osc1 = audioCtx.createOscillator();
                 const gain1 = audioCtx.createGain();
-                osc1.type = 'sine';
-                osc1.frequency.setValueAtTime(587.33, audioCtx.currentTime);
+                osc1.type = 'sine'; osc1.frequency.setValueAtTime(587.33, audioCtx.currentTime);
                 gain1.gain.setValueAtTime(0.3, audioCtx.currentTime);
                 gain1.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
                 osc1.connect(gain1); gain1.connect(audioCtx.destination);
@@ -537,8 +536,7 @@
                 setTimeout(() => {
                     const osc2 = audioCtx.createOscillator();
                     const gain2 = audioCtx.createGain();
-                    osc2.type = 'sine';
-                    osc2.frequency.setValueAtTime(880, audioCtx.currentTime);
+                    osc2.type = 'sine'; osc2.frequency.setValueAtTime(880, audioCtx.currentTime);
                     gain2.gain.setValueAtTime(0.3, audioCtx.currentTime);
                     gain2.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.4);
                     osc2.connect(gain2); gain2.connect(audioCtx.destination);
@@ -570,26 +568,23 @@
             });
             vistas.forEach(v => { v.classList.remove('activa'); v.classList.add('oculta'); });
             const vistaDestino = document.getElementById(targetId);
-            if(vistaDestino) {
-                vistaDestino.classList.remove('oculta');
-                vistaDestino.classList.add('activa');
-            }
+            if(vistaDestino) { vistaDestino.classList.remove('oculta'); vistaDestino.classList.add('activa'); }
         }
 
         botonesNav.forEach(boton => {
-            boton.addEventListener('click', function() {
-                navegarA(this.getAttribute('data-target'));
-            });
+            boton.addEventListener('click', function() { navegarA(this.getAttribute('data-target')); });
         });
 
         let clientes = [];
         let ventasFinancieras = [];
+        let mesesArchivados = [];
         let inventarioAutos = [];
         let comisiones = 0;
         let ventasMes = 0;
         const META_MENSUAL = 10;
         
         let filtroActual = 'todos';
+        let filtroMesSeleccionado = 'actual';
         let ordenActual = 'fecha_desc';
 
         window.verVistaAgendaCompleta = () => navegarA('vista-agenda');
@@ -598,12 +593,15 @@
         window.aplicarFiltro = (filtro) => {
             filtroActual = filtro;
             document.querySelectorAll('[id^="btn-filtro-"]').forEach(btn => {
-                btn.classList.remove('btn-primario');
-                btn.classList.add('btn-secundario');
+                btn.classList.remove('btn-primario'); btn.classList.add('btn-secundario');
             });
             const btnActivo = document.getElementById(`btn-filtro-${filtro}`);
-            btnActivo.classList.remove('btn-secundario');
-            btnActivo.classList.add('btn-primario');
+            btnActivo.classList.remove('btn-secundario'); btnActivo.classList.add('btn-primario');
+            actualizarInterfaz();
+        };
+
+        window.cambiarFiltroMes = (valorMes) => {
+            filtroMesSeleccionado = valorMes;
             actualizarInterfaz();
         };
 
@@ -633,7 +631,6 @@
                 if (ingreso >= tablaISR[i].limiteInf) rangoAplicable = tablaISR[i];
                 else break;
             }
-
             const excedente = ingreso - rangoAplicable.limiteInf;
             return (excedente * (rangoAplicable.porcentaje / 100)) + rangoAplicable.cuotaFija;
         }
@@ -649,6 +646,43 @@
             document.getElementById('total-neto').textContent = '$' + neto.toLocaleString('es-MX', {minimumFractionDigits: 2, maximumFractionDigits: 2});
         };
 
+        // FUNCIÓN PARA CERRAR Y GUARDAR COMISIONES DEL MES
+        window.cerrarYGuardarMesActual = async function() {
+            if (ventasFinancieras.length === 0) {
+                alert("No hay comisiones activas en este mes para cerrar.");
+                return;
+            }
+            const nombreMesCierre = prompt("Ingresa el nombre para archivar este periodo (Ej. Septiembre 2026):", "Septiembre 2026");
+            if (!nombreMesCierre) return;
+
+            if (confirm(`¿Estás seguro de cerrar el periodo "${nombreMesCierre}"? Esto guardará el historial y reiniciará la caja a $0.00 para el próximo mes.`)) {
+                try {
+                    const retencion = calcularISRMensual(comisiones);
+                    const neto = comisiones - retencion;
+
+                    // Guarda el mes archivado en Firestore
+                    await addDoc(collection(db, "meses_archivados"), {
+                        nombrePeriodo: nombreMesCierre,
+                        bruto: comisiones,
+                        isr: retencion,
+                        neto: neto,
+                        transacciones: ventasFinancieras,
+                        fechaCierre: Date.now()
+                    });
+
+                    // Elimina las transacciones actuales de la vista activa para vaciar la caja
+                    for (let item of ventasFinancieras) {
+                        await deleteDoc(doc(db, "ventas", item.id));
+                    }
+
+                    alert(`¡Periodo "${nombreMesCierre}" cerrado y archivado con éxito!`);
+                } catch (e) {
+                    console.error(e);
+                    alert("Error al cerrar el mes.");
+                }
+            }
+        };
+
         document.getElementById('btn-publicar-auto').addEventListener('click', async () => {
             const modelo = document.getElementById('inv-modelo').value.trim();
             const categoria = document.getElementById('inv-categoria').value;
@@ -662,46 +696,28 @@
             const linkFotos = document.getElementById('inv-link-fotos').value.trim();
             const inputFile = document.getElementById('inv-foto-file');
 
-            if (!modelo || !precio) {
-                alert("Por favor ingresa al menos el Nombre/Modelo del auto y su Precio.");
-                return;
-            }
+            if (!modelo || !precio) { alert("Por favor ingresa al menos el Nombre/Modelo del auto y su Precio."); return; }
 
             const btnPublicar = document.getElementById('btn-publicar-auto');
-            btnPublicar.textContent = '⏳ Procesando...';
-            btnPublicar.disabled = true;
+            btnPublicar.textContent = '⏳ Procesando...'; btnPublicar.disabled = true;
 
             try {
                 let fotoUrl = '';
                 if (inputFile.files && inputFile.files[0]) {
-                    const archivo = inputFile.files[0];
-                    fotoUrl = await comprimirYConvertirImagen(archivo);
+                    fotoUrl = await comprimirYConvertirImagen(inputFile.files[0]);
                 }
-
                 await addDoc(collection(db, "autos"), {
                     modelo, categoria, estatus, anio, kilometraje, precio, precioOferta, aplicaOferta, especificaciones, fotoUrl, linkFotos,
                     fechaCreacion: Date.now()
                 });
-
                 alert('¡Auto publicado con éxito en tu catálogo!');
-                
-                document.getElementById('inv-modelo').value = '';
-                document.getElementById('inv-anio').value = '';
-                document.getElementById('inv-km').value = '';
-                document.getElementById('inv-precio').value = '';
-                document.getElementById('inv-precio-oferta').value = '';
-                document.getElementById('inv-aplica-oferta').checked = false;
-                document.getElementById('inv-especificaciones').value = '';
-                document.getElementById('inv-link-fotos').value = '';
+                document.getElementById('inv-modelo').value = ''; document.getElementById('inv-anio').value = '';
+                document.getElementById('inv-km').value = ''; document.getElementById('inv-precio').value = '';
+                document.getElementById('inv-precio-oferta').value = ''; document.getElementById('inv-aplica-oferta').checked = false;
+                document.getElementById('inv-especificaciones').value = ''; document.getElementById('inv-link-fotos').value = '';
                 document.getElementById('inv-foto-file').value = '';
-
-            } catch (e) {
-                console.error(e);
-                alert('Error al publicar. Verifica tu conexión.');
-            } finally {
-                btnPublicar.textContent = '🚀 Publicar al Catálogo';
-                btnPublicar.disabled = false;
-            }
+            } catch (e) { alert('Error al publicar.'); } 
+            finally { btnPublicar.textContent = '🚀 Publicar al Catálogo'; btnPublicar.disabled = false; }
         });
 
         let cargaInicialClientes = true;
@@ -714,9 +730,11 @@
                 }
             });
             cargaInicialClientes = false;
-
             clientes = [];
             snapshot.forEach(doc => clientes.push({ id: doc.id, ...doc.data() }));
+            
+            // Poblar selector de meses dinámico en la agenda basado en las fechas de los clientes
+            actualizarSelectorMesesAgenda();
             actualizarInterfaz();
         });
 
@@ -742,6 +760,39 @@
             actualizarInterfaz(); 
         });
 
+        // ESCUCHADOR DE MESES ARCHIVADOS EN FINANZAS
+        onSnapshot(collection(db, "meses_archivados"), (snapshot) => {
+            mesesArchivados = [];
+            snapshot.forEach(doc => mesesArchivados.push({ id: doc.id, ...doc.data() }));
+            
+            const contArchivados = document.getElementById('lista-meses-archivados');
+            contArchivados.innerHTML = mesesArchivados.length === 0 ? '<p style="text-align:center; color:var(--color-texto-mute);">No hay meses cerrados aún.</p>' : '';
+            
+            mesesArchivados.sort((a,b) => b.fechaCierre - a.fechaCierre).forEach(m => {
+                let detalleTransacciones = '';
+                m.transacciones.forEach(t => {
+                    detalleTransacciones += `<p style="font-size:0.85rem; color:#94A3B8; margin:2px 0;">• ${t.descripcion} (${t.tipo.toUpperCase()}): $${Number(t.monto).toLocaleString('es-MX')}</p>`;
+                });
+
+                contArchivados.innerHTML += `
+                    <article class="tarjeta-cliente" style="border-left-color: var(--color-secundario); margin-bottom:15px;">
+                        <h3>📂 Periodo: ${m.nombrePeriodo}</h3>
+                        <p><strong>Comisión Bruta:</strong> $${Number(m.bruto).toLocaleString('es-MX', {minimumFractionDigits:2})}</p>
+                        <p><strong>Retención ISR:</strong> -$${Number(m.isr).toLocaleString('es-MX', {minimumFractionDigits:2})}</p>
+                        <p style="color:var(--color-exito);"><strong>Ganancia Neta:</strong> $${Number(m.neto).toLocaleString('es-MX', {minimumFractionDigits:2})}</p>
+                        <div style="margin-top:10px; background:rgba(0,0,0,0.2); padding:10px; border-radius:12px;">
+                            <strong style="font-size:0.85rem; color:#fff;">Detalle de ventas:</strong>
+                            ${detalleTransacciones}
+                        </div>
+                        <button onclick="eliminarMesArchivado('${m.id}')" class="btn-secundario" style="width:auto; margin-top:10px; padding:8px 12px; color:var(--color-acento);">🗑️ Eliminar Archivo</button>
+                    </article>`;
+            });
+        });
+
+        window.eliminarMesArchivado = async function(id) {
+            if(confirm("¿Eliminar este registro histórico de comisiones?")) await deleteDoc(doc(db, "meses_archivados", id));
+        };
+
         onSnapshot(collection(db, "autos"), (snapshot) => {
             inventarioAutos = [];
             snapshot.forEach(doc => inventarioAutos.push({ id: doc.id, ...doc.data() }));
@@ -764,23 +815,20 @@
                         </div>
                         <div style="display:flex; gap:8px; margin-top:12px;">
                             ${botonFotos}
-                            <button onclick="editarAuto('${auto.id}', '${auto.modelo || ''}', '${auto.linkFotos || ''}', '${auto.precio || ''}')" class="btn-secundario" style="width:auto; margin:0; padding:10px;" title="Editar Link o Datos">✏️</button>
-                            <button onclick="cambiarEstatusAuto('${auto.id}', '${auto.estatus}')" class="btn-secundario" style="width:auto; margin:0; padding:10px;" title="Cambiar Estatus">🔄</button>
-                            <button onclick="eliminarAuto('${auto.id}')" class="btn-secundario" style="width:auto; margin:0; padding:10px; color:var(--color-acento);" title="Eliminar">🗑️️</button>
+                            <button onclick="editarAuto('${auto.id}', '${auto.modelo || ''}', '${auto.linkFotos || ''}', '${auto.precio || ''}')" class="btn-secundario" style="width:auto; margin:0; padding:10px;" title="Editar">✏️</button>
+                            <button onclick="cambiarEstatusAuto('${auto.id}', '${auto.estatus}')" class="btn-secundario" style="width:auto; margin:0; padding:10px;" title="Estatus">🔄</button>
+                            <button onclick="eliminarAuto('${auto.id}')" class="btn-secundario" style="width:auto; margin:0; padding:10px; color:var(--color-acento);" title="Eliminar">🗑</button>
                         </div>
                     </article>`;
             });
         });
 
         window.editarAuto = async function(id, modeloActual, linkActual, precioActual) {
-            const nuevoModelo = prompt("Editar Modelo y Versión:", modeloActual);
-            if (nuevoModelo === null) return;
-            const nuevoPrecio = prompt("Editar Precio Regular ($):", precioActual);
-            if (nuevoPrecio === null) return;
-            const nuevoLink = prompt("Editar Link de Google Drive (15+ fotos):", linkActual);
-            if (nuevoLink === null) return;
-            try { await updateDoc(doc(db, "autos", id), { modelo: nuevoModelo, precio: nuevoPrecio, linkFotos: nuevoLink }); alert("¡Auto actualizado con éxito!"); } 
-            catch (e) { alert("Error al actualizar el auto."); }
+            const nuevoModelo = prompt("Editar Modelo y Versión:", modeloActual); if (nuevoModelo === null) return;
+            const nuevoPrecio = prompt("Editar Precio Regular ($):", precioActual); if (nuevoPrecio === null) return;
+            const nuevoLink = prompt("Editar Link de Google Drive (15+ fotos):", linkActual); if (nuevoLink === null) return;
+            try { await updateDoc(doc(db, "autos", id), { modelo: nuevoModelo, precio: nuevoPrecio, linkFotos: nuevoLink }); alert("¡Actualizado!"); } 
+            catch (e) { alert("Error al actualizar."); }
         };
 
         window.cambiarEstatusAuto = async function(id, estatusActual) {
@@ -789,20 +837,58 @@
                 await updateDoc(doc(db, "autos", id), { estatus: nuevo.toLowerCase() });
             }
         }
-        window.eliminarAuto = async function(id) { if(confirm("¿Eliminar este auto del catálogo web?")) await deleteDoc(doc(db, "autos", id)); }
+        window.eliminarAuto = async function(id) { if(confirm("¿Eliminar auto?")) await deleteDoc(doc(db, "autos", id)); }
         window.toggleBuscando = async (id, est) => await updateDoc(doc(db, "clientes", id), { buscandoUnidad: !est });
 
+        function actualizarSelectorMesesAgenda() {
+            const selector = document.getElementById('selector-mes-agenda');
+            const valorActual = selector.value;
+            selector.innerHTML = '<option value="actual">📆 Mes Actual (En curso)</option>';
+            
+            const mesesMap = {};
+            clientes.forEach(c => {
+                if (c.fechaCreacion) {
+                    const d = new Date(c.fechaCreacion);
+                    const anio = d.getFullYear();
+                    const mes = d.getMonth();
+                    const clave = `${anio}-${mes}`;
+                    const nombreMes = d.toLocaleString('es-MX', { month: 'long', year: 'numeric' });
+                    mesesMap[clave] = nombreMes.charAt(0).toUpperCase() + nombreMes.slice(1);
+                }
+            });
+
+            for (let clave in mesesMap) {
+                selector.innerHTML += `<option value="${clave}">${mesesMap[clave]}</option>`;
+            }
+            selector.value = valorActual;
+        }
+
         window.actualizarInterfaz = function() {
-            // MÉTRICAS Y DASHBOARD
+            const ahora = new Date();
+            const inicioHoy = new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate()).getTime();
+            const inicioSemana = ahora.getTime() - (7 * 24 * 60 * 60 * 1000); 
+            const inicioMesActual = new Date(ahora.getFullYear(), ahora.getMonth(), 1).getTime();
+            const inicioAno = new Date(ahora.getFullYear(), 0, 1).getTime();
+
+            // CONTADORES EN BOTONES DE FILTRO
+            if(document.getElementById('cont-todos')) document.getElementById('cont-todos').textContent = clientes.length;
+            if(document.getElementById('cont-dia')) document.getElementById('cont-dia').textContent = clientes.filter(c => c.fechaCreacion >= inicioHoy).length;
+            if(document.getElementById('cont-semana')) document.getElementById('cont-semana').textContent = clientes.filter(c => c.fechaCreacion >= inicioSemana).length;
+            if(document.getElementById('cont-mes')) document.getElementById('cont-mes').textContent = clientes.filter(c => c.fechaCreacion >= inicioMesActual).length;
+            if(document.getElementById('cont-ano')) document.getElementById('cont-ano').textContent = clientes.filter(c => c.fechaCreacion >= inicioAno).length;
+            if(document.getElementById('cont-piso')) document.getElementById('cont-piso').textContent = clientes.filter(c => c.origen === 'piso').length;
+            if(document.getElementById('cont-prospeccion')) document.getElementById('cont-prospeccion').textContent = clientes.filter(c => c.origen === 'prospeccion').length;
+            if(document.getElementById('cont-hot')) document.getElementById('cont-hot').textContent = clientes.filter(c => c.caliente).length;
+            if(document.getElementById('cont-buscando')) document.getElementById('cont-buscando').textContent = clientes.filter(c => c.buscandoUnidad).length;
+
             document.getElementById('contador-prospectos').textContent = clientes.length;
             document.getElementById('contador-calientes').textContent = clientes.filter(c => c.caliente).length;
-            const hoyIso = new Date().toISOString().split('T')[0];
+            const hoyIso = ahora.toISOString().split('T')[0];
             const clientesDeHoy = clientes.filter(c => c.fechaCita === hoyIso);
             document.getElementById('contador-seguimientos-hoy').textContent = clientesDeHoy.length;
             document.getElementById('contador-ventas-meta').textContent = ventasMes;
             document.getElementById('relleno-meta').style.width = Math.min((ventasMes / META_MENSUAL) * 100, 100) + '%';
 
-            // TERMÓMETRO DE ORIGEN EN DASHBOARD
             document.getElementById('stat-piso').textContent = clientes.filter(c => c.origen === 'piso').length;
             document.getElementById('stat-web').textContent = clientes.filter(c => c.origen === 'web').length;
             document.getElementById('stat-pros').textContent = clientes.filter(c => c.origen === 'prospeccion').length;
@@ -814,11 +900,7 @@
             } else {
                 clientesDeHoy.forEach(c => {
                     const wa = `https://wa.me/52${c.telefono}?text=${encodeURIComponent(`Hola ${c.nombre}, te escribo de Fame Seminuevos para confirmar nuestra cita hoy a las${c.horaCita}.`)}`;
-                    let badgeOrigenT = '';
-                    if(c.origen === 'piso') badgeOrigenT = '<span class="badge-origen badge-piso" style="margin:0; font-size:0.6rem;">Piso</span>';
-                    else if(c.origen === 'web') badgeOrigenT = '<span class="badge-origen badge-web" style="margin:0; font-size:0.6rem;">Web</span>';
-                    else if(c.origen === 'prospeccion') badgeOrigenT = '<span class="badge-origen badge-prospeccion" style="margin:0; font-size:0.6rem;">Prosp.</span>';
-                    else badgeOrigenT = '<span class="badge-origen badge-directo" style="margin:0; font-size:0.6rem;">Directo</span>';
+                    let badgeOrigenT = c.origen === 'piso' ? '<span class="badge-origen badge-piso" style="margin:0; font-size:0.6rem;">Piso</span>' : c.origen === 'web' ? '<span class="badge-origen badge-web" style="margin:0; font-size:0.6rem;">Web</span>' : c.origen === 'prospeccion' ? '<span class="badge-origen badge-prospeccion" style="margin:0; font-size:0.6rem;">Prosp.</span>' : '<span class="badge-origen badge-directo" style="margin:0; font-size:0.6rem;">Directo</span>';
                     
                     contenedorTareas.innerHTML += `
                         <div class="tarea-item">
@@ -836,23 +918,26 @@
             const listaHot = document.getElementById('lista-hotlist');
             listaAgenda.innerHTML = ''; listaHot.innerHTML = '';
 
-            if(document.getElementById('cont-todos')) { document.getElementById('cont-todos').textContent = clientes.length; }
-
-            // FILTROS
             let mostrar = clientes;
-            const ahora = new Date();
-            const inicioHoy = new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate()).getTime();
-            const inicioSemana = ahora.getTime() - (7 * 24 * 60 * 60 * 1000); 
-            const inicioMes = new Date(ahora.getFullYear(), ahora.getMonth(), 1).getTime();
-            const inicioAno = new Date(ahora.getFullYear(), 0, 1).getTime();
-            
+
+            // FILTRADO POR SELECTOR HISTÓRICO DE MESES
+            if (filtroMesSeleccionado !== 'actual') {
+                const [anioSel, mesSel] = filtroMesSeleccionado.split('-');
+                mostrar = mostrar.filter(c => {
+                    if (!c.fechaCreacion) return false;
+                    const d = new Date(c.fechaCreacion);
+                    return d.getFullYear() == anioSel && d.getMonth() == mesSel;
+                });
+            }
+
+            // FILTROS RÁPIDOS
             if(filtroActual === 'piso') mostrar = mostrar.filter(c => c.origen === 'piso');
             else if(filtroActual === 'prospeccion') mostrar = mostrar.filter(c => c.origen === 'prospeccion');
             else if(filtroActual === 'hot') mostrar = mostrar.filter(c => c.caliente === true);
             else if(filtroActual === 'buscando') mostrar = mostrar.filter(c => c.buscandoUnidad === true);
             else if(filtroActual === 'dia') mostrar = mostrar.filter(c => c.fechaCreacion >= inicioHoy);
             else if(filtroActual === 'semana') mostrar = mostrar.filter(c => c.fechaCreacion >= inicioSemana);
-            else if(filtroActual === 'mes') mostrar = mostrar.filter(c => c.fechaCreacion >= inicioMes);
+            else if(filtroActual === 'mes') mostrar = mostrar.filter(c => c.fechaCreacion >= inicioMesActual);
             else if(filtroActual === 'ano') mostrar = mostrar.filter(c => c.fechaCreacion >= inicioAno);
 
             const busqueda = normalizar(document.getElementById('input-busqueda-agenda').value);
@@ -868,10 +953,7 @@
             if(mostrar.length === 0) listaAgenda.innerHTML = `<p style="text-align: center; color: var(--color-texto-mute); padding: 20px;">Sin registros para esta selección.</p>`;
 
             mostrar.forEach(c => {
-                // MENSAJE DE WHATSAPP INTELIGENTE BASADO EN ORIGEN
-                let msjWa = '';
-                let badgeHTML = '';
-
+                let msjWa = ''; let badgeHTML = '';
                 if (c.origen === 'piso') {
                     msjWa = `Hola ${c.nombre}, gracias por visitarnos hoy en Fame Seminuevos. Te escribo para dar seguimiento a tu interés en el ${c.interes}.`;
                     badgeHTML = '<span class="badge-origen badge-piso">🏢 Piso</span>';
@@ -899,8 +981,8 @@
                         <p><strong>Teléfono:</strong> ${c.telefono}</p>
                         <div style="display:flex; gap:10px; margin-top:15px; flex-wrap: wrap;">
                             <a href="${wa}" target="_blank" class="btn-whatsapp" style="flex:1; min-width: 120px; margin:0;">📲 WhatsApp</a>
-                            <button onclick="toggleFuego('${c.id}', ${c.caliente})" class="btn-secundario" style="flex:1; margin:0;" title="Marcar/Desmarcar Hot">🔥</button>
-                            <button onclick="toggleBuscando('${c.id}', ${c.buscandoUnidad})" class="btn-secundario" style="flex:1; margin:0;" title="Buscando Unidad">🔎</button>
+                            <button onclick="toggleFuego('${c.id}', ${c.caliente})" class="btn-secundario" style="flex:1; margin:0;" title="Hot">🔥</button>
+                            <button onclick="toggleBuscando('${c.id}', ${c.buscandoUnidad})" class="btn-secundario" style="flex:1; margin:0;" title="Buscando">🔎</button>
                             <button onclick="eliminarCliente('${c.id}')" class="btn-secundario" style="flex:1; margin:0; color:var(--color-acento);" title="Eliminar">🗑️</button>
                         </div>
                     </article>`;
@@ -912,11 +994,7 @@
             } else {
                 calientes.forEach(c => {
                     const wa = `https://wa.me/52${c.telefono}?text=${encodeURIComponent(`Hola ${c.nombre}, te escribo de Fame Seminuevos para dar seguimiento a tu compra.`)}`;
-                    let badgeHTML = '';
-                    if (c.origen === 'piso') badgeHTML = '<span class="badge-origen badge-piso">🏢 Piso</span>';
-                    else if (c.origen === 'web') badgeHTML = '<span class="badge-origen badge-web">📱 Web</span>';
-                    else if (c.origen === 'prospeccion') badgeHTML = '<span class="badge-origen badge-prospeccion">🤝 Prosp.</span>';
-                    else badgeHTML = '<span class="badge-origen badge-directo">👤 Directo</span>';
+                    let badgeHTML = c.origen === 'piso' ? '<span class="badge-origen badge-piso">🏢 Piso</span>' : c.origen === 'web' ? '<span class="badge-origen badge-web">📱 Web</span>' : c.origen === 'prospeccion' ? '<span class="badge-origen badge-prospeccion">🤝 Prosp.</span>' : '<span class="badge-origen badge-directo">👤 Directo</span>';
 
                     listaHot.innerHTML += `
                         <article class="tarjeta-cliente estado-fuego">
@@ -939,10 +1017,8 @@
 
         document.getElementById('btn-guardar-cliente').addEventListener('click', async () => {
             const texto = document.getElementById('lector-magico').value;
-            const nombre = prompt("Nombre y Apellidos del cliente:", "Prospecto Nuevo");
-            if (!nombre) return;
-            const telefono = prompt("WhatsApp (10 dígitos):", "");
-            if (!telefono) return;
+            const nombre = prompt("Nombre y Apellidos del cliente:", "Prospecto Nuevo"); if (!nombre) return;
+            const telefono = prompt("WhatsApp (10 dígitos):", ""); if (!telefono) return;
             const correo = prompt("Correo electrónico:", "correo@ejemplo.com");
             const interes = prompt("¿Qué auto busca?", texto ? texto.substring(0, 40) : "Auto Seminuevo");
             const fechaHoy = new Date().toISOString().split('T')[0];
@@ -955,8 +1031,7 @@
             try {
                 await addDoc(collection(db, "clientes"), {
                     nombre, telefono: telefono.replace(/\D/g,''), correo: correo || '', interes,
-                    origen: origenSeleccionado,
-                    buscandoUnidad: estaBuscando,
+                    origen: origenSeleccionado, buscandoUnidad: estaBuscando,
                     fechaCita: fechaCita || '', horaCita: horaCita || '', caliente: false, fechaCreacion: Date.now()
                 });
                 document.getElementById('lector-magico').value = '';
@@ -966,10 +1041,8 @@
         });
 
         async function regTrans(tipo) {
-            const desc = prompt(`Modelo del auto (${tipo}):`, "Chevrolet Onix");
-            if(!desc) return;
-            const monto = parseFloat(prompt("Comisión bruta ($):", "3000"));
-            if(isNaN(monto)) return;
+            const desc = prompt(`Modelo del auto (${tipo}):`, "Chevrolet Onix"); if(!desc) return;
+            const monto = parseFloat(prompt("Comisión bruta ($):", "3000")); if(isNaN(monto)) return;
             await addDoc(collection(db, "ventas"), { tipo, descripcion: desc, monto, fechaCreacion: Date.now() });
             alert("¡Registrado con éxito!");
         }
@@ -990,14 +1063,9 @@
         window.buscarEnRadar = function() {
             const busqueda = document.getElementById('input-busqueda-radar').value;
             const contenedor = document.getElementById('resultados-radar');
-            
-            if(!busqueda) {
-                contenedor.innerHTML = '<p style="text-align:center; color:var(--color-texto-mute); padding: 20px;">Escribe un modelo para buscar.</p>';
-                return;
-            }
+            if(!busqueda) { contenedor.innerHTML = '<p style="text-align:center; color:var(--color-texto-mute); padding: 20px;">Escribe un modelo para buscar.</p>'; return; }
             
             const coincidencias = clientes.filter(c => normalizar(c.interes).includes(normalizar(busqueda)));
-            
             if(coincidencias.length === 0) {
                 contenedor.innerHTML = '<p style="text-align:center; color:var(--color-texto-mute); padding: 20px;">Nadie en tu agenda busca este auto actualmente.</p>';
             } else {
@@ -1009,8 +1077,7 @@
                             <h3>${c.nombre}</h3>
                             <p><strong>Buscaba:</strong> ${c.interes}</p>
                             <a href="${wa}" target="_blank" class="btn-whatsapp" style="margin-top:10px;">📲 Avisar por WhatsApp</a>
-                        </div>
-                    `;
+                        </div>`;
                 });
             }
         };
