@@ -800,7 +800,8 @@
         
         window.toggleBuscando = async (id, est) => await updateDoc(doc(db, "clientes", id), { buscandoUnidad: !est });
 
-        function actualizarInterfaz() {
+        // AQUI ESTÁ EL PRIMER CAMBIO APLICADO
+        window.actualizarInterfaz = function() {
             document.getElementById('contador-prospectos').textContent = clientes.length;
             document.getElementById('contador-calientes').textContent = clientes.filter(c => c.caliente).length;
             const hoyIso = new Date().toISOString().split('T')[0];
@@ -931,7 +932,7 @@
                         </article>`;
                 });
             }
-        }
+        };
 
         window.toggleFuego = async (id, est) => await updateDoc(doc(db, "clientes", id), { caliente: !est });
         window.eliminarCliente = async (id) => { if(confirm("¿Eliminar prospecto?")) await deleteDoc(doc(db, "clientes", id)); };
@@ -986,6 +987,35 @@
             btnStop.addEventListener('click', () => { rec.stop(); btnD.textContent = '🎤 Dictado Inteligente'; btnStop.style.display='none'; });
             rec.onresult = (e) => txtMagico.value += ' ' + e.results[e.results.length - 1][0].transcript;
         } else { btnD.style.display = 'none'; }
+
+        // AQUI ESTÁ EL SEGUNDO CAMBIO APLICADO
+        window.buscarEnRadar = function() {
+            const busqueda = document.getElementById('input-busqueda-radar').value;
+            const contenedor = document.getElementById('resultados-radar');
+            
+            if(!busqueda) {
+                contenedor.innerHTML = '<p style="text-align:center; color:var(--color-texto-mute); padding: 20px;">Escribe un modelo para buscar.</p>';
+                return;
+            }
+            
+            const coincidencias = clientes.filter(c => normalizar(c.interes).includes(normalizar(busqueda)));
+            
+            if(coincidencias.length === 0) {
+                contenedor.innerHTML = '<p style="text-align:center; color:var(--color-texto-mute); padding: 20px;">Nadie en tu agenda busca este auto actualmente.</p>';
+            } else {
+                contenedor.innerHTML = '';
+                coincidencias.forEach(c => {
+                    const wa = `https://wa.me/52${c.telefono}?text=${encodeURIComponent(`Hola ${c.nombre}, nos acaba de llegar el${c.interes} que estabas buscando.`)}`;
+                    contenedor.innerHTML += `
+                        <div class="tarjeta-cliente buscando">
+                            <h3>${c.nombre}</h3>
+                            <p><strong>Buscaba:</strong> ${c.interes}</p>
+                            <a href="${wa}" target="_blank" class="btn-whatsapp" style="margin-top:10px;">📲 Avisar por WhatsApp</a>
+                        </div>
+                    `;
+                });
+            }
+        };
     </script>
 
     <!-- SCRIPT DE REGISTRO DEL SERVICE WORKER (PWA) -->
