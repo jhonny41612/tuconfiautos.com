@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Agenda Élite & CRM Automotriz | Fame Seminuevos</title>
     
-    <!-- CONFIGURACIÓN PWA PARA MODO APLICACIÓN NATIVA -->
+    <!-- CONFIGURACIÓN PWA -->
     <link rel="manifest" href="manifest.json">
 
     <!-- FUENTES ÉLITE -->
@@ -20,6 +20,7 @@
             --color-secundario: #3B82F6;
             --color-acento: #F43F5E;
             --color-exito: #10B981;
+            --color-alerta: #F59E0B;
             --glass-bg: rgba(255, 255, 255, 0.03);
             --glass-bg-hover: rgba(255, 255, 255, 0.08);
             --glass-border: 1px solid rgba(255, 255, 255, 0.08);
@@ -84,7 +85,6 @@
         .vista h2 { color: var(--color-primario); font-size: 1.8rem; font-weight: 700; margin-bottom: 15px; }
         .descripcion-vista { font-size: 0.95rem; color: var(--color-texto-mute); margin-bottom: 25px; line-height: 1.6; font-weight: 300; }
 
-        /* TOAST DE ALERTA VISUAL */
         #toast-alerta {
             position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px);
             background: linear-gradient(135deg, #10B981 0%, #059669 100%);
@@ -94,7 +94,6 @@
         }
         #toast-alerta.mostrar { transform: translateX(-50%) translateY(0); }
 
-        /* TARJETAS Y CONTENEDORES GLASS */
         .tarjetas-metricas { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .tarjeta-indicador, .seccion-dashboard, .tarjeta-cliente, .tablero-ganancias {
             background: var(--glass-bg);
@@ -123,6 +122,20 @@
         .barra-progreso-fondo { background-color: rgba(255, 255, 255, 0.05); height: 10px; border-radius: 10px; overflow: hidden; width: 100%; margin-top: 15px; }
         .barra-progreso-relleno { background: linear-gradient(90deg, var(--color-exito), #34D399); height: 100%; width: 0%; border-radius: 10px; transition: width 1s; box-shadow: var(--sombra-neon-verde); }
 
+        /* TERMÓMETRO DE CANALES */
+        .termometro-canales { display: flex; gap: 8px; margin-top: 15px; }
+        .canal-stat { flex: 1; text-align: center; background: rgba(0,0,0,0.2); padding: 12px 5px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); transition: transform 0.3s; }
+        .canal-stat:hover { transform: translateY(-3px); }
+        .canal-stat span { display: block; font-size: 1.4rem; font-weight: 800; color: #fff; line-height: 1.1; }
+        .canal-stat small { font-size: 0.65rem; color: var(--color-texto-mute); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+
+        /* BADGES (ETIQUETAS VISUALES) */
+        .badge-origen { padding: 4px 10px; border-radius: 8px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; display: inline-block; margin-bottom: 8px; }
+        .badge-piso { background: rgba(59, 130, 246, 0.15); color: #60A5FA; border: 1px solid rgba(59, 130, 246, 0.3); }
+        .badge-web { background: rgba(16, 185, 129, 0.15); color: #34D399; border: 1px solid rgba(16, 185, 129, 0.3); }
+        .badge-prospeccion { background: rgba(245, 158, 11, 0.15); color: #FBBF24; border: 1px solid rgba(245, 158, 11, 0.3); }
+        .badge-directo { background: rgba(148, 163, 184, 0.15); color: #94A3B8; border: 1px solid rgba(148, 163, 184, 0.3); }
+
         .tarea-item { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
         .tarea-item:last-child { border-bottom: none; padding-bottom: 0; }
         .tarea-info { display: flex; flex-direction: column; gap: 6px; }
@@ -130,11 +143,10 @@
         .tarea-nombre { color: #ffffff; font-weight: 600; font-size: 1.15rem; font-family: 'Playfair Display', serif; }
         .tarea-detalle { color: var(--color-texto-mute); font-size: 0.85rem; line-height: 1.5; font-weight: 300; }
 
-        /* BOTONES E INPUTS */
         .btn-primario, .btn-secundario, .btn-whatsapp {
             width: 100%; padding: 16px; border: none; border-radius: 20px; font-size: 0.9rem;
             font-weight: 700; cursor: pointer; margin-bottom: 12px; transition: all 0.3s;
-            text-transform: uppercase; letter-spacing: 1px;
+            text-transform: uppercase; letter-spacing: 1px; text-decoration: none; display: inline-block; box-sizing: border-box; text-align: center;
         }
         .btn-primario { background: linear-gradient(135deg, var(--color-secundario) 0%, #2563EB 100%); color: #ffffff; box-shadow: var(--sombra-neon-azul); }
         .btn-primario:active { transform: scale(0.97); }
@@ -153,7 +165,7 @@
         textarea:focus, input:focus, select:focus { outline: none; border-color: var(--color-secundario); background: rgba(0, 0, 0, 0.4); box-shadow: var(--sombra-neon-azul); }
 
         .tarjeta-cliente { border-left: 4px solid var(--color-secundario); margin-bottom: 20px; }
-        .tarjeta-cliente h3 { margin-bottom: 10px; color: #ffffff; font-size: 1.3rem; font-family: 'Playfair Display', serif; }
+        .tarjeta-cliente h3 { margin-bottom: 10px; color: #ffffff; font-size: 1.3rem; font-family: 'Playfair Display', serif; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
         .tarjeta-cliente p { margin: 6px 0; font-size: 0.95rem; color: #cbd5e1; font-weight: 300; }
         .tarjeta-cliente.estado-fuego { border-left-color: var(--color-acento); background: linear-gradient(to right, rgba(244, 63, 94, 0.08), rgba(255, 255, 255, 0.02)); }
         
@@ -162,7 +174,7 @@
         .tablero-ganancias { border: 1px solid rgba(16, 185, 129, 0.3); background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%); }
         .gran-numero-verde { font-size: 3.8rem; font-weight: 800; color: var(--color-exito); margin: 0; line-height: 1; text-shadow: var(--sombra-neon-verde); }
 
-        /* ISLA FLOTANTE DE NAVEGACIÓN (6 BOTONES) */
+        /* ISLA FLOTANTE DE NAVEGACIÓN */
         #barra-navegacion {
             position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
             width: 94%; max-width: 480px;
@@ -185,7 +197,6 @@
 </head>
 <body>
 
-    <!-- TOAST DE NOTIFICACIÓN DE INTERACCIÓN -->
     <div id="toast-alerta">🔔 <span id="texto-toast">Nueva interacción detectada</span></div>
 
     <header class="header-app">
@@ -245,6 +256,16 @@
                 </div>
                 <div class="barra-progreso-fondo">
                     <div class="barra-progreso-relleno" id="relleno-meta"></div>
+                </div>
+            </div>
+
+            <!-- NUEVO TERMÓMETRO DE ORIGEN EN DASHBOARD -->
+            <div class="seccion-dashboard">
+                <h3 style="color: #ffffff; font-size: 1.1rem; margin: 0; font-weight: 800; font-family: 'Playfair Display', serif;">📊 Termómetro de Origen</h3>
+                <div class="termometro-canales">
+                    <div class="canal-stat" style="border-bottom: 2px solid #60A5FA;"><span id="stat-piso">0</span><small>Piso</small></div>
+                    <div class="canal-stat" style="border-bottom: 2px solid #34D399;"><span id="stat-web">0</span><small>Web/QR</small></div>
+                    <div class="canal-stat" style="border-bottom: 2px solid #FBBF24;"><span id="stat-pros">0</span><small>Prosp.</small></div>
                 </div>
             </div>
 
@@ -380,7 +401,7 @@
             </div>
         </section>
 
-        <!-- VISTA 4: FINANZAS Y COMISIONES (AUTOMATIZADO CON SAT) -->
+        <!-- VISTA 4: FINANZAS Y COMISIONES -->
         <section id="vista-comisiones" class="vista oculta">
             <h2>💰 Motor Financiero</h2>
             
@@ -430,7 +451,7 @@
 
     </main>
 
-    <!-- MENÚ INFERIOR FLOTANTE DE 6 BOTONES -->
+    <!-- MENÚ INFERIOR FLOTANTE -->
     <nav id="barra-navegacion">
         <button class="btn-nav activo" data-target="vista-resumen"><span class="icono">🏠</span><span class="texto-nav">Inicio</span></button>
         <button class="btn-nav" data-target="vista-agenda"><span class="icono">📅</span><span class="texto-nav">Agenda</span></button>
@@ -591,11 +612,8 @@
             actualizarInterfaz();
         };
 
-        // LÓGICA PROGRESIVA PARA CALCULAR EL ISR DE FORMA AUTOMÁTICA
         function calcularISRMensual(ingreso) {
             if (ingreso <= 0) return 0;
-            
-            // Tabla Mensual ISR (Estructura oficial del SAT)
             const tablaISR = [
                 { limiteInf: 0.01, cuotaFija: 0.00, porcentaje: 1.92 },
                 { limiteInf: 746.05, cuotaFija: 14.32, porcentaje: 6.40 },
@@ -611,28 +629,18 @@
             ];
 
             let rangoAplicable = tablaISR[0];
-            // Encuentra en qué escalón de ingresos se encuentra la comisión
             for (let i = 0; i < tablaISR.length; i++) {
-                if (ingreso >= tablaISR[i].limiteInf) {
-                    rangoAplicable = tablaISR[i];
-                } else {
-                    break;
-                }
+                if (ingreso >= tablaISR[i].limiteInf) rangoAplicable = tablaISR[i];
+                else break;
             }
 
             const excedente = ingreso - rangoAplicable.limiteInf;
-            const impuestoMarginal = excedente * (rangoAplicable.porcentaje / 100);
-            const retencionTotal = impuestoMarginal + rangoAplicable.cuotaFija;
-            
-            return retencionTotal;
+            return (excedente * (rangoAplicable.porcentaje / 100)) + rangoAplicable.cuotaFija;
         }
 
-        // ACTUALIZADOR DE FINANZAS E ISR AUTOMATIZADO
         window.actualizarFinanzas = function() {
             const retencionCalculada = calcularISRMensual(comisiones);
             const neto = comisiones - retencionCalculada;
-            
-            // Calcula el porcentaje real para mostrarlo en la interfaz de forma informativa
             const porcentajeEfectivo = comisiones > 0 ? ((retencionCalculada / comisiones) * 100).toFixed(1) : 0;
 
             document.getElementById('total-bruto').textContent = '$' + comisiones.toLocaleString('es-MX', {minimumFractionDigits: 2, maximumFractionDigits: 2});
@@ -715,12 +723,9 @@
         onSnapshot(collection(db, "ventas"), (snapshot) => {
             ventasFinancieras = [];
             snapshot.forEach(doc => ventasFinancieras.push({ id: doc.id, ...doc.data() }));
-            
-            // Suma de comisiones brutas mensuales
             comisiones = ventasFinancieras.reduce((acc, curr) => acc + (parseFloat(curr.monto) || 0), 0);
             ventasMes = ventasFinancieras.length;
-            
-            window.actualizarFinanzas(); // Ahora aplica la tabla del SAT automáticamente
+            window.actualizarFinanzas(); 
             
             const contT = document.getElementById('lista-transacciones-financieras');
             contT.innerHTML = ventasFinancieras.length === 0 ? '<p style="text-align:center; color:var(--color-texto-mute);">Sin registros este mes.</p>' : '';
@@ -761,7 +766,7 @@
                             ${botonFotos}
                             <button onclick="editarAuto('${auto.id}', '${auto.modelo || ''}', '${auto.linkFotos || ''}', '${auto.precio || ''}')" class="btn-secundario" style="width:auto; margin:0; padding:10px;" title="Editar Link o Datos">✏️</button>
                             <button onclick="cambiarEstatusAuto('${auto.id}', '${auto.estatus}')" class="btn-secundario" style="width:auto; margin:0; padding:10px;" title="Cambiar Estatus">🔄</button>
-                            <button onclick="eliminarAuto('${auto.id}')" class="btn-secundario" style="width:auto; margin:0; padding:10px; color:var(--color-acento);" title="Eliminar">🗑️</button>
+                            <button onclick="eliminarAuto('${auto.id}')" class="btn-secundario" style="width:auto; margin:0; padding:10px; color:var(--color-acento);" title="Eliminar">🗑️️</button>
                         </div>
                     </article>`;
             });
@@ -774,18 +779,8 @@
             if (nuevoPrecio === null) return;
             const nuevoLink = prompt("Editar Link de Google Drive (15+ fotos):", linkActual);
             if (nuevoLink === null) return;
-
-            try {
-                await updateDoc(doc(db, "autos", id), {
-                    modelo: nuevoModelo,
-                    precio: nuevoPrecio,
-                    linkFotos: nuevoLink
-                });
-                alert("¡Auto actualizado con éxito!");
-            } catch (e) {
-                console.error(e);
-                alert("Error al actualizar el auto.");
-            }
+            try { await updateDoc(doc(db, "autos", id), { modelo: nuevoModelo, precio: nuevoPrecio, linkFotos: nuevoLink }); alert("¡Auto actualizado con éxito!"); } 
+            catch (e) { alert("Error al actualizar el auto."); }
         };
 
         window.cambiarEstatusAuto = async function(id, estatusActual) {
@@ -794,14 +789,11 @@
                 await updateDoc(doc(db, "autos", id), { estatus: nuevo.toLowerCase() });
             }
         }
-        window.eliminarAuto = async function(id) {
-            if(confirm("¿Eliminar este auto del catálogo web?")) await deleteDoc(doc(db, "autos", id));
-        }
-        
+        window.eliminarAuto = async function(id) { if(confirm("¿Eliminar este auto del catálogo web?")) await deleteDoc(doc(db, "autos", id)); }
         window.toggleBuscando = async (id, est) => await updateDoc(doc(db, "clientes", id), { buscandoUnidad: !est });
 
-        // AQUI ESTÁ EL PRIMER CAMBIO APLICADO
         window.actualizarInterfaz = function() {
+            // MÉTRICAS Y DASHBOARD
             document.getElementById('contador-prospectos').textContent = clientes.length;
             document.getElementById('contador-calientes').textContent = clientes.filter(c => c.caliente).length;
             const hoyIso = new Date().toISOString().split('T')[0];
@@ -810,6 +802,11 @@
             document.getElementById('contador-ventas-meta').textContent = ventasMes;
             document.getElementById('relleno-meta').style.width = Math.min((ventasMes / META_MENSUAL) * 100, 100) + '%';
 
+            // TERMÓMETRO DE ORIGEN EN DASHBOARD
+            document.getElementById('stat-piso').textContent = clientes.filter(c => c.origen === 'piso').length;
+            document.getElementById('stat-web').textContent = clientes.filter(c => c.origen === 'web').length;
+            document.getElementById('stat-pros').textContent = clientes.filter(c => c.origen === 'prospeccion').length;
+
             const contenedorTareas = document.getElementById('lista-tareas-inmediatas');
             contenedorTareas.innerHTML = '';
             if(clientesDeHoy.length === 0) {
@@ -817,14 +814,18 @@
             } else {
                 clientesDeHoy.forEach(c => {
                     const wa = `https://wa.me/52${c.telefono}?text=${encodeURIComponent(`Hola ${c.nombre}, te escribo de Fame Seminuevos para confirmar nuestra cita hoy a las${c.horaCita}.`)}`;
-                    let origenTextoCorto = c.origen === 'piso' ? 'Piso' : c.origen === 'prospeccion' ? 'Prospección' : c.origen === 'web' ? 'Web/QR' : c.origen || 'Directo';
+                    let badgeOrigenT = '';
+                    if(c.origen === 'piso') badgeOrigenT = '<span class="badge-origen badge-piso" style="margin:0; font-size:0.6rem;">Piso</span>';
+                    else if(c.origen === 'web') badgeOrigenT = '<span class="badge-origen badge-web" style="margin:0; font-size:0.6rem;">Web</span>';
+                    else if(c.origen === 'prospeccion') badgeOrigenT = '<span class="badge-origen badge-prospeccion" style="margin:0; font-size:0.6rem;">Prosp.</span>';
+                    else badgeOrigenT = '<span class="badge-origen badge-directo" style="margin:0; font-size:0.6rem;">Directo</span>';
                     
                     contenedorTareas.innerHTML += `
                         <div class="tarea-item">
                             <div class="tarea-info">
                                 <span class="tarea-hora">⏰ ${c.horaCita || 'Pendiente'}</span>
                                 <span class="tarea-nombre">${c.nombre}</span>
-                                <span class="tarea-detalle">Interés: ${c.interes} | 📍 Origen: ${origenTextoCorto}</span>
+                                <span class="tarea-detalle">Interés: ${c.interes} ${badgeOrigenT}</span>
                             </div>
                             <a href="${wa}" target="_blank" class="btn-whatsapp" style="width:auto; padding:10px 14px; margin:0; font-size:0.8rem;">Avisar</a>
                         </div>`;
@@ -835,43 +836,28 @@
             const listaHot = document.getElementById('lista-hotlist');
             listaAgenda.innerHTML = ''; listaHot.innerHTML = '';
 
-            if(document.getElementById('cont-todos')) {
-                document.getElementById('cont-todos').textContent = clientes.length;
-            }
+            if(document.getElementById('cont-todos')) { document.getElementById('cont-todos').textContent = clientes.length; }
 
-            // LÓGICA DE FILTROS DE TIEMPO
+            // FILTROS
             let mostrar = clientes;
             const ahora = new Date();
             const inicioHoy = new Date(ahora.getFullYear(), ahora.getMonth(), ahora.getDate()).getTime();
-            const inicioSemana = ahora.getTime() - (7 * 24 * 60 * 60 * 1000); // Últimos 7 días exactos
+            const inicioSemana = ahora.getTime() - (7 * 24 * 60 * 60 * 1000); 
             const inicioMes = new Date(ahora.getFullYear(), ahora.getMonth(), 1).getTime();
             const inicioAno = new Date(ahora.getFullYear(), 0, 1).getTime();
             
-            if(filtroActual === 'piso') {
-                mostrar = mostrar.filter(c => c.origen === 'piso');
-            } else if(filtroActual === 'prospeccion') {
-                mostrar = mostrar.filter(c => c.origen === 'prospeccion');
-            } else if(filtroActual === 'hot') {
-                mostrar = mostrar.filter(c => c.caliente === true);
-            } else if(filtroActual === 'buscando') {
-                mostrar = mostrar.filter(c => c.buscandoUnidad === true);
-            } else if(filtroActual === 'dia') {
-                mostrar = mostrar.filter(c => c.fechaCreacion >= inicioHoy);
-            } else if(filtroActual === 'semana') {
-                mostrar = mostrar.filter(c => c.fechaCreacion >= inicioSemana);
-            } else if(filtroActual === 'mes') {
-                mostrar = mostrar.filter(c => c.fechaCreacion >= inicioMes);
-            } else if(filtroActual === 'ano') {
-                mostrar = mostrar.filter(c => c.fechaCreacion >= inicioAno);
-            }
+            if(filtroActual === 'piso') mostrar = mostrar.filter(c => c.origen === 'piso');
+            else if(filtroActual === 'prospeccion') mostrar = mostrar.filter(c => c.origen === 'prospeccion');
+            else if(filtroActual === 'hot') mostrar = mostrar.filter(c => c.caliente === true);
+            else if(filtroActual === 'buscando') mostrar = mostrar.filter(c => c.buscandoUnidad === true);
+            else if(filtroActual === 'dia') mostrar = mostrar.filter(c => c.fechaCreacion >= inicioHoy);
+            else if(filtroActual === 'semana') mostrar = mostrar.filter(c => c.fechaCreacion >= inicioSemana);
+            else if(filtroActual === 'mes') mostrar = mostrar.filter(c => c.fechaCreacion >= inicioMes);
+            else if(filtroActual === 'ano') mostrar = mostrar.filter(c => c.fechaCreacion >= inicioAno);
 
-            // BUSQUEDA DE TEXTO
             const busqueda = normalizar(document.getElementById('input-busqueda-agenda').value);
-            if(busqueda) {
-                mostrar = mostrar.filter(c => normalizar(c.nombre).includes(busqueda) || normalizar(c.interes).includes(busqueda));
-            }
+            if(busqueda) mostrar = mostrar.filter(c => normalizar(c.nombre).includes(busqueda) || normalizar(c.interes).includes(busqueda));
 
-            // ORDENAMIENTO
             mostrar.sort((a, b) => {
                 if (ordenActual === 'az') return a.nombre.localeCompare(b.nombre);
                 if (ordenActual === 'za') return b.nombre.localeCompare(a.nombre);
@@ -879,17 +865,28 @@
                 return b.fechaCreacion - a.fechaCreacion;
             });
 
-            if(mostrar.length === 0) {
-                listaAgenda.innerHTML = `<p style="text-align: center; color: var(--color-texto-mute); padding: 20px;">Sin registros para esta selección.</p>`;
-            }
+            if(mostrar.length === 0) listaAgenda.innerHTML = `<p style="text-align: center; color: var(--color-texto-mute); padding: 20px;">Sin registros para esta selección.</p>`;
 
             mostrar.forEach(c => {
-                const wa = `https://wa.me/52${c.telefono}?text=${encodeURIComponent(`Hola ${c.nombre}, te escribo de Fame Seminuevos sobre tu interés en el ${c.interes}.`)}`;
-                
-                let origenTexto = c.origen === 'piso' ? '🏢 Llegó a Piso' : 
-                                  c.origen === 'prospeccion' ? '🤝 Prospección' : 
-                                  c.origen === 'web' ? '📱 Web / QR' : 'Directo';
+                // MENSAJE DE WHATSAPP INTELIGENTE BASADO EN ORIGEN
+                let msjWa = '';
+                let badgeHTML = '';
 
+                if (c.origen === 'piso') {
+                    msjWa = `Hola ${c.nombre}, gracias por visitarnos hoy en Fame Seminuevos. Te escribo para dar seguimiento a tu interés en el ${c.interes}.`;
+                    badgeHTML = '<span class="badge-origen badge-piso">🏢 Piso</span>';
+                } else if (c.origen === 'web') {
+                    msjWa = `Hola ${c.nombre}, vi que revisaste nuestro catálogo digital y te interesó el ${c.interes}. ¿En qué te puedo ayudar?`;
+                    badgeHTML = '<span class="badge-origen badge-web">📱 Web / QR</span>';
+                } else if (c.origen === 'prospeccion') {
+                    msjWa = `Hola ${c.nombre}, un gusto saludarte. Te escribo de Fame Seminuevos sobre el ${c.interes} del que platicamos.`;
+                    badgeHTML = '<span class="badge-origen badge-prospeccion">🤝 Prospección</span>';
+                } else {
+                    msjWa = `Hola ${c.nombre}, te escribo de Fame Seminuevos sobre tu interés en el ${c.interes}.`;
+                    badgeHTML = '<span class="badge-origen badge-directo">👤 Directo</span>';
+                }
+
+                const wa = `https://wa.me/52${c.telefono}?text=${encodeURIComponent(msjWa)}`;
                 let clasesExtra = "";
                 if(c.caliente) clasesExtra += " estado-fuego";
                 if(c.buscandoUnidad) clasesExtra += " buscando";
@@ -897,13 +894,13 @@
                 listaAgenda.innerHTML += `
                     <article class="tarjeta-cliente ${clasesExtra}">
                         <h3>${c.nombre} ${c.caliente?'🔥':''} ${c.buscandoUnidad?'🔎':''}</h3>
+                        ${badgeHTML}
                         <p><strong>Interés:</strong> ${c.interes}</p>
-                        <p style="color:var(--color-secundario);"><strong>📍 Origen:</strong> ${origenTexto}</p>
                         <p><strong>Teléfono:</strong> ${c.telefono}</p>
                         <div style="display:flex; gap:10px; margin-top:15px; flex-wrap: wrap;">
-                            <a href="${wa}" target="_blank" class="btn-whatsapp" style="flex:1; min-width: 120px; margin:0; text-align:center; text-decoration:none;">📲 WhatsApp</a>
+                            <a href="${wa}" target="_blank" class="btn-whatsapp" style="flex:1; min-width: 120px; margin:0;">📲 WhatsApp</a>
                             <button onclick="toggleFuego('${c.id}', ${c.caliente})" class="btn-secundario" style="flex:1; margin:0;" title="Marcar/Desmarcar Hot">🔥</button>
-                            <button onclick="toggleBuscando('${c.id}', ${c.buscandoUnidad})" class="btn-secundario" style="flex:1; margin:0;" title="Marcar/Desmarcar Buscando Unidad">🔎</button>
+                            <button onclick="toggleBuscando('${c.id}', ${c.buscandoUnidad})" class="btn-secundario" style="flex:1; margin:0;" title="Buscando Unidad">🔎</button>
                             <button onclick="eliminarCliente('${c.id}')" class="btn-secundario" style="flex:1; margin:0; color:var(--color-acento);" title="Eliminar">🗑️</button>
                         </div>
                     </article>`;
@@ -915,18 +912,20 @@
             } else {
                 calientes.forEach(c => {
                     const wa = `https://wa.me/52${c.telefono}?text=${encodeURIComponent(`Hola ${c.nombre}, te escribo de Fame Seminuevos para dar seguimiento a tu compra.`)}`;
-                    let origenTexto = c.origen === 'piso' ? '🏢 Llegó a Piso' : 
-                                      c.origen === 'prospeccion' ? '🤝 Prospección' : 
-                                      c.origen === 'web' ? '📱 Web / QR' : 'Directo';
+                    let badgeHTML = '';
+                    if (c.origen === 'piso') badgeHTML = '<span class="badge-origen badge-piso">🏢 Piso</span>';
+                    else if (c.origen === 'web') badgeHTML = '<span class="badge-origen badge-web">📱 Web</span>';
+                    else if (c.origen === 'prospeccion') badgeHTML = '<span class="badge-origen badge-prospeccion">🤝 Prosp.</span>';
+                    else badgeHTML = '<span class="badge-origen badge-directo">👤 Directo</span>';
 
                     listaHot.innerHTML += `
                         <article class="tarjeta-cliente estado-fuego">
                             <h3>${c.nombre} 🔥</h3>
+                            ${badgeHTML}
                             <p><strong>Interés:</strong> ${c.interes}</p>
-                            <p style="color:var(--color-secundario);"><strong>📍 Origen:</strong> ${origenTexto}</p>
                             <p><strong>Teléfono:</strong> ${c.telefono}</p>
                             <div style="display:flex; gap:10px; margin-top:15px;">
-                                <a href="${wa}" target="_blank" class="btn-whatsapp" style="flex:2; margin:0; text-align:center; text-decoration:none;">📲 WhatsApp</a>
+                                <a href="${wa}" target="_blank" class="btn-whatsapp" style="flex:2; margin:0;">📲 WhatsApp</a>
                                 <button onclick="toggleFuego('${c.id}', true)" class="btn-secundario" style="flex:1; margin:0;">🔥</button>
                             </div>
                         </article>`;
@@ -988,7 +987,6 @@
             rec.onresult = (e) => txtMagico.value += ' ' + e.results[e.results.length - 1][0].transcript;
         } else { btnD.style.display = 'none'; }
 
-        // AQUI ESTÁ EL SEGUNDO CAMBIO APLICADO
         window.buscarEnRadar = function() {
             const busqueda = document.getElementById('input-busqueda-radar').value;
             const contenedor = document.getElementById('resultados-radar');
@@ -1018,7 +1016,6 @@
         };
     </script>
 
-    <!-- SCRIPT DE REGISTRO DEL SERVICE WORKER (PWA) -->
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
