@@ -1,4 +1,4 @@
-const CACHE_NAME = 'fame-crm-v1';
+const CACHE_NAME = 'fame-crm-v2';
 const urlsToCache = [
   '/agenda.html',
   '/manifest.json'
