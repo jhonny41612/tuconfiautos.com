@@ -96,18 +96,6 @@
     "galeria": ""
   },
   {
-    "id": "acadia-2023",
-    "nombre": "GMC Acadia Denali",
-    "modelo": "2023",
-    "km": "43,028",
-    "detalle": "Versión Denali en color blanco | Máximo lujo, tres filas de asientos y gran potencia",
-    "precio": "$530,000 MXN",
-    "categoria": "suv",
-    "estado": "APARTADA",
-    "foto": "imagenes/autos/acadia.jpg",
-    "galeria": "https://drive.google.com/drive/folders/1IKbFsPUdtFMXMBPKmO4JNfuE45KUcnn7"
-  },
-  {
     "id": "outlander-2016",
     "nombre": "Mitsubishi Outlander Limited",
     "modelo": "OUTLANDER LIMITED 2016",
