@@ -14,7 +14,7 @@
   {
     "id": "montana-2025",
     "nombre": "Chevrolet Montana RS",
-    "modelo": "2025",
+    "modelo": "MONTANA RS 2025",
     "km": "12,420",
     "detalle": "Versión deportiva RS | Doble cabina con diseño moderno, tecnológico y gran dinamismo",
     "precio": "$448,000 MXN",
@@ -26,7 +26,7 @@
   {
     "id": "commander-2025",
     "nombre": "Jeep Commander Overland",
-    "modelo": "2025",
+    "modelo": " JEEP COMANDER OVERLAND 2025",
     "km": "8,318",
     "detalle": "Inspección certificada vigente | Lujo total, gran espacio interior y máximo confort",
     "precio": "$565,000 MXN",
@@ -38,7 +38,7 @@
   {
     "id": "bronco-2023",
     "nombre": "Ford Bronco Outer Banks",
-    "modelo": "2023",
+    "modelo": "BRONCO OUTER BANKS 2023",
     "km": "65,272",
     "detalle": "Tracción 4x4 impecable | Estilo aventurero inconfundible y gran desempeño off-road",
     "precio": "$499,900 MXN",
@@ -50,7 +50,7 @@
   {
     "id": "mojave-2023",
     "nombre": "Jeep JT Mojave",
-    "modelo": "2023",
+    "modelo": " JT MOJAVE 2023",
     "km": "55,433",
     "detalle": "Tracción 4x4 máximo equipo | Configuración especial todoterreno de alto rendimiento",
     "precio": "$890,000 MXN",
@@ -67,7 +67,7 @@
     "detalle": "Versión full equipo | Confort superior, excelente manejo y asistencia avanzada de manejo",
     "precio": "$488,000 MXN",
     "categoria": "crossover",
-    "estado": "Disponible",
+    "estado": "VENDIDA",
     "foto": "imagenes/autos/kicks.jpg",
     "galeria": "https://drive.google.com/drive/folders/1EbLnjh-3B8Xmfi5vNalyd8NM6L9hBlgR"
   },
@@ -79,7 +79,7 @@
     "detalle": "Motor 2.0L Turbo (192 HP) | Transmisión automática de 7 velocidades y paquete deportivo M",
     "precio": "$395,000 MXN",
     "categoria": "crossover",
-    "estado": "APARTADA",
+    "estado": "VENDIDA",
     "foto": "imagenes/autos/bmwx22.jpg",
     "galeria": "https://drive.google.com/drive/folders/1exwrEzRt9nB8KeQs84jwuOnBMYcEidhO"
   },
