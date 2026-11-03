@@ -48,18 +48,6 @@
     "galeria": "https://drive.google.com/drive/folders/1F8l9-baEJ2eC8t9KmESMvZwtUO5gL4CI"
   },
   {
-    "id": "mojave-2023",
-    "nombre": "Jeep JT Mojave",
-    "modelo": " JT MOJAVE 2023",
-    "km": "55,433",
-    "detalle": "Tracción 4x4 máximo equipo | Configuración especial todoterreno de alto rendimiento",
-    "precio": "$890,000 MXN",
-    "categoria": "pickup",
-    "estado": "Disponible",
-    "foto": "imagenes/autos/mojave1.jpg",
-    "galeria": "https://drive.google.com/drive/folders/1F4CzlSidPcNxBlv2_TL9By9kD3XVaw6T"
-  },
-  {
     "id": "tracker-2025",
     "nombre": "Chevrolet Tracker",
     "modelo": " TRACKER 2025",
@@ -95,16 +83,4 @@
     "foto": "imagenes/autos/cadillac.jpg",
     "galeria": ""
   },
-  {
-    "id": "outlander-2016",
-    "nombre": "Mitsubishi Outlander Limited",
-    "modelo": "OUTLANDER LIMITED 2016",
-    "km": "79,960",
-    "detalle": "Versión Limited | Transmisión automática, confiabilidad probada y excelente espacio familiar",
-    "precio": "$240,000 MXN",
-    "categoria": "suv",
-    "estado": "⏳ Proceso de Toma",
-    "foto": "imagenes/autos/outlander.jpg",
-    "galeria": "https://drive.google.com/drive/folders/1Bn0I2cm8VzrhgQmdZ5aVpIMr-PNRV0UC"
-  }
 ]
