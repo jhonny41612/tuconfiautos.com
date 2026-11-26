@@ -70,17 +70,4 @@
     "estado": "⏳ Próxima Llegada",
     "foto": "imagenes/autos/buick.jpeg",
     "galeria": "https://drive.google.com/drive/folders/1r_MkVKYxyIv1DNS36kcNJSu5eCGWVSQw?usp=sharing"
-  },
-  {
-    "id": "cadillac-xt4",
-    "nombre": "Cadillac XT4",
-    "modelo": "Próxima",
-    "km": "-",
-    "detalle": "Diseño vanguardista y elegante | En tránsito a piso lista para apartar",
-    "precio": "Aparta Próximamente",
-    "categoria": "proximas",
-    "estado": "⏳ Próxima Llegada",
-    "foto": "imagenes/autos/cadillac.jpg",
-    "galeria": ""
   }
-]
